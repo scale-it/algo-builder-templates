@@ -1,11 +1,14 @@
 import './App.css';
-import HelloWorld from "./components/helloWorld";
+import Signer from "./components/signer";
+import { Typography } from '@material-ui/core'
 
 function App() {
   return (
     <div className="App">
+
       <header className="App-header">
-        <HelloWorld />
+        <Typography variant="h4"> Simple React App Using AlgoSigner </Typography>
+        <Signer />
       </header>
     </div>
   );
