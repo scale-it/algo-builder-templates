@@ -3,7 +3,7 @@
 This is a boilerplate react and algob project which serves as a template for Dapp using algorand builder. It has a single package.json file. `algob` works within the project (using `algob deploy`).
 
 Before running react app with algosigner:
-- Make sure to add your network config to the algosigner extension (display name, id, algod_url, token). Read [this](https://github.com/PureStake/algosigner#custom-networks) for more info on setting up your wallet in algosigner for custom network.
+- Make sure to add your network config to the algosigner extension (display name, id, algod_url, token). Read [this](https://github.com/PureStake/algosigner#custom-networks) for more information on setting up your wallet in algosigner for custom network.
 - Add your ledger name (display name) in `algorand.config.js` for private-net, otherwise it would be TestNet or MainNet
 - Custom accounts for private-net in `algob.config.js` can be used within `AlgoSigner.algod` API, but to use them with `AlgoSigner.Accounts`, you need to go to the algosigner extension UI -> import existing account (within your private-net configuration) -> add the account mneumonic (say john's in algob.config.js). Then that account will show in your algosigner wallet as well.
 
