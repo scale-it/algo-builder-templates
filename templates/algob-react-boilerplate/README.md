@@ -4,8 +4,19 @@ This is a boilerplate react and algob project which serves as a template for Dap
 
 Before running react app with algosigner:
 - Make sure to add your network config to the algosigner extension (display name, id, algod_url, token). Read [this](https://github.com/PureStake/algosigner#custom-networks) for more info on setting up your wallet in algosigner for custom network.
-- Add your ledger name (display name) in `algorand.config.js` for private-net, otherwise it would be TestNet or MainNet
+- Add your ledger name (display name) in `algorand.config.js` for private-net, otherwise it would be "TestNet" or "MainNet"
 - Custom accounts for private-net in `algob.config.js` can be used within `AlgoSigner.algod` API, but to use them with `AlgoSigner.Accounts`, you need to go to the algosigner extension UI -> import existing account (within your private-net configuration) -> add the account mneumonic (say john's in algob.config.js). Then that account will show in your algosigner wallet as well.
+
+### Adding private-net config to algosigner extension
+
+- Display Name: This is the ledger name of your private-net config. It should be same as `LEDGER` in `/src/algosigner.config.js`.
+- Network ID: This is `<network_name>-<network_id>`. network_name, network_id can be found in `./path_to_node/genesis.json` ("network" & "id" fields).
+- Network Algod URL: This is `http://<network_host>:<network_port>`. network_host, network_port can be found in `./path_to_node/algod.net`.
+- Network Indexer URL: Similar to above, this is URL for indexer.
+- Network Headers: You need to add your `<algod_token>` and `<indexer_token>` here. <indexer_token> could be blank if not needed. Format
+  - ```
+    {"Algod":{"X-Algo-API-Token":"<algod_token>"},"Indexer":{"X-Algo-API-Token":"<indexer_token>"}}
+    ```
 
 ## Available Scripts
 

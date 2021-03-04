@@ -52,9 +52,14 @@ const CheckAlgoSigner = () => {
 
 const Connect = () => {
   const action = useCallback(async () => {
-    await AlgoSigner.connect({
-      ledger: LEDGER
-    });
+    try {
+      const response = await AlgoSigner.connect({
+        ledger: LEDGER
+      });
+      return JSON.stringify(response, null, 2);
+    } catch (e) {
+      return JSON.stringify(e.message, null, 12);
+    }
   }, []);
 
   return <ExampleAlgoSigner title="Connect with Algosigner" buttonText="Connect" buttonAction={action}/>
