@@ -4,7 +4,8 @@
   "private": true,
   "license": "Apache-2.0",
   "devDependencies": {
-    "chai": "^4.2.0"
+    "chai": "^4.2.0",
+    "react-app-rewired": "^2.1.8"
   },
   "dependencies": {
     "@algorand-builder/algob": "^0.4.0",
@@ -18,9 +19,9 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
