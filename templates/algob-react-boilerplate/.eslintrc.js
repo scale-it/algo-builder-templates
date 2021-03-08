@@ -9,7 +9,7 @@ module.exports = {
   plugins: ["simple-import-sort", "sonarjs"],
   extends: [
     "plugin:sonarjs/recommended",
-    "eslint:recommended", 
+    "eslint:recommended",
     "plugin:react/recommended"
   ],
   parser: "babel-eslint", // for react
@@ -29,7 +29,6 @@ module.exports = {
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "quotes": "off",
     "strict-boolean-expressions": "off",
-    "react/jsx-filename-extension": "off",
     "react/react-in-jsx-scope": "off",
     "no-console": "off"
   },
@@ -48,4 +47,9 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    "react": {
+      "version": "detect"
+    }
+  }
 }

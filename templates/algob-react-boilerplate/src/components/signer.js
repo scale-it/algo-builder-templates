@@ -1,9 +1,7 @@
 /* global AlgoSigner */
 import './signer.css';
 
-import {
-  Button, Container, CssBaseline, Typography,
-} from '@material-ui/core';
+import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
 
@@ -18,7 +16,7 @@ const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   }, [buttonAction]);
 
   return (
-    <div className="algoSigner">
+    <div className="algdddoSigner">
       <Typography variant="h5">{title}</Typography>
 
       <Button

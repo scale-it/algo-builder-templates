@@ -10,8 +10,7 @@ function App() {
       <header className="App-header">
         <Typography variant="h4">
           {' '}
-          Simple React App Using AlgoSigner
-          {' '}
+          Simple React App Using AlgoSigner{' '}
         </Typography>
         <Signer />
       </header>
