@@ -16,7 +16,7 @@ const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   }, [buttonAction]);
 
   return (
-    <div className="algdddoSigner">
+    <div className="algoSigner">
       <Typography variant="h5">{title}</Typography>
 
       <Button
