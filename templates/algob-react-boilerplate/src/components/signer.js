@@ -1,10 +1,15 @@
 /* global AlgoSigner */
 import './signer.css';
-import { LEDGER } from "../algosigner.config";
-import {useState, useCallback} from "react";
-import { Container, CssBaseline, Button, Typography } from '@material-ui/core'
 
-const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
+import {
+  Button, Container, CssBaseline, Typography,
+} from '@material-ui/core';
+import PropTypes from 'prop-types';
+import { useCallback, useState } from "react";
+
+import { LEDGER } from "../algosigner.config";
+
+const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState("");
 
   const check = useCallback(async () => {
@@ -23,7 +28,7 @@ const ExampleAlgoSigner = ({title, buttonText, buttonAction}) => {
         color="primary"
         onClick={check}
         style={{
-          margin: '5px 0px 5px 0px'
+          margin: '5px 0px 5px 0px',
         }}
       >
         {buttonText}
@@ -42,19 +47,24 @@ const CheckAlgoSigner = () => {
   const action = useCallback(() => {
     if (typeof AlgoSigner !== 'undefined') {
       return "AlgoSigner is installed.";
-    } else {
-      return "AlgoSigner is NOT installed.";
     }
+    return "AlgoSigner is NOT installed.";
   }, []);
 
-  return <ExampleAlgoSigner title="Check if algosigner is installed" buttonText="Check" buttonAction={action}/>
+  return (
+    <ExampleAlgoSigner
+      title="Check if algosigner is installed"
+      buttonText="Check"
+      buttonAction={action}
+    />
+  );
 };
 
 const Connect = () => {
   const action = useCallback(async () => {
     try {
       const response = await AlgoSigner.connect({
-        ledger: LEDGER
+        ledger: LEDGER,
       });
       return JSON.stringify(response, null, 2);
     } catch (e) {
@@ -62,14 +72,14 @@ const Connect = () => {
     }
   }, []);
 
-  return <ExampleAlgoSigner title="Connect with Algosigner" buttonText="Connect" buttonAction={action}/>
+  return <ExampleAlgoSigner title="Connect with Algosigner" buttonText="Connect" buttonAction={action} />;
 };
 
 const GetAccounts = () => {
   const action = useCallback(async () => {
     try {
       const accts = await AlgoSigner.accounts({
-        ledger: LEDGER
+        ledger: LEDGER,
       });
       return JSON.stringify(accts, null, 2);
     } catch (e) {
@@ -77,7 +87,7 @@ const GetAccounts = () => {
     }
   }, []);
 
-  return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action}/>
+  return <ExampleAlgoSigner title="Get Accounts" buttonText="Get Accounts" buttonAction={action} />;
 };
 
 const GetTxParams = () => {
@@ -85,7 +95,7 @@ const GetTxParams = () => {
     try {
       const r = await AlgoSigner.algod({
         ledger: LEDGER,
-        path: `/v2/transactions/params`
+        path: `/v2/transactions/params`,
       });
       return JSON.stringify(r, null, 2);
     } catch (e) {
@@ -94,12 +104,14 @@ const GetTxParams = () => {
     }
   }, []);
 
-  return <ExampleAlgoSigner title="Get Transaction Params" buttonText="Get Tx Params" buttonAction={action}/>
+  return (
+    <ExampleAlgoSigner title="Get Transaction Params" buttonText="Get Tx Params" buttonAction={action} />
+  );
 };
 
 export default function Signer() {
   return (
-    <Container >
+    <Container>
       <CssBaseline />
       <CheckAlgoSigner />
       <Connect />
@@ -108,3 +120,15 @@ export default function Signer() {
     </Container>
   );
 }
+
+ExampleAlgoSigner.propTypes = {
+  title: PropTypes.string,
+  buttonText: PropTypes.string,
+  buttonAction: PropTypes.func,
+};
+
+ExampleAlgoSigner.defaultProps = {
+  title: '',
+  buttonText: '',
+  buttonAction: null,
+};
