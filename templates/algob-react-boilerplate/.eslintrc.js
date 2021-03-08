@@ -9,8 +9,8 @@ module.exports = {
   plugins: ["simple-import-sort", "sonarjs"],
   extends: [
     "plugin:sonarjs/recommended",
-    'airbnb',
-    "eslint:recommended", // recommended rules
+    "eslint:recommended", 
+    "plugin:react/recommended"
   ],
   parser: "babel-eslint", // for react
   parserOptions: {
