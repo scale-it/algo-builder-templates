@@ -11,6 +11,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-sonarjs": "^0.6.0",
+    "husky": "^5.1.3",
+    "lint-staged": "^10.5.4",
     "prettier": "^2.2.1"
   },
   "dependencies": {
@@ -33,6 +35,19 @@
     "lint": "eslint '*/*.{js,ts}'",
     "lint:fix": "eslint --fix --ext .js,.ts scripts src",
     "format": "prettier --write 'src/**/*.{js,jsx,css,scss}'"
+  },
+  "lint-staged": {
+    "**/{src, test,scripts}/**/*.{ts,js}": [
+      "eslint --fix --ext .js,.ts scripts src"
+    ],
+    "**/src/**/*.{js,jsx,css,scss}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "eslintConfig": {
     "extends": [
