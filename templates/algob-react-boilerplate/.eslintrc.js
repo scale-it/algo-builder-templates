@@ -10,7 +10,8 @@ module.exports = {
   extends: [
     "plugin:sonarjs/recommended",
     'airbnb',
-    "eslint:recommended" // recommended rules
+    "eslint:recommended", // recommended rules
+    "plugin:prettier/recommended"
   ],
   parser: "babel-eslint", // for react
   parserOptions: {
