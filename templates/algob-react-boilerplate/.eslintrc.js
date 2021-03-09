@@ -28,7 +28,6 @@ module.exports = {
     "sonarjs/cognitive-complexity": ["error", 16],
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "quotes": "off",
-    "strict-boolean-expressions": "off",
     "no-console": "off"
   },
   overrides: [
