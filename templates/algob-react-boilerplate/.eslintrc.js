@@ -14,8 +14,7 @@ module.exports = {
   ],
   parser: "babel-eslint", // for react
   parserOptions: {
-    ecmaVersion: 2020,
-    // sourceType: "module"
+    ecmaVersion: 2020
   },
   rules:  {
     "import/no-extraneous-dependencies": 0,
