@@ -1,4 +1,4 @@
-async function run (runtimeEnv, deployer) {
+async function run(runtimeEnv, deployer) {
   console.log('Sample script for ASC has started execution!');
   await deployer.fundLsig('fee-check.teal',
     { funder: deployer.accounts[0], fundingMicroAlgo: 20000000 }, {}, []);
