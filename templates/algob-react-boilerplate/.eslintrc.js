@@ -29,7 +29,6 @@ module.exports = {
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
     "quotes": "off",
     "strict-boolean-expressions": "off",
-    "react/react-in-jsx-scope": "off",
     "no-console": "off"
   },
   overrides: [

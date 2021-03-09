@@ -3,6 +3,7 @@ import './signer.css';
 
 import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { useCallback, useState } from 'react';
 
 import { LEDGER } from '../algosigner.config';
