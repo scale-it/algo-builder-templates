@@ -1,8 +1,9 @@
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const rewireYAML = require('react-app-rewire-yaml');
+const { override, removeModuleScopePlugin } = require('customize-cra');
 
-module.exports = function override(config, env) {
-	config.resolve.plugins = config.resolve.plugins.filter(plugin => !(plugin instanceof ModuleScopePlugin));
+function overrides(config, env) {
 	config = rewireYAML(config, env);
 	return config;
 };
+
+module.exports = override(overrides, removeModuleScopePlugin());
