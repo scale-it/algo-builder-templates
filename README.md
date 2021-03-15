@@ -1,6 +1,6 @@
-# algo-builder-templates
+# Algo Builder Templates
 
-Dapps templates for [Algorand Builder](https://github.com/scale-it/algo-builder). Use these templates to quickly setup/get started with your Dapp implementation.
+Dapps templates for [Algo Builder](https://github.com/scale-it/algo-builder). Use these templates to quickly setup/get started with your Dapp implementation.
 
 ## Usage
 Each template is a single project (with 1 package.json file) comprising of the following:
