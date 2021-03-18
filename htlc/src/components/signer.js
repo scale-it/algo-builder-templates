@@ -5,7 +5,7 @@ import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
-import CreateEscrow from './createEscrow';
+import WithdrawHtlc from './withdrawHtlc';
 import { LEDGER } from '../algosigner.config';
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
@@ -122,9 +122,9 @@ const GetTxParams = () => {
 const SetupEscrow = () => {
   return (
     <ExampleAlgoSigner
-      title="Setup Escrow with HTLC LogicSig usign Algob"
-      buttonText="Create Escrow"
-      buttonAction={CreateEscrow}
+      title="Withdraw HTLC Escrow using Algob"
+      buttonText="Withdraw HTLC Escrow"
+      buttonAction={WithdrawHtlc}
     />
   );
 };
