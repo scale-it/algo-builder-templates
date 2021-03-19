@@ -2,12 +2,12 @@
 # yarn lockfile v1
 
 
-"@algorand-builder/algob@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@algorand-builder/algob/-/algob-0.5.3.tgz#122b1a3f2365ca079c1d5b1bbe924233594fecf8"
-  integrity sha512-WNTqCI/0nrgga7gOAmUw4VbD4nNQb56Xi/TLHu+XLERopTx7M96XSiAq+DL2cFLAxcWTRqh77Pt/3Q0EiEcRwA==
+"@algo-builder/algob@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@algo-builder/algob/-/algob-0.5.4.tgz#d5fb72eec09e3c758f192958ddd0b3b0aa95a585"
+  integrity sha512-qcGqj2bdL/+/KigJIJRFAz4GTssaElx9jpsMgxursscMNc9WMA0ZA4lLetF7EGhERQUfrf970Vs+9cYG0tCK/Q==
   dependencies:
-    "@algorand-builder/runtime" "^0.1.0"
+    "@algo-builder/runtime" "^0.1.0"
     algosdk algorand/js-algorand-sdk.git#9a5824782511dff1f521c68fe54d562b3872d1ae
     chalk "^4.1.0"
     debug "^4.1.1"
@@ -23,10 +23,10 @@
     yaml "^1.10.0"
     zod "^1.10.2"
 
-"@algorand-builder/runtime@^0.1.0":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@algorand-builder/runtime/-/runtime-0.1.2.tgz#477a919ed3a67f54a50db47e35c9f59e471cf0de"
-  integrity sha512-9CeuwXr0IpuGUQHNUWgGW5mzVbAygg3XDA2aEUKyJlUN+B68nvlOzWAPBHQC8ThRCiwEcIWGhhB7azYSqZ3wvA==
+"@algo-builder/runtime@^0.1.0":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@algo-builder/runtime/-/runtime-0.1.3.tgz#af79d8cd44c9a95c0ebcd4bcefbac2887b89befc"
+  integrity sha512-814j+juuFeNjORwx8Wkl8WvIoTN7wMtQ9Bpz1AAHbAMK9tlYhyUp3m7ua73GMKgzedNxwUpaAue3BdULrUz8Ww==
   dependencies:
     "@types/lodash.clonedeep" "^4.5.6"
     algosdk algorand/js-algorand-sdk.git#9a5824782511dff1f521c68fe54d562b3872d1ae
@@ -12622,6 +12622,6 @@ yocto-queue@^0.1.0:
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
 zod@^1.10.2:
-  version "1.11.11"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-1.11.11.tgz#1cc937e0b4ce08693de01b5bcd7c4d1a37d83993"
-  integrity sha512-q1YeBpu+c7eUX5fDFMyfP97sD74TUQ+UN8va/nvbxnArr5euYsNO6fjiY0SdDkHKNZ+xBR2ZQToaeLgJ6fsB2A==
+  version "1.11.12"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-1.11.12.tgz#ab55ebd0b62e45ce3e95f3ff00ce30d1c896900c"
+  integrity sha512-N8TYqvoonSdE4FopsBU3wqLDyb8GsdDmnm0SAj1iv1S3oWoaLaVN6WuMDfrIyr5wBdZDIclKm8y8c63qDMI2ZA==
