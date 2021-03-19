@@ -1,6 +1,6 @@
-# Algorand Builder Web DApp
+# Algo Builder Web DApp
 
-This is a boilerplate react and algob project which serves as a template for Dapp using algorand builder. It has a single package.json file. `algob` works within the project (using `algob deploy`).
+This is a boilerplate react and algob project which serves as a template for Dapp using algo builder. It has a single package.json file. `algob` works within the project (using `algob deploy`).
 
 Before running react app with algosigner:
 - Make sure to add your network config to the algosigner extension (display name, id, algod_url, token). Read [this](https://github.com/PureStake/algosigner#custom-networks) for more information on setting up your wallet in algosigner for custom network.
