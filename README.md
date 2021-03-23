@@ -38,7 +38,7 @@ The steps for the process can be found [here](https://github.com/scale-it/algo-b
 `algob unbox-template <template-name> <destination-directory> --force (flag)`
  - if `destination-directory` is not passed then current directory will be used.
  - if `template-name` is not passed, then by default template "/default" is unboxed.
- - if `--force` is passed, then files are overwritten. If it isn't passed, then user is made to choose whether to overwrite those files or not.
+ - if `--force` is passed, then files are overwritten. If it isn't passed, then for each conflicting file, user is made to choose whether to overwrite that file or not.
  - if `template-name` passed is not present as an existing template, the command provides an interactive way to choose from the existing templates.
  - The command also asks if the user wants to install the dependencies as a part of the current process.
 
