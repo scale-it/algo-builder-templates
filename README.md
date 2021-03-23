@@ -1,4 +1,4 @@
-![image](https://github.com/scale-it/algo-builder/blob/master/media/logo.svg) 
+![image](https://gitcdn.link/repo/scale-it/algo-builder/master/media/logo.svg) 
 # Algo Builder Templates
 
 Dapps templates for [Algo Builder](https://github.com/scale-it/algo-builder). Use these templates to quickly setup/get started with your Dapp implementation.
@@ -9,7 +9,7 @@ The detailed description about each template and how t prperly use them can be f
 
 ## Usage
 Each template is a single project (with 1 package.json file) comprising of the following:
- - An `algob` project : Used to deploy ASA's, stateless and stateful contracts using algob `deployer` object. Use `algob deploy` to deploy your `/scripts`. Sample algob project can  be found [here](https://github.com/scale-it/algo-builder/tree/master/packages/algob/sample-project), check the project `README.md` for more details.
+ - An `algob` project : Used to deploy ASA's, stateless and stateful contracts using algob `deployer` object. Use `algob deploy` to deploy your `/scripts`. Sample algob project can  be found [here](https://github.com/scale-it/algo-builder/tree/master/packages/algob/sample-project), check the project [README.md](https://github.com/scale-it/algo-builder/blob/master/packages/algob/sample-project/README.md) for more details.
    Read more about `@algo-builder/algob` [here](https://github.com/scale-it/algo-builder/tree/master/packages/algob).
  - [create-react-app](https://github.com/facebook/create-react-app): React js application for your frontend of web dApp. You can use the `AlgoSigner` global object in your app to use it's API's. Example can be found in `/bare` template.
 
@@ -18,21 +18,25 @@ Each template is a single project (with 1 package.json file) comprising of the f
 The templates can be easily imported or unboxed using the `algob unbox-template` command. To know how to use `algob` cli, visit [here](https://github.com/scale-it/algo-builder#installation) or simply run the following commands :
 
 ```bash
-
 yarn global add "@algo-builder/algob"
+```
 
+Note: Please make sure that yarn bin directory exists in your `PATH` variable.
+
+To do so, run the following command:
+
+```bash
 export PATH="$(yarn global bin):$PATH"
 ```
 
 
-The tutorial to use the command is as follows:
+## Quick Start
 
 `algob unbox-template <template-name> <destination-directory> --force (flag)`
- - if `destination-directory` is not passed then `pwd` will be used
- - if `template-name` is not passed, then by default template "/bare" is unboxed
- - if `--force` is passed, then files are overwritten
+ - if `destination-directory` is not passed then current directory will be used.
+ - if `template-name` is not passed, then by default template "/default" is unboxed.
+ - if `--force` is passed, then files are overwritten. If it isn't passed, then user is made to choose whether to overwrite those files or not.
  - if `template-name` passed is not present as an existing template, the command provides an interactive way to choose from the existing templates.
- - If `--force` is not used and there are conflicting files, then user is made to choose whether to overwrite those files or not.
  - The command also asks if the user wants to install the dependencies as a part of the current process.
 
 
