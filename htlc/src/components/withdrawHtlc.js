@@ -3,13 +3,9 @@ import { LEDGER } from '../algosigner.config';
 import * as YAMLData from '../../artifacts/cache/htlc.py.yaml';
 
 const algosdk = require("algosdk");
-const token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-const server = "127.0.0.1";
-const port = 4001;
 
 async function WithdrawHtlc() {
   try {
-    let algodclient = new algosdk.Algodv2(token, server, port);
 
     const sndrAddr = prompt("Enter Escrow Address");
     const recvAddr = prompt("Enter Receiver Address");

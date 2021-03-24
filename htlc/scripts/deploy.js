@@ -1,9 +1,8 @@
 const algob = require('@algorand-builder/algob');
-const runtime = require('@algorand-builder/runtime');
+const { rtypes } = require('@algorand-builder/runtime');
 const jssha256 = require('js-sha256');
 
 let executeTransaction = algob.executeTransaction;
-let rtypes = runtime.types;
 let sha256 = jssha256.sha256;
 
 async function getDeployerAccount (deployer, name){

@@ -1,5 +1,18 @@
 # HTLC dApp Template
 
+## Hash-Time-Lock-Contract Example in Typescript using PyTeal
+
+There exists a descriptive example explaining how HTLC contracts work with Algo-Builder. It can be found [here](https://github.com/scale-it/algo-builder/tree/master/examples/htlc-pyteal-ts).
+
+Read [here](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts) for more information about the HTLC pattern.
+
+Files:
+
+* `assets/htlc.py` : It is the HTLC. SHA256 function is used for hashing. <br />
+        secret value : `sample secret key` hashed with sha256 will be used in this code.
+* `scripts/deploy.ts` : It is used to create and fund HTLC contract account which is defined in `assets/htlc.py`.
+
+
 ### Adding private-net config to algosigner extension
 
 - Display Name: This is the ledger name of your private-net config. It should be same as `LEDGER` in `/src/algosigner.config.js`.
@@ -14,6 +27,12 @@
 ## Available Scripts
 
 In the project directory, you can run:
+
+### Deploy HTLC Escrow Account
+
+```
+yarn run algob deploy
+```
 
 ### `yarn start`
 
