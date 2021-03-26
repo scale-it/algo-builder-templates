@@ -8,9 +8,17 @@ Read [here](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts) for more info
 
 Files:
 
-* `assets/htlc.py` : It is the HTLC. SHA256 function is used for hashing. <br />
+* `assets/htlc.py` : This is the smart contract implementing HTLC. SHA256 function is used for hashing. <br />
         secret value : `sample secret key` hashed with sha256 will be used in this code.
+        NOTE: The transaction would fail, if wrong secret is provided.
 * `scripts/deploy.ts` : It is used to create and fund HTLC contract account which is defined in `assets/htlc.py`.
+
+
+## Withdrawing from Escrow using React Frontend
+
+Run `yarn start` to start the development server of the frontend. After the frontend is loaded, make sure you are logged in to the `AlgoSigner` plugin and your ledger is the correct one, i.e., `private` and your accounts are loaded properly too.
+
+After that click on the `Withdraw HTLC Escrow`, the webpage will prompt for `receiever's address` and `secret`, Please provide the correct values to unlock and withdraw from the escrow successfully.
 
 
 ### Adding private-net config to algosigner extension

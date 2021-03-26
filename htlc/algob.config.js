@@ -3,7 +3,7 @@
 // The private keys of these accounts are visible to everyone.
 // This means that they can spend the funds and assets.
 
-const { mkAccounts } = require("@algorand-builder/algob");
+const { mkAccounts } = require("@algo-builder/algob");
 let accounts = mkAccounts([
   {
     name: "master-account",
