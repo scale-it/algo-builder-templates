@@ -1,6 +1,4 @@
 const rewireYAML = require('react-app-rewire-yaml');
-const path = require('path');
-
 const { override, removeModuleScopePlugin, addExternalBabelPlugins } = require('customize-cra');
 
 function overrides(config, env) {
