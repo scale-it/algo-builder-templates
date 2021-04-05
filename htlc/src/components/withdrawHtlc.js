@@ -13,8 +13,7 @@ const waitForConfirmation = async function (algodclient, txId) {
       const pendingInfo = await algodclient.pendingTransactionInformation(txId).do();
       if (pendingInfo["confirmed-round"] !== null && pendingInfo["confirmed-round"] > 0) {
           //Got the completed Transaction
-          console.log("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
-          break;
+          return ("Transaction " + txId + " confirmed in round " + pendingInfo["confirmed-round"]);
       }
       lastround++;
       await algodclient.statusAfterBlock(lastround).do();
@@ -35,7 +34,6 @@ async function WithdrawHtlc() {
     let params = await algodclient.getTransactionParams().do();
     params.fee = 1000;
     params.flatFee = true;
-    console.log(params);
 
     amount = amount - params.fee;
     let closeToRemaninder = undefined;
@@ -44,10 +42,9 @@ async function WithdrawHtlc() {
 
     let signedTx = await algosdk.signLogicSigTransactionObject(txn, lsig);
     let sentTx = (await algodclient.sendRawTransaction(signedTx.blob).do());
-    console.log("Transaction : " + sentTx.txId);   
-    await waitForConfirmation(algodclient, sentTx.txId);
+    let resp = await waitForConfirmation(algodclient, sentTx.txId);
 
-    return "Escrow withdrawal successful.";
+    return "Escrow withdrawal successful. " + resp;
   } catch (error) {
     console.error(error);
     return "Escrow Withdrawal Unsuccessful. Error: " + error.message ;
