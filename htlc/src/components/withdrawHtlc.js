@@ -26,6 +26,7 @@ async function WithdrawHtlc() {
     const sender = YAMLData.compiledHash; //"YEUJZXDQAUA3J6WK3RZQJKHCM3S7E6UQF3I6AKRGTIGACFXDKFSKBYCYKU";
     const receiver = prompt('Enter Receiver Address'); //"EDXG4GGBEHFLNX6A7FGT3F6Z3TQGIU6WVVJNOXGYLVNTLWDOCEJJ35LWJY";
     const secret = prompt('Enter Secret'); //"hero wisdom green split loop element vote belt";
+    const amount = prompt('Enter Amount'); // 2e6
     const secretBytes = new Uint8Array(Buffer.from(secret)); 
 
     const lsig = algosdk.makeLogicSig(YAMLData.base64ToBytes, [secretBytes]);
@@ -36,7 +37,7 @@ async function WithdrawHtlc() {
     params.flatFee = true;
     console.log(params);
 
-    let amount = 2000000 - params.fee;
+    amount = amount - params.fee;
     let closeToRemaninder = undefined;
     let note = undefined;
     let txn = algosdk.makePaymentTxnWithSuggestedParams(sender, receiver, amount, closeToRemaninder, note, params);
