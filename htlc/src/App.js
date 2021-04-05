@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
         <Typography variant="h4">
           {' '}
-          HTLC Template Using Algo-Builder and AlgoSigner{' '}
+          Simple React App Using AlgoSigner{' '}
         </Typography>
         <Signer />
       </header>

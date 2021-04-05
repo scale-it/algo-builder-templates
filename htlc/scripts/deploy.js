@@ -18,7 +18,7 @@ async function run(runtimeEnv, deployer) {
   const bob = await getDeployerAccount(deployer, 'bob');
   const alice = await getDeployerAccount(deployer, 'alice');
 
-  const secret = 'sample secret key';
+  const secret = 'hero wisdom green split loop element vote belt';
   const secretHash = Buffer.from(sha256.digest(secret)).toString('base64');
 
   const scTmplParams = {

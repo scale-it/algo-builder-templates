@@ -122,7 +122,7 @@ const GetTxParams = () => {
 const SetupEscrow = () => {
   return (
     <ExampleAlgoSigner
-      title="Withdraw HTLC Escrow using Algo-Builder"
+      title="Withdraw HTLC Escrow using Algob"
       buttonText="Withdraw HTLC Escrow"
       buttonAction={WithdrawHtlc}
     />
