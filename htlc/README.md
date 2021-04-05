@@ -1,6 +1,6 @@
 # HTLC dApp Template
 
-## Hash-Time-Lock-Contract Example in Typescript using PyTeal
+## Hash-Time-Lock-Contract Example using PyTeal
 
 There exists a descriptive example explaining how HTLC contracts work with Algo-Builder. It can be found [here](https://github.com/scale-it/algo-builder/tree/master/examples/htlc-pyteal-ts).
 
