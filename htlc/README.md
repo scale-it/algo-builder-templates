@@ -20,6 +20,9 @@ Run `yarn start` to start the development server of the frontend. After the fron
 
 After that click on the `Withdraw HTLC Escrow`, the webpage will prompt for `receiever's address` and `secret`, Please provide the correct values to unlock and withdraw from the escrow successfully.
 
+If the receiver's address is not Alice's address, then the code will throw some error. The same applies to Bob's address during the escape condition. 
+Also, the timeout value(3001) of the HTLC should also be kept in mind while executing the template.
+
 
 ### Adding private-net config to algosigner extension
 
