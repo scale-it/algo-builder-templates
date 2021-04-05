@@ -23,9 +23,9 @@ const waitForConfirmation = async function (algodclient, txId) {
 
 async function WithdrawHtlc() {
   try {
-    const sender =  "YEUJZXDQAUA3J6WK3RZQJKHCM3S7E6UQF3I6AKRGTIGACFXDKFSKBYCYKU";
-    const receiver = "EDXG4GGBEHFLNX6A7FGT3F6Z3TQGIU6WVVJNOXGYLVNTLWDOCEJJ35LWJY";
-    const secret = "hero wisdom green split loop element vote belt";
+    const sender =  prompt('Enter Escrow Address'); //"YEUJZXDQAUA3J6WK3RZQJKHCM3S7E6UQF3I6AKRGTIGACFXDKFSKBYCYKU";
+    const receiver = prompt('Enter Receiver Address'); //"EDXG4GGBEHFLNX6A7FGT3F6Z3TQGIU6WVVJNOXGYLVNTLWDOCEJJ35LWJY";
+    const secret = prompt('Enter Secret'); //"hero wisdom green split loop element vote belt";
     const secretBytes = new Uint8Array(Buffer.from(secret)); 
 
     const lsig = algosdk.makeLogicSig(YAMLData.base64ToBytes, [secretBytes]);
