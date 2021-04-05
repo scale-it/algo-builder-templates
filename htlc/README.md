@@ -9,7 +9,7 @@ Read [here](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts) for more info
 Files:
 
 * `assets/htlc.py` : This is the smart contract implementing HTLC. SHA256 function is used for hashing. <br />
-        secret value : `sample secret key` hashed with sha256 will be used in this code.
+        secret value : `hero wisdom green split loop element vote belt` hashed with sha256 will be used in this code.
         NOTE: The transaction would fail, if wrong secret is provided.
 * `scripts/deploy.ts` : It is used to create and fund HTLC contract account which is defined in `assets/htlc.py`.
 
