@@ -6,6 +6,8 @@ There exists a descriptive example explaining how HTLC contracts work with Algo-
 
 Read [here](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts) for more information about the HTLC pattern.
 
+NOTE: Please go through `setup.md` first, if not visited.
+
 Files:
 
 * `assets/htlc.py` : This is the smart contract implementing HTLC. SHA256 function is used for hashing. <br />
