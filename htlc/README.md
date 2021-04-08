@@ -6,7 +6,7 @@ There exists a descriptive example explaining how HTLC contracts work with Algo-
 
 Read [here](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts) for more information about the HTLC pattern.
 
-NOTE: Please go through `setup.md` first, if not visited.
+NOTE: Please go through `setup.md` first, you can find it [here](https://github.com/scale-it/algo-builder-templates/tree/master/docs/setup.md).
 
 Files:
 
@@ -33,7 +33,7 @@ In the project directory, you can run:
 
 Please make sure that you have properly configured the `algob` cli using the steps mentioned in `setup.md`. 
 
-To verify so, execute the following command:
+To verify so, try executing the following command:
 ```bash
 algob --help
 ```

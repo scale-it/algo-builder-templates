@@ -25,9 +25,12 @@ export PATH="$(yarn global bin):$PATH"
 
 AlgoSigner provides a very user friendly browser extension. The extension can be easily added by visiting chrome store. To know more about AlgoSigner and to get started with it visit [here](https://github.com/PureStake/algosigner#readme).
 
-After you have succesfully added the browser extension, kindly configure the extension and add your accounts to the respective ledgers.
+Before running react app with AlgoSigner:
+- Make sure to add your network config to the AlgoSigner extension (display name, id, algod_url, token). Read [this](https://github.com/PureStake/algosigner#custom-networks) for more information on setting up your wallet in algosigner for custom network.
+- Add your ledger name (display name) in `algorand.config.js` for private-net, otherwise it would be "TestNet" or "MainNet"
+- Custom accounts for private-net in `algob.config.js` can be used within `AlgoSigner.algod` API, but to use them with `AlgoSigner.Accounts`, you need to go to the algosigner extension UI -> import existing account (within your private-net configuration) -> add the account mneumonic (say john's in algob.config.js). Then that account will show in your algosigner wallet as well.
 
-### Adding private-net config to AlgoSigner extension
+### Sample private-net config for AlgoSigner extension
 
 - Display Name: This is the ledger name of your private-net config. It should be same as `LEDGER` in `/src/algosigner.config.js`.
 - Network ID: This is `<network_name>-<network_id>`. network_name, network_id can be found in `./path_to_node/genesis.json` ("network" & "id" fields).
@@ -37,3 +40,10 @@ After you have succesfully added the browser extension, kindly configure the ext
   - ```
     {"Algod":{"X-Algo-API-Token":"<algod_token>"},"Indexer":{"X-Algo-API-Token":"<indexer_token>"}}
     ```
+```
+Display Name = private-net
+Network ID = private-v1
+Network Algod URL = http://localhost:4001
+Network Indexer URL = // blank
+Network Headers = {"Algod":{"X-Algo-API-Token":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"Indexer":{"X-Algo-API-Token":""}}
+```
