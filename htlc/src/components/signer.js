@@ -2,6 +2,7 @@
 import './signer.css';
 
 import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
@@ -35,44 +36,6 @@ const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
         <code>{result}</code>
       </Typography>
     </div>
-  );
-};
-
-const CheckAlgoSigner = () => {
-  const action = useCallback(() => {
-    if (typeof AlgoSigner !== 'undefined') {
-      return 'AlgoSigner is installed.';
-    }
-    return 'AlgoSigner is NOT installed.';
-  }, []);
-
-  return (
-    <ExampleAlgoSigner
-      title="Check if algosigner is installed"
-      buttonText="Check"
-      buttonAction={action}
-    />
-  );
-};
-
-const Connect = () => {
-  const action = useCallback(async () => {
-    try {
-      const response = await AlgoSigner.connect({
-        ledger: LEDGER,
-      });
-      return JSON.stringify(response, null, 2);
-    } catch (e) {
-      return JSON.stringify(e.message, null, 12);
-    }
-  }, []);
-
-  return (
-    <ExampleAlgoSigner
-      title="Connect with Algosigner"
-      buttonText="Connect"
-      buttonAction={action}
-    />
   );
 };
 
@@ -119,13 +82,61 @@ const GetTxParams = () => {
   );
 };
 
-const SetupEscrow = () => {
+const WithdrawEscrow = () => {
+  const action = useCallback(async () => {
+    try {
+      let receiver = document.getElementById("recvAddr").value;
+      if (receiver === ""){  return "Please enter receiver's address."}
+      let secret = document.getElementById("secret").value;
+      if (secret === ""){  return "Please enter secret(hash pre-image)."}
+      let amount = document.getElementById("amount").value;
+      if (amount === ""){  return "Please enter amount."}
+      if (!Number(amount)) { return "Entered amount is not a number."}
+      return await WithdrawHtlc(receiver, secret, Number(amount));
+    } catch (e) {
+      console.error(e);
+      return JSON.stringify(e, null, 2);
+    }
+  }, []);
   return (
-    <ExampleAlgoSigner
-      title="Withdraw HTLC Escrow using Algob"
-      buttonText="Withdraw HTLC Escrow"
-      buttonAction={WithdrawHtlc}
-    />
+    <form noValidate autoComplete="off">
+      <TextField 
+        required 
+        id="recvAddr" 
+        label="Receiver's Account Address" 
+        variant="outlined" 
+        color="secondary" 
+        style={{
+          margin: '5px 5px 5px 5px',
+        }}
+      />
+      <TextField 
+        required 
+        id="secret" 
+        label="Secret (Hash Pre-Image)" 
+        variant="outlined" 
+        color="secondary" 
+        style={{
+          margin: '5px 5px 5px 5px',
+        }}
+      />
+      <TextField 
+        required 
+        id="amount" 
+        label="Amount" 
+        variant="outlined" 
+        color="secondary" 
+        typeof="number" 
+        style={{
+          margin: '5px 5px 5px 5px',
+        }}
+      />
+      <ExampleAlgoSigner
+        title="Withdraw HTLC Escrow using Algob"
+        buttonText="Withdraw HTLC Escrow"
+        buttonAction={action}
+      />
+    </form>
   );
 };
 
@@ -133,11 +144,9 @@ export default function Signer() {
   return (
     <Container>
       <CssBaseline />
-      <CheckAlgoSigner />
-      <Connect />
       <GetAccounts />
       <GetTxParams />
-      <SetupEscrow />
+      <WithdrawEscrow />
     </Container>
   );
 }
