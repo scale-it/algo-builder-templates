@@ -101,7 +101,6 @@ const WithdrawEscrow = () => {
   return (
     <form noValidate autoComplete="off">
       <TextField 
-        required 
         id="recvAddr" 
         label="Receiver's Account Address" 
         variant="outlined" 
@@ -111,7 +110,6 @@ const WithdrawEscrow = () => {
         }}
       />
       <TextField 
-        required 
         id="secret" 
         label="Secret (Hash Pre-Image)" 
         variant="outlined" 
@@ -121,12 +119,10 @@ const WithdrawEscrow = () => {
         }}
       />
       <TextField 
-        required 
         id="amount" 
         label="Amount" 
         variant="outlined" 
         color="secondary" 
-        typeof="number" 
         style={{
           margin: '5px 5px 5px 5px',
         }}
