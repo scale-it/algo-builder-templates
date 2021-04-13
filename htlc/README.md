@@ -6,6 +6,8 @@ There exists a descriptive example explaining how HTLC contracts work with Algo-
 
 Read [here](https://en.bitcoin.it/wiki/Hash_Time_Locked_Contracts) for more information about the HTLC pattern.
 
+NOTE: Please go through `setup.md` first, you can find it [here](https://github.com/scale-it/algo-builder-templates/tree/master/docs/setup.md).
+
 Files:
 
 * `assets/htlc.py` : This is the smart contract implementing HTLC. SHA256 function is used for hashing. <br />
@@ -23,25 +25,21 @@ After that click on the `Withdraw HTLC Escrow`, the webpage will prompt for `rec
 If the receiver's address is not Alice's address, then the code will throw some error. The same applies to Bob's address during the escape condition. 
 Also, the timeout value(3001) of the HTLC should also be kept in mind while executing the template.
 
-
-### Adding private-net config to algosigner extension
-
-- Display Name: This is the ledger name of your private-net config. It should be same as `LEDGER` in `/src/algosigner.config.js`.
-- Network ID: This is `<network_name>-<network_id>`. network_name, network_id can be found in `./path_to_node/genesis.json` ("network" & "id" fields).
-- Network Algod URL: This is `http://<network_host>:<network_port>`. network_host, network_port can be found in `./path_to_node/algod.net`.
-- Network Indexer URL: Similar to above, this is URL for indexer.
-- Network Headers: You need to add your `<algod_token>` and `<indexer_token>` here. <indexer_token> could be blank if not needed. Format
-  - ```
-    {"Algod":{"X-Algo-API-Token":"<algod_token>"},"Indexer":{"X-Algo-API-Token":"<indexer_token>"}}
-    ```
-
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### Deploy HTLC Escrow Account
 
+Please make sure that you have properly configured the `algob` cli using the steps mentioned in `setup.md`. 
+
+To verify so, try executing the following command:
+```bash
+algob --help
 ```
+
+Execute the following command in the root directory of the project to deploy escrow account.
+```bash
 yarn run algob deploy
 ```
 

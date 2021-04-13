@@ -5,7 +5,7 @@ Dapps templates for [Algo Builder](https://github.com/scale-it/algo-builder). Us
 
 Distributed Applications (dApps) are basically decentralized applications. The templates in this repository are extremely helpful and easy to use. They are designed and implemented in such a way that they can provide the aspiring developers a headstart in building dApps based on `Algorand Blockchain`. The templates heavily use [algosdk](https://github.com/algorand/js-algorand-sdk), [algo-builder](https://github.com/scale-it/algo-builder) and [Algosigner](https://github.com/PureStake/algosigner).
 
-The detailed description about each template and how to prperly use them can be found in their respective folders.
+The detailed description about each template and how to properly use them can be found in the `docs` directory.
 
 ## Usage
 Each template is a single project (with 1 package.json file) comprising of the following:
