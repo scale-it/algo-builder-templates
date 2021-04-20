@@ -2,11 +2,19 @@
 import './signer.css';
 
 import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
 
+import * as YAMLData from '../../artifacts/scripts/asaDeploy.js.cp.yaml';
 import { LEDGER } from '../algosigner.config';
+import ASATransfer from './asaTransfer';
+
+const spacing = '50px 50px 50px 50px';
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState('');
@@ -120,6 +128,139 @@ const GetTxParams = () => {
   );
 };
 
+const SendASA = () => {
+  let asaData = YAMLData.default.default.asa;
+  let deployedASAName;
+  let deployedASAId;
+  let asaId;
+  for (const [key, value] of Object.entries(asaData)) {
+    deployedASAName = key;
+    deployedASAId = value.assetIndex;
+  }
+
+  const [result, setResult] = useState('');
+
+  const action1 = useCallback(async () => {
+    asaId = deployedASAId;
+  });
+
+  const action2 = useCallback(async () => {
+    asaId = prompt('Please enter ASA ID');
+  });
+
+  const transfer = useCallback(async () => {
+    try {
+      let receiver = document.getElementById('recvAddr').value;
+      if (receiver === '') {
+        return "Please enter receiver's address.";
+      }
+      let sender = document.getElementById('sndrAddr').value;
+      if (sender === '') {
+        return "Please enter sender's address.";
+      }
+      let amount = document.getElementById('amount').value;
+      if (amount === '') {
+        return 'Please enter amount.';
+      }
+      if (!Number(asaId)) {
+        return 'Entered ASA ID is not a number.';
+      }
+      if (!Number(amount)) {
+        return 'Entered amount is not a number.';
+      }
+      const r = await ASATransfer(
+        Number(asaId),
+        sender,
+        receiver,
+        Number(amount)
+      );
+      setResult(r);
+    } catch (e) {
+      console.error(e);
+      setResult(JSON.stringify(e, null, 2));
+    }
+  }, []);
+  return (
+    <div>
+      <Typography variant="h5" style={{ margin: { spacing } }}>
+        ASA Transfer using AlgoSigner
+      </Typography>
+      <div>
+        <PopupState variant="popover" popupId="popup-menu">
+          {popupState => (
+            <React.Fragment>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                {...bindTrigger(popupState)}
+                style={{
+                  margin: { spacing },
+                }}
+              >
+                Choose ASA
+              </Button>
+              <Menu {...bindMenu(popupState)}>
+                <MenuItem
+                  onClick={() => {
+                    popupState.close();
+                    action1();
+                  }}
+                >
+                  {deployedASAName}
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    popupState.close();
+                    action2();
+                  }}
+                >
+                  Other
+                </MenuItem>
+              </Menu>
+            </React.Fragment>
+          )}
+        </PopupState>
+        <TextField
+          id="sndrAddr"
+          label="Sender's Account Address"
+          variant="outlined"
+          color="secondary"
+          style={{
+            margin: { spacing },
+          }}
+        />
+        <TextField
+          id="recvAddr"
+          label="Receiver's Account Address"
+          variant="outlined"
+          color="secondary"
+          style={{
+            margin: { spacing },
+          }}
+        />
+        <TextField
+          id="amount"
+          label="Amount"
+          variant="outlined"
+          color="secondary"
+          style={{
+            margin: { spacing },
+          }}
+        />
+      </div>
+      <ExampleAlgoSigner
+        title=""
+        buttonText="Send ASA"
+        buttonAction={transfer}
+      />
+      <Typography>
+        <code>{result}</code>
+      </Typography>
+    </div>
+  );
+};
+
 export default function Signer() {
   return (
     <Container>
@@ -128,6 +269,7 @@ export default function Signer() {
       <Connect />
       <GetAccounts />
       <GetTxParams />
+      <SendASA />
     </Container>
   );
 }
