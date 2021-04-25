@@ -1,15 +1,48 @@
-const { balanceOf } = require('@algo-builder/algob');
-
+const { balanceOf, executeTransaction } = require('@algo-builder/algob');
+const { types } = require('@algo-builder/runtime');
 /*
   Create "gold" Algorand Standard Asset (ASA).
   Accounts are loaded from config.
   To use ASA, accounts have to opt-in. Owner is opt-in by default.
 */
+
+function mkParam(senderAccount, receiverAddr, amount, payFlags) {
+  return {
+    type: types.TransactionType.TransferAlgo,
+    sign: types.SignType.SecretKey,
+    fromAccount: senderAccount,
+    toAccountAddr: receiverAddr,
+    amountMicroAlgos: amount,
+    payFlags: payFlags,
+  };
+}
+
 async function run(runtimeEnv, deployer) {
   console.log('[gold]: Script has started execution!');
 
-  // we start with extracting acocunt objects from the config.
+  const masterAccount = deployer.accountsByName.get('master-account');
   const goldOwner = deployer.accountsByName.get('alice');
+  const john = deployer.accountsByName.get('john');
+  const bob = deployer.accountsByName.get('bob');
+
+  // Accounts can only be active if they poses minimum amont of ALGOs.
+  // Here we fund the accounts with 5e6, 5e6 and 1e6 micro AlGOs.
+  const message = 'funding account';
+  const promises = [
+    executeTransaction(
+      deployer,
+      mkParam(masterAccount, goldOwner.addr, 5e6, { note: message })
+    ),
+    executeTransaction(
+      deployer,
+      mkParam(masterAccount, john.addr, 5e6, { note: message })
+    ),
+    executeTransaction(
+      deployer,
+      mkParam(masterAccount, bob.addr, 1e6, { note: message })
+    ),
+  ];
+  await Promise.all(promises);
 
   // Let's deploy ASA. The following commnad will open the `assets/asa.yaml` file and search for
   // the `gold` ASA. The transaction can specify standard transaction parameters. If skipped
