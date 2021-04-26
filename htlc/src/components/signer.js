@@ -9,6 +9,8 @@ import { useCallback, useState } from "react";
 import { WithdrawHtlc, getEscrowDetails } from "./withdrawHtlc";
 import { LEDGER } from "../algosigner.config";
 
+const spacing = "5px 5px 5px 5px";
+
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState("");
 
@@ -120,10 +122,10 @@ const WithdrawEscrow = () => {
       if (amount === "") {
         return "Please enter amount.";
       }
-      if (!Number(amount)) {
-        return "Entered amount is not a number.";
+      if (!BigInt(amount)) {
+        return "Entered amount is not a number or bigint.";
       }
-      return await WithdrawHtlc(receiver, secret, Number(amount));
+      return await WithdrawHtlc(receiver, secret, BigInt(amount));
     } catch (e) {
       console.error(e);
       return JSON.stringify(e, null, 2);
@@ -138,7 +140,7 @@ const WithdrawEscrow = () => {
           variant="outlined"
           color="secondary"
           style={{
-            margin: "5px 5px 5px 5px",
+            margin: spacing,
           }}
         />
         <TextField
@@ -147,7 +149,7 @@ const WithdrawEscrow = () => {
           variant="outlined"
           color="secondary"
           style={{
-            margin: "5px 5px 5px 5px",
+            margin: spacing,
           }}
         />
         <TextField
@@ -156,7 +158,7 @@ const WithdrawEscrow = () => {
           variant="outlined"
           color="secondary"
           style={{
-            margin: "5px 5px 5px 5px",
+            margin: spacing,
           }}
         />
       </form>
