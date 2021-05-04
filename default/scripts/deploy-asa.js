@@ -25,7 +25,7 @@ async function run(runtimeEnv, deployer) {
   const john = deployer.accountsByName.get('john');
   const bob = deployer.accountsByName.get('bob');
 
-  // Accounts can only be active if they poses minimum amont of ALGOs.
+  // Accounts can only be active if they possess minimum amont of ALGOs.
   // Here we fund the accounts with 5e6, 5e6 and 1e6 micro AlGOs.
   const message = 'funding account';
   const promises = [

@@ -10,9 +10,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
 
-import * as YAMLData from '../../artifacts/scripts/asaDeploy.js.cp.yaml';
+import * as YAMLData from '../../artifacts/scripts/deploy-asa.js.cp.yaml';
 import { LEDGER } from '../algosigner.config';
-import ASATransfer from './asaTransfer';
+import transferASA from './transfer-asa';
 
 const spacing = '50px 50px 50px 50px';
 
@@ -168,7 +168,7 @@ const SendASA = () => {
       if (!Number(amount)) {
         return 'Entered amount is not a number.';
       }
-      const r = await ASATransfer(
+      const r = await transferASA(
         Number(asaId),
         sender,
         receiver,

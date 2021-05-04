@@ -37,7 +37,7 @@ const waitForConfirmation = async function (txId) {
   }
 };
 
-async function ASATransfer(asaId, sndrAddr, recvAddr, amount) {
+async function transferASA(asaId, sndrAddr, recvAddr, amount) {
   try {
     const txParams = await AlgoSigner.algod({
       ledger: LEDGER,
@@ -59,11 +59,11 @@ async function ASATransfer(asaId, sndrAddr, recvAddr, amount) {
     let signedTxnBlob = new Uint8Array(Buffer.from(signedTxn.blob, 'base64'));
     let sentTx = await algodClient.sendRawTransaction(signedTxnBlob).do();
     let resp = await waitForConfirmation(sentTx.txId);
-    return 'Asset transfer transaction successfully sent. ' + resp;
+    return 'Asset transfer transaction successfull. ' + resp;
   } catch (error) {
     console.error(error);
     return 'ASA Transfer Unsuccessful. Error: ' + error.message;
   }
 }
 
-export default ASATransfer;
+export default transferASA;
