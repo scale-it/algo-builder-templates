@@ -128,20 +128,21 @@ const GetTxParams = () => {
   );
 };
 
+// NOTE: When Algosdk supports BigInt, update code.
 const SendASA = () => {
   let asaData = YAMLData.default.default.asa;
-  let deployedASAName;
-  let deployedASAId;
+  let deployedASANames = [];
+  let deployedASAIds = [];
   let asaId;
   for (const [key, value] of Object.entries(asaData)) {
-    deployedASAName = key;
-    deployedASAId = value.assetIndex;
+    deployedASANames.push(key);
+    deployedASAIds.push(value.assetIndex);
   }
 
   const [result, setResult] = useState('');
 
   const action1 = useCallback(async () => {
-    asaId = deployedASAId;
+    asaId = deployedASAIds[0];
   });
 
   const action2 = useCallback(async () => {
@@ -207,7 +208,7 @@ const SendASA = () => {
                     action1();
                   }}
                 >
-                  {deployedASAName}
+                  {deployedASANames[0]}
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
