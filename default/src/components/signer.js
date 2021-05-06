@@ -163,17 +163,17 @@ const SendASA = () => {
       if (amount === '') {
         return 'Please enter amount.';
       }
-      if (!Number(asaId)) {
-        return 'Entered ASA ID is not a number.';
+      if (!BigInt(asaId)) {
+        return 'Entered ASA ID is not a valid integer.';
       }
-      if (!Number(amount)) {
-        return 'Entered amount is not a number.';
+      if (!BigInt(amount)) {
+        return 'Entered amount is not a valid integer.';
       }
       const r = await transferASA(
-        Number(asaId),
+        BigInt(asaId),
         sender,
         receiver,
-        Number(amount)
+        BigInt(amount)
       );
       setResult(r);
     } catch (e) {
