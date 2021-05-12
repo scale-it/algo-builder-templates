@@ -14,8 +14,6 @@ import * as YAMLData from '../../artifacts/scripts/deploy-asa.js.cp.yaml';
 import { LEDGER } from '../algosigner.config';
 import transferASA from './transfer-asa';
 
-const spacing = '50px 50px 50px 50px';
-
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState('');
 
@@ -183,9 +181,7 @@ const SendASA = () => {
   }, []);
   return (
     <div>
-      <Typography variant="h5" style={{ margin: { spacing } }}>
-        ASA Transfer using AlgoSigner
-      </Typography>
+      <Typography variant="h5">ASA Transfer using AlgoSigner</Typography>
       <div>
         <PopupState variant="popover" popupId="popup-menu">
           {popupState => (
@@ -195,9 +191,6 @@ const SendASA = () => {
                 color="secondary"
                 size="large"
                 {...bindTrigger(popupState)}
-                style={{
-                  margin: { spacing },
-                }}
               >
                 Choose ASA
               </Button>
@@ -222,32 +215,30 @@ const SendASA = () => {
             </React.Fragment>
           )}
         </PopupState>
+      </div>
+      <div>
         <TextField
           id="sndrAddr"
           label="Sender's Account Address"
           variant="outlined"
           color="secondary"
-          style={{
-            margin: { spacing },
-          }}
+          margin="normal"
         />
+        &nbsp;
         <TextField
           id="recvAddr"
           label="Receiver's Account Address"
           variant="outlined"
           color="secondary"
-          style={{
-            margin: { spacing },
-          }}
+          margin="normal"
         />
+        &nbsp;
         <TextField
           id="amount"
           label="Amount"
           variant="outlined"
           color="secondary"
-          style={{
-            margin: { spacing },
-          }}
+          margin="normal"
         />
       </div>
       <ExampleAlgoSigner

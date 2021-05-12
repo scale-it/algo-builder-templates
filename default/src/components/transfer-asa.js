@@ -1,16 +1,15 @@
 /* global AlgoSigner */
 import algosdk from 'algosdk';
 
-import { networks } from '../../algob.config';
 import { LEDGER } from '../algosigner.config';
 
 const LAST_ROUND = 'last-round';
 const CONFIRMED_ROUND = 'confirmed-round';
 
 const algodClient = new algosdk.Algodv2(
-  networks.default.token,
-  networks.default.host,
-  networks.default.port
+  'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+  'http://localhost',
+  4001
 );
 
 const waitForConfirmation = async function (txId) {
