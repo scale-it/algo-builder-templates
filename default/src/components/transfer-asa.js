@@ -1,24 +1,21 @@
 /* global AlgoSigner */
-import algosdk from 'algosdk';
-
 import { LEDGER } from '../algosigner.config';
 
 const LAST_ROUND = 'last-round';
 const CONFIRMED_ROUND = 'confirmed-round';
 
-const algodClient = new algosdk.Algodv2(
-  'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-  'http://localhost',
-  4001
-);
-
 const waitForConfirmation = async function (txId) {
-  let response = await algodClient.status().do();
+  let response = await AlgoSigner.algod({
+    ledger: LEDGER,
+    path: '/v2/status',
+  });
+  console.log(response);
   let lastround = response[LAST_ROUND];
   while (true) {
-    const pendingInfo = await algodClient
-      .pendingTransactionInformation(txId)
-      .do();
+    const pendingInfo = await AlgoSigner.algod({
+      ledger: LEDGER,
+      path: `/v2/transactions/pending/${txId}`,
+    });
     if (
       pendingInfo[CONFIRMED_ROUND] !== null &&
       pendingInfo[CONFIRMED_ROUND] > 0
@@ -32,7 +29,10 @@ const waitForConfirmation = async function (txId) {
       );
     }
     lastround++;
-    await algodClient.statusAfterBlock(lastround).do();
+    await AlgoSigner.algod({
+      ledger: LEDGER,
+      path: `/v2/status/wait-for-block-after/${lastround}`,
+    });
   }
 };
 
@@ -56,7 +56,10 @@ async function transferASA(asaId, sndrAddr, recvAddr, amount) {
     };
     let signedTxn = await AlgoSigner.sign(txn);
     let signedTxnBlob = new Uint8Array(Buffer.from(signedTxn.blob, 'base64'));
-    let sentTx = await algodClient.sendRawTransaction(signedTxnBlob).do();
+    let sentTx = await AlgoSigner.send({
+      ledger: LEDGER,
+      tx: signedTxnBlob,
+    });
     let resp = await waitForConfirmation(sentTx.txId);
     return 'Asset transfer transaction successfull. ' + resp;
   } catch (error) {
