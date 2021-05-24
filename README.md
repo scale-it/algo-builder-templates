@@ -1,37 +1,26 @@
-![image](https://gitcdn.link/repo/scale-it/algo-builder/master/media/logo.svg) 
+![image](https://gitcdn.link/repo/scale-it/algo-builder/master/media/logo.svg)
 # Algo Builder Templates
 
-Dapps templates for [Algo Builder](https://github.com/scale-it/algo-builder). Use these templates to quickly setup/get started with your Dapp implementation.
+Dapp templates for [Algo Builder](https://github.com/scale-it/algo-builder).
 
-Distributed Applications (dApps) are basically decentralized applications. The templates in this repository are extremely helpful and easy to use. They are designed and implemented in such a way that they can provide the aspiring developers a headstart in building dApps based on `Algorand Blockchain`. The templates heavily use [algosdk](https://github.com/algorand/js-algorand-sdk), [algo-builder](https://github.com/scale-it/algo-builder) and [Algosigner](https://github.com/PureStake/algosigner).
+Distributed Applications (dapps) are basically decentralized applications. The templates in this repository are extremely helpful and easy to use. They are designed and implemented to provide aspiring developers a headstart in building dapps on Algorand Blockchain. The templates use [algosdk](https://github.com/algorand/js-algorand-sdk), [Algo Builder](https://github.com/scale-it/algo-builder) and [Algosigner](https://github.com/PureStake/algosigner).
 
 The detailed description about each template and how to properly use them can be found in the `docs` directory.
 
 ## Usage
-Each template is a single project (with 1 package.json file) comprising of the following:
- - An `algob` project : Used to deploy ASA's, stateless and stateful contracts using algob `deployer` object. Use `algob deploy` to deploy your `/scripts`. Sample algob project can  be found [here](https://github.com/scale-it/algo-builder/tree/master/packages/algob/sample-project), check the project [README.md](https://github.com/scale-it/algo-builder/blob/master/packages/algob/sample-project/README.md) for more details.
-   Read more about `@algo-builder/algob` [here](https://github.com/scale-it/algo-builder/tree/master/packages/algob).
- - [create-react-app](https://github.com/facebook/create-react-app): React js application for your frontend of web dApp. You can use the `AlgoSigner` global object in your app to use it's API's. Example can be found in `/bare` template.
 
- Deployment information (using `algob deploy` above) is stored in  `checkpoints` (in `/artifacts`) from which user can import information directly (loading `.yaml` file in react-app).
+Each template is a single project (with 1 package.json file) comprising of:
+ - An `algob` project : used to deploy ASA's, stateless and stateful contracts. Use `algob deploy` to deploy your `/scripts`. Sample algob project can  be found [here](https://github.com/scale-it/algo-builder/tree/master/packages/algob/sample-project), check the project [README.md](https://github.com/scale-it/algo-builder/blob/master/packages/algob/sample-project/README.md) for more details.
+ - [create-react-app](https://github.com/facebook/create-react-app): React js application for your frontend of web dApp. You can use the `AlgoSigner` global object in your app to use it's API's. Example can be found in the `default` template.
 
-The templates can be easily imported or unboxed using the `algob unbox-template` command. To know how to use `algob` cli, visit [here](https://github.com/scale-it/algo-builder#installation) or simply run the following commands :
+Deployment information (using `algob deploy` above) is stored in  `checkpoints` (in `/artifacts`). Checkpoint information is available for user in the React application.
 
-```bash
-yarn global add "@algo-builder/algob"
-```
+The templates can be easily bootstrap using the `algob unbox-template` command.
 
-Note: Please make sure that yarn bin directory exists in your `PATH` variable.
-
-To do so, run the following command:
-
-```bash
-export PATH="$(yarn global bin):$PATH"
-```
-
-After successfully unboxing the template, please link the `algob` package in the template directory to use it for running scripts. 
+After successfully unboxing the template, please link the `algob` package in the template directory to use it for running scripts.
 The steps for the process can be found [here](https://github.com/scale-it/algo-builder/#requirements).
 
+To learn how to install and use `algob`, visit [Algo Builder](https://algobuilder.dev).
 
 ## Quick Start
 
@@ -54,5 +43,4 @@ We love your input! We want to make contributing to this project as easy and tra
 
 To add a new dapp template or update an existing one, feel free to create a pull request from your fork to this repo.
 
-The project development is open and you can observe progress through [Pivotal tracker board](https://www.pivotaltracker.com/n/projects/2452320).
-You can also chat with us through discord on the `#algo-builder` channel on algorand [discord](https://discord.com/invite/hbcUSuw).
+You can also chat with us on the `#algo-builder` channel at the Algorand [discord](https://discord.com/invite/hbcUSuw) server.
