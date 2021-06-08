@@ -126,7 +126,7 @@ const GetTxParams = () => {
   );
 };
 
-// NOTE: When Algosdk supports BigInt, update code.
+// NOTE: Update the types in this function once Algosdk will support BigInt
 const SendASA = () => {
   let asaData = YAMLData.default.default.asa;
   let deployedASANames = [];
