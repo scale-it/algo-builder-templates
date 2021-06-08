@@ -1,18 +1,39 @@
 /* global AlgoSigner */
 import './signer.css';
 
-import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import {
+  Button,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Snackbar,
+  Typography,
+} from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state';
+import MuiAlert from '@material-ui/lab/Alert';
+import { isValidAddress } from 'algosdk';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
 
-import * as YAMLData from '../../artifacts/scripts/deploy-asa.js.cp.yaml';
+import * as Gold from '../../artifacts/scripts/0-gold-asa.js.cp.yaml';
+import * as Tesla from '../../artifacts/scripts/1-tesla-asa.js.cp.yaml';
 import { CHAIN_NAME } from '../algosigner.config';
 import transferASA from './transfer-asa';
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState('');
@@ -126,126 +147,279 @@ const GetTxParams = () => {
   );
 };
 
-// NOTE: Update the types in this function once Algosdk will support BigInt
+/* eslint-disable sonarjs/cognitive-complexity */
 const SendASA = () => {
-  let asaData = YAMLData.default.default.asa;
+  let goldAsaInfo = Gold.default.default.asa;
+  let teslaAsaInfo = Tesla.default.default.asa;
   let deployedASANames = [];
-  let deployedASAIds = [];
-  let asaId;
-  for (const [key, value] of Object.entries(asaData)) {
-    deployedASANames.push(key);
-    deployedASAIds.push(value.assetIndex);
+  let asaInfo = {};
+  const assets = Object.entries({ ...goldAsaInfo, ...teslaAsaInfo });
+  for (const [name, info] of assets) {
+    asaInfo[name] = info;
+    deployedASANames.push(name);
   }
 
   const [result, setResult] = useState('');
+  const [isDialogOpen, setDialog] = useState(false);
+  const [selectedASAName, setSelectedASAName] = useState(''); // selected ASA (one of deployed asa's OR other)
+  const [selectedASAIndex, setSelectedASAIndex] = useState('');
+  const [accounts, setAccounts] = useState([]); // algosigner accounts
+  const [fromAddress, setFromAddress] = useState(''); // from account (one of algosigner.accounts)
 
-  const action1 = useCallback(async () => {
-    asaId = deployedASAIds[0];
+  // state to handle toasts and loading state
+  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [isErr, setIsErr] = useState(false);
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  // set wallet account addresses in state
+  const setAccountsAction = useCallback(async () => {
+    const algoSignerAccts =
+      (await AlgoSigner.accounts({
+        ledger: CHAIN_NAME,
+      })) ?? [];
+
+    setAccounts(algoSignerAccts.map(acc => acc.address));
+    if (algoSignerAccts.length) {
+      setFromAddress(algoSignerAccts[0].address); // set first account as default selected
+    }
   });
 
-  const action2 = useCallback(async () => {
-    asaId = prompt('Please enter ASA ID');
-  });
-
-  const transfer = useCallback(async () => {
+  const transfer = useCallback(async (asaIndex, senderAddress) => {
+    // pass state values via functional param
     try {
-      let receiver = document.getElementById('recvAddr').value;
-      if (receiver === '') {
-        return "Please enter receiver's address.";
+      let errMsg = '';
+      let receiver = document.getElementById('receiverAddr')?.value;
+      let amount = document.getElementById('amount')?.value;
+
+      if (asaIndex && typeof asaIndex !== 'number') {
+        errMsg = 'ASA ID is not a valid integer.';
+      } else if (!receiver || !isValidAddress(receiver)) {
+        errMsg = "Please enter a valid receiver's address.";
+      } else if (!amount) {
+        // BigInt(amount) > 0xFFFFFFFFFFFFFFFFn
+        errMsg = 'Amount is not a valid number'; // uint64
       }
-      let sender = document.getElementById('sndrAddr').value;
-      if (sender === '') {
-        return "Please enter sender's address.";
+
+      if (errMsg) {
+        setMessage(errMsg);
+        setIsErr(true);
+        setResult(errMsg);
+        return;
       }
-      let amount = document.getElementById('amount').value;
-      if (amount === '') {
-        return 'Please enter amount.';
-      }
-      if (!BigInt(asaId)) {
-        return 'Entered ASA ID is not a valid integer.';
-      }
-      if (!BigInt(amount)) {
-        return 'Entered amount is not a valid integer.';
-      }
-      const r = await transferASA(
-        BigInt(asaId),
-        sender,
+
+      // TODO: add support for bigint in amount value after v2 txn object is supported
+      setLoading(true); // button loading state
+      const [isError, message] = await transferASA(
+        Number(asaIndex),
+        senderAddress,
         receiver,
-        BigInt(amount)
+        Number(amount) // v1 txn object rejects bigint
       );
-      setResult(r);
+      setResult(message);
+      setLoading(false);
+      setDialog(false);
+
+      // set toast status and message depending upon success/failure
+      if (!isError) {
+        setIsSuccessful(true);
+      } else {
+        setIsErr(true);
+      }
+      setMessage(message);
     } catch (e) {
       console.error(e);
       setResult(JSON.stringify(e, null, 2));
     }
   }, []);
+
   return (
     <div>
       <Typography variant="h5">ASA Transfer using AlgoSigner</Typography>
       <div>
-        <PopupState variant="popover" popupId="popup-menu">
-          {popupState => (
-            <React.Fragment>
-              <Button
-                variant="contained"
-                color="secondary"
-                size="large"
-                {...bindTrigger(popupState)}
+        <Dialog
+          open={isDialogOpen}
+          onClose={() => setDialog(false)}
+          aria-labelledby="form-dialog-title"
+          PaperProps={{
+            style: {
+              padding: '5px',
+            },
+          }}
+        >
+          <DialogTitle id="form-dialog-title">Transfer ASA</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Please enter transaction details
+            </DialogContentText>
+            <Grid container spacing={2}>
+              <Grid item xs={6}>
+                <FormControl
+                  margin="dense"
+                  fullWidth
+                  style={{ marginTop: '5%' }}
+                >
+                  <InputLabel id="select-asa">Select ASA</InputLabel>
+                  <Select
+                    id="Select ASA"
+                    value={selectedASAName}
+                    onChange={e => {
+                      const asaInfoByName = asaInfo[e.target.value];
+                      if (asaInfoByName?.assetIndex) {
+                        setSelectedASAIndex(asaInfoByName.assetIndex);
+                      }
+                      setSelectedASAName(e.target.value);
+                    }}
+                    autoFocus
+                  >
+                    {[...deployedASANames, 'Other'].map(name => (
+                      <MenuItem value={name} key={name}>
+                        {name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={6}>
+                {
+                  // take asset id as input of selected asa type is 'other'
+                  selectedASAName === 'Other' && (
+                    <TextField
+                      id="ASA ID"
+                      label="Enter Asset Id"
+                      variant="outlined"
+                      color="secondary"
+                      margin="normal"
+                      type="number"
+                      value={selectedASAIndex}
+                      fullWidth
+                      onChange={e => {
+                        setSelectedASAIndex(e.target.value);
+                      }}
+                    />
+                  )
+                }
+                {selectedASAName !== 'Other' && (
+                  <TextField
+                    variant="outlined"
+                    style={{ marginTop: '7%' }}
+                    margin="dense"
+                    label={`${selectedASAName} asset index`}
+                    value={selectedASAIndex}
+                    fullWidth
+                    disabled
+                  />
+                )}
+              </Grid>
+            </Grid>
+
+            <FormControl
+              variant="outlined"
+              margin="dense"
+              fullWidth
+              style={{ marginTop: '5%' }}
+            >
+              <InputLabel id="select-asa">Sender Account Address</InputLabel>
+              <Select
+                id="senderAddr"
+                label="Sender's Account Address"
+                value={fromAddress}
+                onChange={e => setFromAddress(e.target.value)}
               >
-                Choose ASA
-              </Button>
-              <Menu {...bindMenu(popupState)}>
-                <MenuItem
-                  onClick={() => {
-                    popupState.close();
-                    action1();
+                {accounts.map(addr => (
+                  <MenuItem value={addr} key={addr}>
+                    {addr}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <TextField
+              id="receiverAddr"
+              label="Receiver's Account Address"
+              variant="outlined"
+              color="secondary"
+              margin="normal"
+              fullWidth
+            />
+
+            <TextField
+              id="amount"
+              label="Amount"
+              variant="outlined"
+              color="secondary"
+              margin="normal"
+              type="number"
+              fullWidth
+            />
+          </DialogContent>
+
+          <DialogActions>
+            <Button onClick={() => setDialog(false)} color="secondary">
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              onClick={() => {
+                if (!loading) {
+                  transfer(selectedASAIndex, fromAddress);
+                }
+              }}
+              color="primary"
+            >
+              {loading === false ? (
+                'Send ASA'
+              ) : (
+                <CircularProgress
+                  color="white"
+                  style={{
+                    padding: '8px 8px 8px 8px',
+                    margin: '-6px 12px -6px 12px',
                   }}
-                >
-                  {deployedASANames[0]}
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    popupState.close();
-                    action2();
-                  }}
-                >
-                  Other
-                </MenuItem>
-              </Menu>
-            </React.Fragment>
-          )}
-        </PopupState>
+                />
+              )}
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
-      <div>
-        <TextField
-          id="sndrAddr"
-          label="Sender's Account Address"
-          variant="outlined"
-          color="secondary"
-          margin="normal"
-        />
-        &nbsp;
-        <TextField
-          id="recvAddr"
-          label="Receiver's Account Address"
-          variant="outlined"
-          color="secondary"
-          margin="normal"
-        />
-        &nbsp;
-        <TextField
-          id="amount"
-          label="Amount"
-          variant="outlined"
-          color="secondary"
-          margin="normal"
-        />
-      </div>
-      <ExampleAlgoSigner
-        title=""
-        buttonText="Send ASA"
-        buttonAction={transfer}
-      />
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          setAccountsAction(); // set algosigner.accounts in state before ASA transfer
+          setDialog(true);
+        }}
+        style={{
+          margin: '5px 0px 5px 0px',
+        }}
+      >
+        Transfer ASA
+      </Button>
+
+      {/* success toast */}
+      <Snackbar
+        open={isSuccessful}
+        autoHideDuration={2000}
+        onClose={() => {
+          setIsSuccessful(false);
+        }}
+      >
+        <Alert severity="success">{message}</Alert>
+      </Snackbar>
+
+      {/* error toast */}
+      <Snackbar
+        open={isErr}
+        autoHideDuration={2000}
+        onClose={() => {
+          setIsErr(false);
+        }}
+      >
+        <Alert severity="error">{message}</Alert>
+      </Snackbar>
+
       <Typography>
         <code>{result}</code>
       </Typography>
