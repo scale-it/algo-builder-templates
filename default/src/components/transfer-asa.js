@@ -1,19 +1,19 @@
 /* global AlgoSigner */
-import { LEDGER } from '../algosigner.config';
+import { CHAIN_NAME } from '../algosigner.config';
 
 const LAST_ROUND = 'last-round';
 const CONFIRMED_ROUND = 'confirmed-round';
 
 const waitForConfirmation = async function (txId) {
   let response = await AlgoSigner.algod({
-    ledger: LEDGER,
+    ledger: CHAIN_NAME,
     path: '/v2/status',
   });
   console.log(response);
   let lastround = response[LAST_ROUND];
   while (true) {
     const pendingInfo = await AlgoSigner.algod({
-      ledger: LEDGER,
+      ledger: CHAIN_NAME,
       path: `/v2/transactions/pending/${txId}`,
     });
     if (
@@ -30,7 +30,7 @@ const waitForConfirmation = async function (txId) {
     }
     lastround++;
     await AlgoSigner.algod({
-      ledger: LEDGER,
+      ledger: CHAIN_NAME,
       path: `/v2/status/wait-for-block-after/${lastround}`,
     });
   }
@@ -39,7 +39,7 @@ const waitForConfirmation = async function (txId) {
 async function transferASA(asaId, sndrAddr, recvAddr, amount) {
   try {
     const txParams = await AlgoSigner.algod({
-      ledger: LEDGER,
+      ledger: CHAIN_NAME,
       path: '/v2/transactions/params',
     });
     const txn = {
@@ -57,7 +57,7 @@ async function transferASA(asaId, sndrAddr, recvAddr, amount) {
     let signedTxn = await AlgoSigner.sign(txn);
     let signedTxnBlob = new Uint8Array(Buffer.from(signedTxn.blob, 'base64'));
     let sentTx = await AlgoSigner.send({
-      ledger: LEDGER,
+      ledger: CHAIN_NAME,
       tx: signedTxnBlob,
     });
     let resp = await waitForConfirmation(sentTx.txId);

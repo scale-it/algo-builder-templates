@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
 import WithdrawHtlc from './withdrawHtlc';
-import { LEDGER } from '../algosigner.config';
+import { CHAIN_NAME } from '../algosigner.config';
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState('');
@@ -59,7 +59,7 @@ const Connect = () => {
   const action = useCallback(async () => {
     try {
       const response = await AlgoSigner.connect({
-        ledger: LEDGER,
+        ledger: CHAIN_NAME,
       });
       return JSON.stringify(response, null, 2);
     } catch (e) {
@@ -80,7 +80,7 @@ const GetAccounts = () => {
   const action = useCallback(async () => {
     try {
       const accts = await AlgoSigner.accounts({
-        ledger: LEDGER,
+        ledger: CHAIN_NAME,
       });
       return JSON.stringify(accts, null, 2);
     } catch (e) {
@@ -101,7 +101,7 @@ const GetTxParams = () => {
   const action = useCallback(async () => {
     try {
       const r = await AlgoSigner.algod({
-        ledger: LEDGER,
+        ledger: CHAIN_NAME,
         path: `/v2/transactions/params`,
       });
       return JSON.stringify(r, null, 2);
