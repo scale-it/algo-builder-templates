@@ -1,5 +1,5 @@
 /* global AlgoSigner */
-import './signer.css';
+import "./signer.css";
 
 import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import WithdrawHtlc from './withdrawHtlc';
 import { CHAIN_NAME } from '../algosigner.config';
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState("");
 
   const check = useCallback(async () => {
     const r = await buttonAction();
@@ -25,7 +25,7 @@ const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
         color="primary"
         onClick={check}
         style={{
-          margin: '5px 0px 5px 0px',
+          margin: "5px 0px 5px 0px",
         }}
       >
         {buttonText}
@@ -35,23 +35,6 @@ const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
         <code>{result}</code>
       </Typography>
     </div>
-  );
-};
-
-const CheckAlgoSigner = () => {
-  const action = useCallback(() => {
-    if (typeof AlgoSigner !== 'undefined') {
-      return 'AlgoSigner is installed.';
-    }
-    return 'AlgoSigner is NOT installed.';
-  }, []);
-
-  return (
-    <ExampleAlgoSigner
-      title="Check if algosigner is installed"
-      buttonText="Check"
-      buttonAction={action}
-    />
   );
 };
 
@@ -97,7 +80,7 @@ const GetAccounts = () => {
   );
 };
 
-const GetTxParams = () => {
+const GetEscrowDetails = () => {
   const action = useCallback(async () => {
     try {
       const r = await AlgoSigner.algod({
@@ -106,26 +89,80 @@ const GetTxParams = () => {
       });
       return JSON.stringify(r, null, 2);
     } catch (e) {
-      console.error(e);
-      return JSON.stringify(e, null, 2);
+      return JSON.stringify(e.message, null, 12);
     }
   }, []);
+
   return (
     <ExampleAlgoSigner
-      title="Get Transaction Params"
-      buttonText="Get Tx Params"
+      title="Get Escrow Details"
+      buttonText="Get Escrow Info"
       buttonAction={action}
     />
   );
 };
 
-const SetupEscrow = () => {
+const WithdrawEscrow = () => {
+  const action = useCallback(async () => {
+    try {
+      let receiver = document.getElementById("recvAddr").value;
+      if (receiver === "") {
+        return "Please enter receiver's address.";
+      }
+      let secret = document.getElementById("secret").value;
+      if (secret === "") {
+        return "Please enter secret(hash pre-image).";
+      }
+      let amount = document.getElementById("amount").value;
+      if (amount === "") {
+        return "Please enter amount.";
+      }
+      if (!BigInt(amount)) {
+        return "Entered amount is not a number or bigint.";
+      }
+      return await WithdrawHtlc(receiver, secret, BigInt(amount));
+    } catch (e) {
+      console.error(e);
+      return JSON.stringify(e, null, 2);
+    }
+  }, []);
   return (
-    <ExampleAlgoSigner
-      title="Withdraw HTLC Escrow using Algob"
-      buttonText="Withdraw HTLC Escrow"
-      buttonAction={WithdrawHtlc}
-    />
+    <div>
+      <form noValidate autoComplete="off">
+        <TextField
+          id="recvAddr"
+          label="Receiver's Account Address"
+          variant="outlined"
+          color="secondary"
+          style={{
+            margin: spacing,
+          }}
+        />
+        <TextField
+          id="secret"
+          label="Secret (Hash Pre-Image)"
+          variant="outlined"
+          color="secondary"
+          style={{
+            margin: spacing,
+          }}
+        />
+        <TextField
+          id="amount"
+          label="Amount"
+          variant="outlined"
+          color="secondary"
+          style={{
+            margin: spacing,
+          }}
+        />
+      </form>
+      <ExampleAlgoSigner
+        title="Withdraw HTLC Escrow using Algob"
+        buttonText="Withdraw HTLC Escrow"
+        buttonAction={action}
+      />
+    </div>
   );
 };
 
@@ -133,11 +170,10 @@ export default function Signer() {
   return (
     <Container>
       <CssBaseline />
-      <CheckAlgoSigner />
       <Connect />
       <GetAccounts />
-      <GetTxParams />
-      <SetupEscrow />
+      <GetEscrowDetails />
+      <WithdrawEscrow />
     </Container>
   );
 }
@@ -149,7 +185,7 @@ ExampleAlgoSigner.propTypes = {
 };
 
 ExampleAlgoSigner.defaultProps = {
-  title: '',
-  buttonText: '',
+  title: "",
+  buttonText: "",
   buttonAction: null,
 };
