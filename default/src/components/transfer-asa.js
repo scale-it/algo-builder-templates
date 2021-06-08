@@ -22,8 +22,6 @@ const waitForConfirmation = async function (txId) {
       pendingInfo[CONFIRMED_ROUND] !== null &&
       pendingInfo[CONFIRMED_ROUND] > 0
     ) {
-      //Got the completed Transaction
-      console.log('PE ', pendingInfo);
       return pendingInfo;
     }
     lastround++;
