@@ -192,7 +192,7 @@ const SendASA = () => {
       let receiver = document.getElementById('receiverAddr')?.value;
       let amount = document.getElementById('amount')?.value;
 
-      if (asaIndex && typeof asaIndex !== 'number') {
+      if (!asaIndex) {
         errMsg = 'ASA ID is not a valid integer.';
       } else if (!receiver || !isValidAddress(receiver)) {
         errMsg = "Please enter a valid receiver's address.";
@@ -401,7 +401,7 @@ const SendASA = () => {
       {/* success toast */}
       <Snackbar
         open={isSuccessful}
-        autoHideDuration={2000}
+        autoHideDuration={10000}
         onClose={() => {
           setIsSuccessful(false);
         }}
@@ -412,7 +412,7 @@ const SendASA = () => {
       {/* error toast */}
       <Snackbar
         open={isErr}
-        autoHideDuration={2000}
+        autoHideDuration={10000}
         onClose={() => {
           setIsErr(false);
         }}
