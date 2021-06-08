@@ -4,13 +4,13 @@
 
 The first and foremost task should be to get started with `algob` cli. Install `Algo Builder` using either of the following commands :
 
-```bash 
+```bash
 yarn global add @algo-builder/algob
-``` 
+```
 or
 ```bash
 npm install -g @algo-builder/algo
-``` 
+```
 If you want to use `algob` with latest, not released version visit [here](https://github.com/scale-it/algo-builder#installation).
 
 The detailed documentation of `algob`can be found [here](https://github.com/scale-it/algo-builder#readme).
@@ -32,7 +32,7 @@ Before running react app with AlgoSigner:
 
 ### Sample private-net config for AlgoSigner extension
 
-- Display Name: This is the ledger name of your private-net config. It should be same as `LEDGER` in `/src/algosigner.config.js`.
+- Display Name: This is the ledger name of your private-net config. It should be same as `CHAIN_NAME` in `/src/algosigner.config.js`.
 - Network ID: This is `<network_name>-<network_id>`. network_name, network_id can be found in `./path_to_node/genesis.json` ("network" & "id" fields).
 - Network Algod URL: This is `http://<network_host>:<network_port>`. network_host, network_port can be found in `./path_to_node/algod.net`.
 - Network Indexer URL: Similar to above, this is URL for indexer.

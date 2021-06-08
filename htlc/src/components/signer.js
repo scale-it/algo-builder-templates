@@ -1,15 +1,12 @@
 /* global AlgoSigner */
 import "./signer.css";
 
-import { Button, Container, CssBaseline, Typography } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import PropTypes from "prop-types";
-import React from "react";
-import { useCallback, useState } from "react";
-import { WithdrawHtlc, getEscrowDetails } from "./withdrawHtlc";
-import { LEDGER } from "../algosigner.config";
-
-const spacing = "5px 5px 5px 5px";
+import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { useCallback, useState } from 'react';
+import WithdrawHtlc from './withdrawHtlc';
+import { CHAIN_NAME } from '../algosigner.config';
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState("");
@@ -45,7 +42,7 @@ const Connect = () => {
   const action = useCallback(async () => {
     try {
       const response = await AlgoSigner.connect({
-        ledger: LEDGER,
+        ledger: CHAIN_NAME,
       });
       return JSON.stringify(response, null, 2);
     } catch (e) {
@@ -66,7 +63,7 @@ const GetAccounts = () => {
   const action = useCallback(async () => {
     try {
       const accts = await AlgoSigner.accounts({
-        ledger: LEDGER,
+        ledger: CHAIN_NAME,
       });
       return JSON.stringify(accts, null, 2);
     } catch (e) {
@@ -86,13 +83,11 @@ const GetAccounts = () => {
 const GetEscrowDetails = () => {
   const action = useCallback(async () => {
     try {
-      const escrowInfo = await getEscrowDetails();
-      return (
-        "Escrow Address: " +
-        String(escrowInfo.address) +
-        ". Escrow Balance(microAlgos): " +
-        String(escrowInfo.balance)
-      );
+      const r = await AlgoSigner.algod({
+        ledger: CHAIN_NAME,
+        path: `/v2/transactions/params`,
+      });
+      return JSON.stringify(r, null, 2);
     } catch (e) {
       return JSON.stringify(e.message, null, 12);
     }
