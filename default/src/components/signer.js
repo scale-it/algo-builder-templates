@@ -401,7 +401,7 @@ const SendASA = () => {
       {/* success toast */}
       <Snackbar
         open={isSuccessful}
-        autoHideDuration={10000}
+        autoHideDuration={2500}
         onClose={() => {
           setIsSuccessful(false);
         }}
@@ -412,7 +412,7 @@ const SendASA = () => {
       {/* error toast */}
       <Snackbar
         open={isErr}
-        autoHideDuration={10000}
+        autoHideDuration={2500}
         onClose={() => {
           setIsErr(false);
         }}
