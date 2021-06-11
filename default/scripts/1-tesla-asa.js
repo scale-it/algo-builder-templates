@@ -14,7 +14,6 @@ async function run(runtimeEnv, deployer) {
   const elon = deployer.accountsByName.get('elon-musk');
   const john = deployer.accountsByName.get('john');
 
-  // activate elon account
   await executeTransaction(
     deployer,
     mkParam(masterAccount, elon.addr, 40e6, { note: 'funding account' })
@@ -31,7 +30,6 @@ async function run(runtimeEnv, deployer) {
 
   const assetID = asaInfo.assetIndex;
   await balanceOf(deployer, elon.addr, assetID);
-  // await balanceOf(deployer, john.addr, assetID);
 
   console.log('[tesla]: Script execution has finished!');
 }
