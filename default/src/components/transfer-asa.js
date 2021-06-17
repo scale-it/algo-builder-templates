@@ -1,4 +1,6 @@
 /* global AlgoSigner */
+import React from 'react';
+
 import { CHAIN_NAME } from '../algosigner.config';
 
 const LAST_ROUND = 'last-round';
@@ -20,13 +22,7 @@ const waitForConfirmation = async function (txId) {
       pendingInfo[CONFIRMED_ROUND] !== null &&
       pendingInfo[CONFIRMED_ROUND] > 0
     ) {
-      //Got the completed Transaction
-      return (
-        'Transaction ' +
-        txId +
-        ' confirmed in round ' +
-        pendingInfo[CONFIRMED_ROUND]
-      );
+      return pendingInfo;
     }
     lastround++;
     await AlgoSigner.algod({
@@ -55,16 +51,30 @@ async function transferASA(asaId, sndrAddr, recvAddr, amount) {
       to: recvAddr,
     };
     let signedTxn = await AlgoSigner.sign(txn);
-    let signedTxnBlob = new Uint8Array(Buffer.from(signedTxn.blob, 'base64'));
+    console.log('SignedTx ', signedTxn);
     let sentTx = await AlgoSigner.send({
       ledger: CHAIN_NAME,
-      tx: signedTxnBlob,
+      tx: signedTxn.blob,
     });
-    let resp = await waitForConfirmation(sentTx.txId);
-    return 'Asset transfer transaction successfull. ' + resp;
+    console.log('Sent transaction ', sentTx);
+
+    let response = await waitForConfirmation(sentTx.txId);
+    const confirmedTxInfo = {
+      txId: sentTx.txId,
+      assetIndex: asaId,
+      confirmedRound: response[CONFIRMED_ROUND],
+    };
+    return [
+      false,
+      <pre key={''}>
+        {'ASA transfer successful ' +
+          '\n' +
+          JSON.stringify(confirmedTxInfo, null, 2)}
+      </pre>,
+    ];
   } catch (error) {
     console.error(error);
-    return 'ASA Transfer Unsuccessful. Error: ' + error.message;
+    return [true, 'ASA Transfer Unsuccessful. Error: ' + error.message];
   }
 }
 

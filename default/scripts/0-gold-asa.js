@@ -1,21 +1,11 @@
 const { balanceOf, executeTransaction } = require('@algo-builder/algob');
-const { types } = require('@algo-builder/runtime');
+const { mkParam } = require('./common/common');
+
 /*
   Create "gold" Algorand Standard Asset (ASA).
   Accounts are loaded from config.
   To use ASA, accounts have to opt-in. Owner is opt-in by default.
 */
-
-function mkParam(senderAccount, receiverAddr, amount, payFlags) {
-  return {
-    type: types.TransactionType.TransferAlgo,
-    sign: types.SignType.SecretKey,
-    fromAccount: senderAccount,
-    toAccountAddr: receiverAddr,
-    amountMicroAlgos: amount,
-    payFlags: payFlags,
-  };
-}
 
 async function run(runtimeEnv, deployer) {
   console.log('[gold]: Script has started execution!');
