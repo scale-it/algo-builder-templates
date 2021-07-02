@@ -179,6 +179,7 @@ const SendASA = () => {
       })) ?? [];
 
     if (algoSignerAccts.length) {
+      // TODO: update fromAddress to current active account in https://www.pivotaltracker.com/story/show/178760753
       setFromAddress(algoSignerAccts[0].address); // set first account as default selected
     } else {
       const errMsg =
