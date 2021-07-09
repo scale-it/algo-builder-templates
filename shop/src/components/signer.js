@@ -64,7 +64,6 @@ const Ticket = ({ title, buttonText, amount }) => {
   return (
     <div className="algoSigner">
       <Typography variant="h5">{title}</Typography>
-
       <PaymentWidget buttonText={buttonText} amount={amount} />
     </div>
   );
