@@ -106,14 +106,14 @@ export const PaymentWidget = ({ buttonText, amount }) => {
   const [loading, setLoading] = useState(false);
 
   const executeTx = useCallback(async () => {
-    // This is the master account address present in algob.config.js.
+    // This is the master account address present in algob.config.js
     // We will take payments in this address
     const toAddress =
       'WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE';
     const fromAddress = await getDefaultAccountAddr();
 
     if (fromAddress) {
-      setResult('processing...'); // reset result to "" on new purchase
+      setResult('processing...');
       const response = await executePayment(
         fromAddress,
         toAddress,
