@@ -98,7 +98,6 @@ async function executePayment(fromAddress, toAddress, amount, setLoading) {
  * and a text prop to show below button (where text is the transaction response)
  * @param buttonText text to display on button
  * @param amount amount(of ticket) in ALGOs to charge user
- *
  * TODO: use executeTransaction from @algo-builder/web.
  */
 export const PaymentWidget = ({ buttonText, amount }) => {
@@ -108,8 +107,7 @@ export const PaymentWidget = ({ buttonText, amount }) => {
   const executeTx = useCallback(async () => {
     // This is the master account address present in algob.config.js
     // We will take payments in this address
-    const toAddress =
-      'WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE';
+    const toAddress = 'WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE';
     const fromAddress = await getDefaultAccountAddr();
 
     if (fromAddress) {
