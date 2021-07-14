@@ -35,9 +35,9 @@ async function getDefaultAccountAddr() {
 /**
  * Executes transaction to receive payment of ticket
  * @param fromAddress address of currently active account in wallet
- * @param {*} toAddress address to recieve payment (currently set to master-account)
- * @param {*} amount amount (in ALGOs)
- * @param {*} setLoading setLoading function to set loading state in button
+ * @param toAddress address to recieve payment (currently set to master-account)
+ * @param amount amount (in ALGOs)
+ * @param setLoading setLoading function to set loading state in button
  * @returns response of transaction OR rejection message
  */
 async function executePayment(fromAddress, toAddress, amount, setLoading) {
@@ -97,7 +97,7 @@ async function executePayment(fromAddress, toAddress, amount, setLoading) {
  * Widget to trigger a purchase on click. Consists of a Button, Loading State
  * and a text prop to show below button (where text is the transaction response)
  * @param buttonText text to display on button
- * @amount amount(of ticket) in ALGOs to charge user
+ * @param amount amount(of ticket) in ALGOs to charge user
  *
  * TODO: use executeTransaction from @algo-builder/web.
  */
