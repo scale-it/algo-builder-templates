@@ -41,7 +41,7 @@ async function getDefaultAccountAddr() {
  */
 async function executePayment(fromAddress, toAddress, amount, setLoading) {
   try {
-    const tx = new WebMode(AlgoSigner, CHAIN_NAME);
+    const web = new WebMode(AlgoSigner, CHAIN_NAME);
     const txParams = {
       type: types.TransactionType.TransferAlgo,
       sign: types.SignType.SecretKey,
@@ -50,7 +50,10 @@ async function executePayment(fromAddress, toAddress, amount, setLoading) {
       amountMicroAlgos: amount,
       payFlags: {},
     };
-    let response = await tx.executeTransaction(txParams);
+
+    // show loading state on button while we send & wait for transaction response
+    setLoading(true);
+    let response = await web.executeTransaction(txParams);
     console.log(response);
     const confirmedTxInfo = {
       txId: response.txId,
