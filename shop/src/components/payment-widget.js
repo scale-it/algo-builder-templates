@@ -1,15 +1,14 @@
 /* global AlgoSigner */
 import './signer.css';
 
+import { types, WebMode } from '@algo-builder/web';
 import { Button, CircularProgress, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
 
 import { CHAIN_NAME } from '../algosigner.config';
-import { waitForConfirmation } from '../utils/algod';
 
-const LAST_ROUND = 'last-round';
 const CONFIRMED_ROUND = 'confirmed-round';
 
 /**
@@ -42,39 +41,22 @@ async function getDefaultAccountAddr() {
  */
 async function executePayment(fromAddress, toAddress, amount, setLoading) {
   try {
-    // make transaction
-    const txParams = await AlgoSigner.algod({
-      ledger: CHAIN_NAME,
-      path: '/v2/transactions/params',
-    });
-    const txn = {
-      fee: txParams['min-fee'],
-      firstRound: txParams[LAST_ROUND],
-      lastRound: txParams[LAST_ROUND] + 1000,
-      genesisHash: txParams['genesis-hash'],
-      genesisID: txParams['genesis-id'],
-      from: fromAddress,
-      type: 'pay',
-      amount: amount,
-      to: toAddress,
+    const web = new WebMode(AlgoSigner, CHAIN_NAME);
+    const txParams = {
+      type: types.TransactionType.TransferAlgo,
+      sign: types.SignType.SecretKey,
+      fromAccountAddr: fromAddress,
+      toAccountAddr: toAddress,
+      amountMicroAlgos: amount,
+      payFlags: {},
     };
-
-    // trigger signing prompt
-    let signedTxn = await AlgoSigner.sign(txn);
 
     // show loading state on button while we send & wait for transaction response
     setLoading(true);
-
-    // send transaction to network
-    let sentTx = await AlgoSigner.send({
-      ledger: CHAIN_NAME,
-      tx: signedTxn.blob,
-    });
-
-    // wait for confirmation and return response
-    let response = await waitForConfirmation(sentTx.txId);
+    let response = await web.executeTransaction(txParams);
+    console.log(response);
     const confirmedTxInfo = {
-      txId: sentTx.txId,
+      txId: response.txId,
       type: 'pay',
       amount: amount,
       confirmedRound: response[CONFIRMED_ROUND],
@@ -107,7 +89,8 @@ export const PaymentWidget = ({ buttonText, amount }) => {
   const executeTx = useCallback(async () => {
     // This is the master account address present in algob.config.js
     // We will take payments in this address
-    const toAddress = 'WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE';
+    const toAddress =
+      'WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE';
     const fromAddress = await getDefaultAccountAddr();
 
     if (fromAddress) {
