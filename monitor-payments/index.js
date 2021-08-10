@@ -1,13 +1,11 @@
 const http = require('http');
+const { indexer_token, indexer_server, indexer_port } = require('./config');
 
 const hostname = '127.0.0.1';
 const port = 3000;
 
-// client for indexerV2
 const algosdk = require('algosdk');
-const indexer_token = "";
-const indexer_server = "http://localhost";
-const indexer_port = 8980;
+// client for indexerV2
 const indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
 
 // this is the address we will monitor for new payments received.
@@ -33,10 +31,10 @@ server.listen(port, hostname, async () => {
         .do();
 
       const transactions = response["transactions"];
-      for (const t of transactions) {
-        const paymentTxParams = t['payment-transaction'];
+      for (const transaction of transactions) {
+        const paymentTxParams = transaction['payment-transaction'];
         if (paymentTxParams.receiver === address) { // we only log the transactions where address is "receiver" of payment
-          console.log(`\nReceived ${paymentTxParams.amount} microalgos from addr:${t.sender} at round:${t['confirmed-round']}`);
+          console.log(`\nReceived ${paymentTxParams.amount} microalgos from addr:${transaction.sender} at round:${transaction['confirmed-round']}`);
         }
       }
     }
