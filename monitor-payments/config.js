@@ -8,6 +8,7 @@ const indexer_port = 8980;
 // export const indexer_port = '';
 
 // this is the address we will monitor for new payments received.
+// https://github.com/scale-it/algo-builder/blob/master/examples/algob.config-template.js#L20
 const addrToMonitor = 'WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE';
 
 module.exports = {
