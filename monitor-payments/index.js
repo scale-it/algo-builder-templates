@@ -1,15 +1,13 @@
 const http = require('http');
-const { indexer_token, indexer_server, indexer_port } = require('./config');
+const algosdk = require('algosdk');
+
+const { indexer_token, indexer_server, indexer_port, address } = require('./config');
 
 const hostname = '127.0.0.1';
 const port = 3000;
 
-const algosdk = require('algosdk');
 // client for indexerV2
 const indexerClient = new algosdk.Indexer(indexer_token, indexer_server, indexer_port);
-
-// this is the address we will monitor for new payments received.
-const address = "WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE";
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
