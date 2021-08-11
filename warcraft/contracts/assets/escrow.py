@@ -16,6 +16,7 @@ def escrow_contract():
         commons_checks,
         Gtxn[1].type_enum() == TxnType.ApplicationCall,
         Gtxn[1].application_id() == Tmpl.Int("TMPL_APPLICATION_ID"),
+        Gtxn[1].sender == Gtxn[0].asset_sender()
     )
 
     return program

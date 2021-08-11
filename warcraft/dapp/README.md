@@ -1,6 +1,6 @@
-# Algo Builder Web DApp (Shop)
+# Algo Builder Web DApp (Warcraft)
 
-This is a React + `algob` project which serves as an app template. In this template we demonstrate usage of payment widget to trigger a purchase (in this case it would be purchasing tickets for a concert).
+This is a React + `algob` project which serves as an app template. In this template we demonstrates ASA payments to deliver a service. (in this case it would be registering a user in warcraft dapp in exchange of asa payment).
 
 NOTE: Please go through `setup.md` first, you can find it [here](https://github.com/scale-it/algo-builder-templates/tree/master/docs/setup.md).
 

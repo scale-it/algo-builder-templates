@@ -21,11 +21,8 @@ def approval_program():
 
     on_update_escrow = Seq([
         basic_checks,
-        Assert(
-            And(
-                Txn.sender() == App.globalGet(app_manager),
-                basic_checks
-            )
+        Asser(
+            Txn.sender() == App.globalGet(app_manager)
         ),
         App.globalPut(escrow, Txn.application_args[1]),
         Return(Int(1))

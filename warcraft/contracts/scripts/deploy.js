@@ -31,7 +31,7 @@ async function run (runtimeEnv, deployer) {
       localInts: 1,
       localBytes: 0,
       globalInts: 1,
-      globalBytes: 0,
+      globalBytes: 2,
       appArgs: [appManager]
     }, {}, placeholderParam);
     console.log('Warcraft(Stateful) App: ', appInfo.appID);

@@ -71,9 +71,10 @@ async function executePayment(fromAddress, toAddress, appIndex, setLoading) {
 
     return [
       <pre key={""}>
-        {"Successfully bought ticket: " +
+        {"Succesfully deposited Token in round: " +
           "\n" +
-          JSON.stringify(confirmedTxInfo, null, 2)}
+          JSON.stringify(confirmedTxInfo, null, 2) +
+          "\nRegistered user: " + fromAddress}
       </pre>,
     ];
   } catch (error) {
