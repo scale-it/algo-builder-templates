@@ -34,7 +34,7 @@ async function run (runtimeEnv, deployer) {
       globalBytes: 0,
       appArgs: [appManager]
     }, {}, placeholderParam);
-    console.log('Stateful Dapp: ', appInfo.appID);
+    console.log('Warcraft(Stateful) App: ', appInfo.appID);
 
   const scInitParam = {
     TMPL_APPLICATION_ID: appInfo.appID
