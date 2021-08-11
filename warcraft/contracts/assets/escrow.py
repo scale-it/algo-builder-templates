@@ -10,6 +10,7 @@ def escrow_contract():
     commons_checks = And(
         Txn.rekey_to() == Global.zero_address(),
         Txn.close_remainder_to() == Global.zero_address(),
+        Txn.asset_close_to() == Global.zero_address()
     )
 
     program = And(

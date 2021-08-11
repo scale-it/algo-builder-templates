@@ -9,8 +9,7 @@ def approval_program():
         # Always verify that the RekeyTo property of any transaction is set to the ZeroAddress
         # unless the contract is specifically involved in a rekeying operation.
         Txn.rekey_to() == Global.zero_address(),
-        Txn.close_remainder_to() == Global.zero_address(),
-        Txn.asset_close_to() == Global.zero_address()
+        Txn.close_remainder_to() == Global.zero_address()
     )
 
     on_initialize = Seq([
