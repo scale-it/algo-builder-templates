@@ -38,7 +38,7 @@ def approval_program():
         Gtxn[0].xfer_asset() == Tmpl.Int("TMPL_WARCRAFT_TOKEN"),
         Gtxn[0].asset_receiver() == App.globalGet(escrow),
         App.localPut(Int(0), Bytes("warcraft"), Int(1)),
-        App.globalPut(total_registered, Add(App.globalGet(total_registered), Int(0))),
+        App.globalPut(total_registered, Add(App.globalGet(total_registered), Int(1))),
         Return(Int(1))
     ])
 
