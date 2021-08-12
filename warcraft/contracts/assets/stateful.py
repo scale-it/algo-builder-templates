@@ -1,7 +1,6 @@
 from pyteal import *
 
 def approval_program():
-    app_manager = Bytes("app_manager")
     total_registered = Bytes("total_registered")
     escrow = Bytes("escrow")
     # verify rekey_to and close_rem_to are set as zero_address
@@ -13,26 +12,31 @@ def approval_program():
     )
 
     on_initialize = Seq([
-        App.globalPut(app_manager, Txn.application_args[0]),
         App.globalPut(total_registered, Int(0)),
         Return(Int(1))
     ])
 
     on_update_escrow = Seq([
-        basic_checks,
-        Asser(
-            Txn.sender() == App.globalGet(app_manager)
+        Assert(
+            And(
+                basic_checks,
+                Txn.sender() == Tmpl.Addr("TMPL_MANAGER")
+            )
         ),
         App.globalPut(escrow, Txn.application_args[1]),
         Return(Int(1))
     ])
 
     on_register = Seq([
-        basic_checks,
-        Gtxn[0].type_enum() == TxnType.AssetTransfer,
-        Gtxn[0].asset_amount() == Int(1),
-        Gtxn[0].xfer_asset() == Tmpl.Int("TMPL_WARCRAFT_TOKEN"),
-        Gtxn[0].asset_receiver() == App.globalGet(escrow),
+        Assert(
+            And(
+                basic_checks,
+                Gtxn[0].type_enum() == TxnType.AssetTransfer,
+                Gtxn[0].asset_amount() == Int(1),
+                Gtxn[0].xfer_asset() == Tmpl.Int("TMPL_WARCRAFT_TOKEN"),
+                Gtxn[0].asset_receiver() == App.globalGet(escrow)
+            )
+        ),
         App.localPut(Int(0), Bytes("warcraft"), Int(1)),
         App.globalPut(total_registered, Add(App.globalGet(total_registered), Int(1))),
         Return(Int(1))

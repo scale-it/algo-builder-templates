@@ -1,0 +1,33 @@
+default:
+    timestamp: 1628732402636
+    metadata: {}
+    asa:
+        warcraft-token:
+            creator: WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE
+            txId: FE4Q3VR5PY7XZEJPEFWK7B7PNQONMFGFQ7BEWUZGBYTZGQ46ZEDQ
+            assetIndex: 35
+            confirmedRound: 453
+            assetDef:
+                total: 10000
+                decimals: 8
+                defaultFrozen: false
+                unitName: WAR
+                url: www.war.com
+                metadataHash: "12312442142141241244444411111133"
+                note: note
+                noteb64: noteb64
+                manager: WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE
+                reserve: WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE
+                freeze: WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE
+                clawback: WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE
+            deleted: false
+    ssc:
+        stateful.py-clear.py:
+            1628732427:
+                creator: WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE
+                txId: 2XUODBU7CDCPXYULJPKYHGHW4HTXH4P3LXHLR6L4PRQLXPXXEFYQ
+                confirmedRound: 459
+                appID: 38
+                timestamp: 1628732427
+                deleted: false
+    dLsig: {}

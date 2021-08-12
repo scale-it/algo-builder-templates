@@ -18,13 +18,25 @@
 
 // ## ACCOUNTS USING mnemonic ##
 const { mkAccounts, algodCredentialsFromEnv } = require("@algo-builder/algob");
-let accounts = mkAccounts([{
+let accounts = mkAccounts([
+  {
   // This account is created using `make setup-master-account` command from our
   // `/infrastructure` directory. It already has many ALGOs
   name: "master",
   addr: "WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE",
   mnemonic: "enforce drive foster uniform cradle tired win arrow wasp melt cattle chronic sport dinosaur announce shell correct shed amused dismiss mother jazz task above hospital"
-}]);
+  },
+  {
+    name: "alice",
+    addr: "EDXG4GGBEHFLNX6A7FGT3F6Z3TQGIU6WVVJNOXGYLVNTLWDOCEJJ35LWJY",
+    mnemonic: "brand globe reason guess allow wear roof leisure season coin own pen duck worth virus silk jazz pitch behave jazz leisure pave unveil absorb kick"
+  },
+  {
+    name: "bob",
+    addr: "2ILRL5YU3FZ4JDQZQVXEZUYKEWF7IEIGRRCPCMI36VKSGDMAS6FHSBXZDQ",
+    mnemonic: "caution fuel omit buzz six unique method kiwi twist afraid monitor song leader mask bachelor siege what shiver fringe else mass hero deposit absorb tooth"
+  }
+]);
 
 // ## ACCOUNTS loaded from a FILE ##
 // const { loadAccountsFromFileSync } = require("@algo-builder/algob");

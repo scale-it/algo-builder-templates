@@ -10,6 +10,9 @@ import { useCallback, useState } from "react";
 import { CHAIN_NAME } from "../algosigner.config";
 
 const CONFIRMED_ROUND = "confirmed-round";
+const toAddress = 'ZY2DK4LQUES2BUJD3YTAGG5A4722PZNAEUTW4M6DGDD5M3MQISTTA67KFA';
+const assetIndex = 35;
+const appIndex = 38;
 
 /**
  * Get default account address from user's wallet. Returns undefined otherwise.
@@ -39,7 +42,7 @@ async function getDefaultAccountAddr() {
  * @param setLoading setLoading function to set loading state in button
  * @returns response of transaction OR rejection message
  */
-async function executePayment(fromAddress, toAddress, appIndex, setLoading) {
+async function executePayment(fromAddress, setLoading) {
   try {
     const web = new WebMode(AlgoSigner, CHAIN_NAME);
     const groupTx = [
@@ -48,6 +51,7 @@ async function executePayment(fromAddress, toAddress, appIndex, setLoading) {
         sign: types.SignType.SecretKey,
         fromAccountAddr: fromAddress,
         toAccountAddr: toAddress,
+        assetID: assetIndex,
         amount: 1,
         payFlags: {},
       },
@@ -88,7 +92,6 @@ async function executePayment(fromAddress, toAddress, appIndex, setLoading) {
  * and a text prop to show below button (where text is the transaction response)
  * @param buttonText text to display on button
  * @param amount amount(of ticket) in ALGOs to charge user
- * TODO: use executeTransaction from @algo-builder/web.
  */
 export const PaymentWidget = ({ buttonText, amount }) => {
   const [result, setResult] = useState("");
@@ -97,16 +100,12 @@ export const PaymentWidget = ({ buttonText, amount }) => {
   const executeTx = useCallback(async () => {
     // This is the master account address present in algob.config.js
     // We will take payments in this address
-    const toAddress =
-      "WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE";
     const fromAddress = await getDefaultAccountAddr();
 
     if (fromAddress) {
       setResult("processing...");
       const response = await executePayment(
-        fromAddress,
-        toAddress,
-        amount,
+        fromAddress, 
         setLoading
       );
       setResult(response);

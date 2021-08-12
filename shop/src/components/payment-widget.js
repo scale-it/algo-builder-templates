@@ -98,7 +98,6 @@ async function executePayment(fromAddress, toAddress, amount, setLoading) {
  * and a text prop to show below button (where text is the transaction response)
  * @param buttonText text to display on button
  * @param amount amount(of ticket) in ALGOs to charge user
- * TODO: use executeTransaction from @algo-builder/web.
  */
 export const PaymentWidget = ({ buttonText, amount }) => {
   const [result, setResult] = useState('');

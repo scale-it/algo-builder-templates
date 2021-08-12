@@ -1,0 +1,16 @@
+filename: clear.py
+timestamp: 1628732418
+compiled: AiABASJD
+compiledHash: ZYI7YTWEXF6FGMRDOJNAGIID5M7OKO554TJOVU2RCA7Z2QWQEBTGDOLOU4
+srcHash: 3323455062
+tealCode: |
+    #pragma version 2
+    int 1
+    return
+base64ToBytes:
+    - 2
+    - 32
+    - 1
+    - 1
+    - 34
+    - 67

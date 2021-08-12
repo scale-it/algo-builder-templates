@@ -4,7 +4,9 @@ const {
 const { types } = require('@algo-builder/web');
 
 async function run (runtimeEnv, deployer) {
-  const masterAccount = deployer.accountsByName.get('master-account');
+  const masterAccount = deployer.accountsByName.get('master');
+  const managerAcc = deployer.accountsByName.get('alice');
+  const bobAccount = deployer.accountsByName.get('bob');
 
   const algoTxnParams = {
     type: types.TransactionType.TransferAlgo,
@@ -14,14 +16,28 @@ async function run (runtimeEnv, deployer) {
     amountMicroAlgos: 10e6,
     payFlags: {}
   };
+  await executeTransaction(deployer, algoTxnParams);
+  algoTxnParams.toAccountAddr = bobAccount.addr;
+  await executeTransaction(deployer, algoTxnParams);
 
   const asaInfo = await deployer.deployASA('warcraft-token', { creator: masterAccount });
   console.log('Warcraft Token: ', asaInfo.assetIndex);
 
-  const appManager = convert.addressToPk(masterAccount.addr);
+  await deployer.optInAcountToASA('warcraft-token', 'bob', {});
+  const sendAsaTx = {
+    type: types.TransactionType.TransferAsset,
+    sign: types.SignType.SecretKey,
+    fromAccount: masterAccount,
+    toAccountAddr: bobAccount.addr,
+    amount: 20,
+    assetID: asaInfo.assetIndex,
+    payFlags: {}
+  }
+  await executeTransaction(deployer, sendAsaTx);
 
   const placeholderParam = {
-    TMPL_WARCRAFT_TOKEN: asaInfo.assetIndex
+    TMPL_WARCRAFT_TOKEN: asaInfo.assetIndex,
+    TMPL_MANAGER: managerAcc.addr
   };
   // Create Application
   const appInfo = await deployer.deployApp(
@@ -31,19 +47,38 @@ async function run (runtimeEnv, deployer) {
       localInts: 1,
       localBytes: 0,
       globalInts: 1,
-      globalBytes: 2,
-      appArgs: [appManager]
+      globalBytes: 2
     }, {}, placeholderParam);
     console.log('Warcraft(Stateful) App: ', appInfo.appID);
 
   const scInitParam = {
-    TMPL_APPLICATION_ID: appInfo.appID
+    TMPL_APPLICATION_ID: appInfo.appID,
+    TMPL_MANAGER: managerAcc.addr
   };
   const escrow = await deployer.loadLogic('escrow.py', scInitParam);
   console.log("Escrow address: ", escrow.address());
 
   algoTxnParams.toAccountAddr = escrow.address();
   await executeTransaction(deployer, algoTxnParams);
+  const optInTx = [
+    {
+      type: types.TransactionType.TransferAlgo,
+      sign: types.SignType.SecretKey,
+      fromAccount: managerAcc,
+      toAccountAddr: escrow.address(),
+      amountMicroAlgos: 0,
+      payFlags: {}
+    },
+    {
+      type: types.TransactionType.OptInASA,
+      sign: types.SignType.LogicSignature,
+      fromAccountAddr: escrow.address(),
+      lsig: escrow,
+      assetID: asaInfo.assetIndex,
+      payFlags: {}
+    }
+  ];
+  await executeTransaction(deployer, optInTx);
 
   let appArgs = [
     'str:update_escrow',
@@ -53,7 +88,7 @@ async function run (runtimeEnv, deployer) {
   const appCallParams = {
     type: types.TransactionType.CallNoOpSSC,
     sign: types.SignType.SecretKey,
-    fromAccount: masterAccount,
+    fromAccount: managerAcc,
     appID: appInfo.appID,
     payFlags: {},
     appArgs: appArgs
