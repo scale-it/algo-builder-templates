@@ -25,7 +25,6 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "algob": "algob",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
