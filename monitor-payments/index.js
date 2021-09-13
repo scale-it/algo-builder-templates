@@ -19,6 +19,10 @@ server.listen(port, hostname, async () => {
   console.log(`Server running at http://${hostname}:${port}/`);
   console.log(`Monitoring payments to address:${address} using algorand-indexer`);
 
+  /*
+   * Here we are scanning all payment transactions.
+   * For optimal result, if you have a control of the indexer PostgreSQL, you should
+   * create a trigger with COPY statement to write a log. */
   let currRound = 1;
   setInterval(async () => {
     const health = await indexerClient.makeHealthCheck().do();
