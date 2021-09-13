@@ -77,12 +77,12 @@ export default function Signer() {
       <Ticket
         title="Queen concert ticket"
         buttonText="Buy (5 ALGO)"
-        amount={5}
+        amount={5e6}
       />
       <Ticket
         title="Beyonce concert ticket"
         buttonText="Buy (10 ALGO)"
-        amount={10}
+        amount={10e6}
       />
     </Container>
   );

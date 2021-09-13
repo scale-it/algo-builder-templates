@@ -1,0 +1,14 @@
+{
+  "name": "monitor-payments",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "PoC app to monitor payments to an address using algorand-indexer",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "algosdk": "^1.10.1"
+  }
+}
