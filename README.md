@@ -54,4 +54,4 @@ You can also chat with us on the `#algo-builder` channel at the Algorand [discor
 
 ## Connect algob project settings with a webapp
 
-An algob project can be easily connetced/integrated with your dapp. You can learn how to do it from [here](https://github.com/scale-it/algo-builder/blob/develop/docs/guide/algob-web.md#connect-algob-project-settings-with-a-webapp).
+An algob project can be easily connected/integrated with your dapp. You can learn how to do it from [here](https://github.com/scale-it/algo-builder/blob/develop/docs/guide/algob-web.md#connect-algob-project-settings-with-a-webapp).
