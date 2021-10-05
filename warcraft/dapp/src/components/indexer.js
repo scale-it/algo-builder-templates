@@ -1,5 +1,6 @@
 const algosdk = require('algosdk');
 
+const { getDefaultAccountAddr } = require('./payment-widget');
 const { indexerToken, indexerServer, indexerPort, assetIndex } = require('../config');
 
 const indexerClient = new algosdk.Indexer(indexerToken, indexerServer, indexerPort);
@@ -17,7 +18,8 @@ function ISODateString(d){
 }
 
 // Detect if user made weekly payment.(returns true if user did)
-export async function detectPayment(address) {
+export async function detectPayment() {
+  const address = await getDefaultAccountAddr();
   // time before 7 days
   let beforeTime = new Date();
   beforeTime.setDate(beforeTime.getDate() - 7);

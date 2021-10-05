@@ -9,6 +9,7 @@ import { useCallback, useState } from "react";
 
 import { CHAIN_NAME } from "../algosigner.config";
 
+import { appIndex, assetIndex, toAddress } from "../config"
 const CONFIRMED_ROUND = "confirmed-round";
 
 /**
@@ -19,7 +20,7 @@ const CONFIRMED_ROUND = "confirmed-round";
  * https://github.com/PureStake/algosigner/issues/252 is resolved.
  * Task - https://www.pivotaltracker.com/story/show/178760753
  */
-async function getDefaultAccountAddr() {
+export async function getDefaultAccountAddr() {
   const walletAccounts =
     (await AlgoSigner.accounts({
       ledger: CHAIN_NAME,
