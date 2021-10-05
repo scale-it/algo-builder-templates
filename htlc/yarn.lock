@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@algo-builder/algob@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@algo-builder/algob/-/algob-1.2.0.tgz#f1440ff65bd700ec7871c907b8203fe388081b27"
-  integrity sha512-1zT1MRtmExvHDBJOje5ZNMIkpwdJywy2CdG68vh86INWBuxDKyQ1+egmIygLTCccV0Cqs5WlNY/6vqfiYS/dng==
+"@algo-builder/algob@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@algo-builder/algob/-/algob-2.0.0.tgz#8fcf46991ca83a2afaa9f7cb0e6e399819ff0e2a"
+  integrity sha512-dRyQ7E7Eblc+kkXbWRPkzli0PcbUcZ3nkAdLuYaH4jzXDTudvWV2duybUPRNTWp8rZCxx+kVe5gpC0qSMet3qw==
   dependencies:
-    "@algo-builder/runtime" "^1.2.0"
-    algosdk scale-it/js-algorand-sdk.git#0f9d09e8d0bddc37145013e538b3ddfd001d364f
+    "@algo-builder/runtime" "^2.0.0"
+    algosdk "^1.11.1"
     chalk "^4.1.0"
     debug "^4.1.1"
     deep-equal "^2.0.3"
@@ -26,15 +26,15 @@
     yaml "^1.10.0"
     zod "^1.10.2"
 
-"@algo-builder/runtime@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@algo-builder/runtime/-/runtime-1.2.0.tgz#8eed1e470f954e45f3ba8c4f8d8dc327fbbc68e4"
-  integrity sha512-9ta7s4pv7KPdac936RtJaDIJWkiu87Tg2HmWDGHH3tWFGDPUFLFbrczk14uDikkFrriaP4mKSj6SLbsBdFDFHg==
+"@algo-builder/runtime@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@algo-builder/runtime/-/runtime-2.0.0.tgz#5fcdfee4ec1707ec0eca21f527077efc83fb4144"
+  integrity sha512-/6EfVxE0vc27bYRajLdqA4iuWhEwhEC2F49GxJYX+bPXnB5zUR6vv41f1p/jFVEMCnd+2psYG02azeg6EF25VQ==
   dependencies:
-    "@algo-builder/web" "1.2.0"
+    "@algo-builder/web" "2.0.0"
     "@nodelib/fs.walk" "^1.2.8"
     "@types/lodash.clonedeep" "^4.5.6"
-    algosdk scale-it/js-algorand-sdk.git#0f9d09e8d0bddc37145013e538b3ddfd001d364f
+    algosdk "^1.11.1"
     glob "^7.1.6"
     js-sha256 "^0.9.0"
     js-sha512 "^0.8.0"
@@ -44,14 +44,15 @@
     source-map-support "^0.5.19"
     tweetnacl-ts "^1.0.3"
     types "^0.1.0"
+    zod "^1.10.2"
 
-"@algo-builder/web@1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@algo-builder/web/-/web-1.2.0.tgz#6ecbef5536c88d0c654f7d05b4ee2b485d26a366"
-  integrity sha512-Z53sJ0YO2kUP4vmTHmjMX9zU69vYpNpLANh3lju3dMsi8xodX9jooNVRED/Fj7I17oXLvbbpzmWeLBjM/nYDPg==
+"@algo-builder/web@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@algo-builder/web/-/web-2.0.0.tgz#36cd85fd79c1022446879cd81ff5b9fed4e849af"
+  integrity sha512-hdy7Fkk4LyfycM4OhDSI8318TPf1eW8rc39BRDBAFQb+ASPabnbn03u1LGWMTLxTNv8jgacdzIjf6+LDVp1QqA==
   dependencies:
     "@types/lodash.clonedeep" "^4.5.6"
-    algosdk scale-it/js-algorand-sdk.git#0f9d09e8d0bddc37145013e538b3ddfd001d364f
+    algosdk "^1.11.1"
     glob "^7.1.6"
     js-sha256 "^0.9.0"
     js-sha512 "^0.8.0"
@@ -61,6 +62,7 @@
     source-map-support "^0.5.19"
     tweetnacl-ts "^1.0.3"
     types "^0.1.0"
+    zod "^1.10.2"
 
 "@babel/code-frame@7.10.4":
   version "7.10.4"
@@ -2408,6 +2410,22 @@ algo-msgpack-with-bigint@^2.1.0, algo-msgpack-with-bigint@^2.1.1:
   resolved "https://registry.yarnpkg.com/algo-msgpack-with-bigint/-/algo-msgpack-with-bigint-2.1.1.tgz#38bb717220525b3ff42232eefdcd9efb9ad405d6"
   integrity sha512-F1tGh056XczEaEAqu7s+hlZUDWwOBT70Eq0lfMpBP2YguSQVyxRbprLq5rELXKQOyOaixTWYhMeMQMzP0U5FoQ==
 
+algosdk@^1.11.1:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/algosdk/-/algosdk-1.12.0.tgz#77e2a22568495210d26ecd1f830e98cc069815b5"
+  integrity sha512-Iqek0AwcCeXLywVg4E8gWWjmuPZ10P7PUmpZrlR71FSNyEtX4Ie+UgrNHWhkYnhyykRU5mjtvD4Hrb2eOepsGA==
+  dependencies:
+    algo-msgpack-with-bigint "^2.1.1"
+    buffer "^6.0.2"
+    hi-base32 "^0.5.1"
+    js-sha256 "^0.9.0"
+    js-sha3 "^0.8.0"
+    js-sha512 "^0.8.0"
+    json-bigint "^1.0.0"
+    superagent "^6.1.0"
+    tweetnacl "^1.0.3"
+    url-parse "^1.5.1"
+
 algosdk@^1.8.0:
   version "1.8.1"
   resolved "https://codeload.github.com/algorand/js-algorand-sdk/tar.gz/9a5824782511dff1f521c68fe54d562b3872d1ae"
@@ -2421,21 +2439,6 @@ algosdk@^1.8.0:
     json-bigint "^1.0.0"
     superagent "^6.1.0"
     tweetnacl "^1.0.3"
-
-algosdk@scale-it/js-algorand-sdk.git#0f9d09e8d0bddc37145013e538b3ddfd001d364f:
-  version "1.10.1"
-  resolved "https://codeload.github.com/scale-it/js-algorand-sdk/tar.gz/0f9d09e8d0bddc37145013e538b3ddfd001d364f"
-  dependencies:
-    algo-msgpack-with-bigint "^2.1.1"
-    buffer "^6.0.2"
-    hi-base32 "^0.5.1"
-    js-sha256 "^0.9.0"
-    js-sha3 "^0.8.0"
-    js-sha512 "^0.8.0"
-    json-bigint "^1.0.0"
-    superagent "^6.1.0"
-    tweetnacl "^1.0.3"
-    url-parse "^1.5.1"
 
 alphanum-sort@^1.0.0:
   version "1.0.2"
