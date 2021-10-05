@@ -10,9 +10,6 @@ import { useCallback, useState } from "react";
 import { CHAIN_NAME } from "../algosigner.config";
 
 const CONFIRMED_ROUND = "confirmed-round";
-const toAddress = 'ZY2DK4LQUES2BUJD3YTAGG5A4722PZNAEUTW4M6DGDD5M3MQISTTA67KFA';
-const assetIndex = 35;
-const appIndex = 38;
 
 /**
  * Get default account address from user's wallet. Returns undefined otherwise.
