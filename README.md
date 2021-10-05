@@ -55,3 +55,7 @@ You can also chat with us on the `#algo-builder` channel at the Algorand [discor
 ## Connect algob project settings with a webapp
 
 An algob project can be easily connected/integrated with your dapp. You can learn how to do it from [here](https://github.com/scale-it/algo-builder/blob/develop/docs/guide/algob-web.md#connect-algob-project-settings-with-a-webapp).
+
+## Loading assets and checkpoints in webapp
+
+Assets and checkpoints can be easily loaded in your web app. You can learn how to do it from [here](https://github.com/scale-it/algo-builder/blob/master/docs/guide/algob-web.md#checkpoints).
