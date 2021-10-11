@@ -27,8 +27,5 @@ export async function detectPayment() {
   let response = await indexerClient.searchForTransactions().address(address).afterTime(ISODateString(beforeTime))
                   .txType('axfer').assetID(assetIndex).currencyGreaterThan(0).do();
   console.log(response);
-  if(response.transactions.length > 0) {
-      return true;
-  }
-  return false;
+  return response.transactions.length > 0;
 }
