@@ -9,7 +9,7 @@ import { useCallback, useState } from "react";
 
 import { CHAIN_NAME } from "../algosigner.config";
 
-import { appIndex, assetIndex, toAddress } from "../config"
+import { appIndex, assetIndex, toAddress } from "../config";
 const CONFIRMED_ROUND = "confirmed-round";
 
 /**
@@ -76,7 +76,8 @@ async function executePayment(fromAddress, setLoading) {
         {"Succesfully deposited Token in round: " +
           "\n" +
           JSON.stringify(confirmedTxInfo, null, 2) +
-          "\nRegistered user: " + fromAddress}
+          "\nRegistered user: " +
+          fromAddress}
       </pre>,
     ];
   } catch (error) {
@@ -102,10 +103,7 @@ export const PaymentWidget = ({ buttonText, amount }) => {
 
     if (fromAddress) {
       setResult("processing...");
-      const response = await executePayment(
-        fromAddress, 
-        setLoading
-      );
+      const response = await executePayment(fromAddress, setLoading);
       setResult(response);
     } else {
       setResult("No accounts found in wallet");

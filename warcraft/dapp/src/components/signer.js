@@ -71,14 +71,12 @@ const Ticket = ({ title, buttonText, amount }) => {
 };
 
 export default function Signer() {
-  if(detectPayment() === true) {
+  if (detectPayment() === true) {
     return (
       <Container>
         <CssBaseline />
         <Connect />
-        <Ticket
-          title="You can play"
-        />
+        <Ticket title="You can play" />
       </Container>
     );
   }
