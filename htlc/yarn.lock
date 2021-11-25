@@ -2,13 +2,14 @@
 # yarn lockfile v1
 
 
-"@algo-builder/algob@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@algo-builder/algob/-/algob-2.0.0.tgz#8fcf46991ca83a2afaa9f7cb0e6e399819ff0e2a"
-  integrity sha512-dRyQ7E7Eblc+kkXbWRPkzli0PcbUcZ3nkAdLuYaH4jzXDTudvWV2duybUPRNTWp8rZCxx+kVe5gpC0qSMet3qw==
+"@algo-builder/algob@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@algo-builder/algob/-/algob-2.1.0.tgz#bc42d410f886258f10ae9610155ce164a9c8321c"
+  integrity sha512-MblcuDCtoCs9pnwatYglmamuGwdDmXa2VeA9iSkr8rjZH31uVDyni6Xn1ajFV20Bb8mBcb1yRbi/P9CpWiWSTg==
   dependencies:
-    "@algo-builder/runtime" "^2.0.0"
-    algosdk "^1.11.1"
+    "@algo-builder/runtime" "^2.1.0"
+    "@algo-builder/web" "2.1.0"
+    algosdk "^1.12.0"
     chalk "^4.1.0"
     debug "^4.1.1"
     deep-equal "^2.0.3"
@@ -18,7 +19,7 @@
     findup-sync "^4.0.0"
     fs-extra "^9.0.1"
     glob "^7.1.6"
-    mocha "^9.0.3"
+    mocha "^9.1.3"
     murmurhash "^1.0.0"
     semver "^7.3.2"
     source-map-support "^0.5.19"
@@ -26,15 +27,17 @@
     yaml "^1.10.0"
     zod "^1.10.2"
 
-"@algo-builder/runtime@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@algo-builder/runtime/-/runtime-2.0.0.tgz#5fcdfee4ec1707ec0eca21f527077efc83fb4144"
-  integrity sha512-/6EfVxE0vc27bYRajLdqA4iuWhEwhEC2F49GxJYX+bPXnB5zUR6vv41f1p/jFVEMCnd+2psYG02azeg6EF25VQ==
+"@algo-builder/runtime@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@algo-builder/runtime/-/runtime-2.1.0.tgz#438a3a2f58098ba8c3bd767c5f292ae6baa61edd"
+  integrity sha512-EhSmQmNz8VLxjPsRM0qA+CXwYlaIuGvHuLlBllUjImmhdPOn/lKgk9BMEmeZXPKKiBc7ygUp4gnWT2dhvhQPKQ==
   dependencies:
-    "@algo-builder/web" "2.0.0"
+    "@algo-builder/web" "2.1.0"
     "@nodelib/fs.walk" "^1.2.8"
+    "@types/elliptic" "^6.4.13"
     "@types/lodash.clonedeep" "^4.5.6"
-    algosdk "^1.11.1"
+    algosdk "^1.12.0"
+    elliptic "^6.5.4"
     glob "^7.1.6"
     js-sha256 "^0.9.0"
     js-sha512 "^0.8.0"
@@ -46,13 +49,13 @@
     types "^0.1.0"
     zod "^1.10.2"
 
-"@algo-builder/web@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@algo-builder/web/-/web-2.0.0.tgz#36cd85fd79c1022446879cd81ff5b9fed4e849af"
-  integrity sha512-hdy7Fkk4LyfycM4OhDSI8318TPf1eW8rc39BRDBAFQb+ASPabnbn03u1LGWMTLxTNv8jgacdzIjf6+LDVp1QqA==
+"@algo-builder/web@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@algo-builder/web/-/web-2.1.0.tgz#a80d6ebe0f9f2db487522987a91f14e284a1776c"
+  integrity sha512-xFZQQf6kughKJybdCuhD+xAvPyxbfA0pYNKZrmHzCNpsJcpTLrIdn/nmJ2UZYMtr5KaG24FwH3oIuQMiXbC8Uw==
   dependencies:
     "@types/lodash.clonedeep" "^4.5.6"
-    algosdk "^1.11.1"
+    algosdk "^1.12.0"
     glob "^7.1.6"
     js-sha256 "^0.9.0"
     js-sha512 "^0.8.0"
@@ -1840,6 +1843,20 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
+"@types/bn.js@*":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@types/bn.js/-/bn.js-5.1.0.tgz#32c5d271503a12653c62cf4d2b45e6eab8cebc68"
+  integrity sha512-QSSVYj7pYFN49kW77o2s9xTCwZ8F2xLbjLLSEVh8D2F4JUhZtPAGOFLTD+ffqksBx/u4cE/KImFjyhqCjn/LIA==
+  dependencies:
+    "@types/node" "*"
+
+"@types/elliptic@^6.4.13":
+  version "6.4.14"
+  resolved "https://registry.yarnpkg.com/@types/elliptic/-/elliptic-6.4.14.tgz#7bbaad60567a588c1f08b10893453e6b9b4de48e"
+  integrity sha512-z4OBcDAU0GVwDTuwJzQCiL6188QvZMkvoERgcVjq0/mPM8jCfdwZ3x5zQEVoL9WCAru3aG5wl3Z5Ww5wBWn7ZQ==
+  dependencies:
+    "@types/bn.js" "*"
+
 "@types/eslint@^7.2.6":
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.2.6.tgz#5e9aff555a975596c03a98b59ecd103decc70c3c"
@@ -2410,7 +2427,7 @@ algo-msgpack-with-bigint@^2.1.0, algo-msgpack-with-bigint@^2.1.1:
   resolved "https://registry.yarnpkg.com/algo-msgpack-with-bigint/-/algo-msgpack-with-bigint-2.1.1.tgz#38bb717220525b3ff42232eefdcd9efb9ad405d6"
   integrity sha512-F1tGh056XczEaEAqu7s+hlZUDWwOBT70Eq0lfMpBP2YguSQVyxRbprLq5rELXKQOyOaixTWYhMeMQMzP0U5FoQ==
 
-algosdk@^1.11.1:
+algosdk@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/algosdk/-/algosdk-1.12.0.tgz#77e2a22568495210d26ecd1f830e98cc069815b5"
   integrity sha512-Iqek0AwcCeXLywVg4E8gWWjmuPZ10P7PUmpZrlR71FSNyEtX4Ie+UgrNHWhkYnhyykRU5mjtvD4Hrb2eOepsGA==
@@ -4373,6 +4390,13 @@ debug@4.3.1, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@^4.2.0:
   dependencies:
     ms "2.1.2"
 
+debug@4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
+  integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
+  dependencies:
+    ms "2.1.2"
+
 debug@^3.1.1, debug@^3.2.6:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"
@@ -4839,7 +4863,7 @@ electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.649:
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.671.tgz#8feaed6eae42d279fa4611f58c42a5a1eb81b2a0"
   integrity sha512-RTD97QkdrJKaKwRv9h/wGAaoR2lGxNXEcBXS31vjitgTPwTWAbLdS7cEsBK68eEQy7p6YyT8D5BxBEYHu2SuwQ==
 
-elliptic@^6.5.3:
+elliptic@^6.5.3, elliptic@^6.5.4:
   version "6.5.4"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.5.4.tgz#da37cebd31e79a1367e941b592ed1fbebd58abbb"
   integrity sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==
@@ -8626,16 +8650,16 @@ mocha@^8.3.2:
     yargs-parser "20.2.4"
     yargs-unparser "2.0.0"
 
-mocha@^9.0.3:
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-9.0.3.tgz#128cd6bbd3ee0adcdaef715f357f76ec1e6227c7"
-  integrity sha512-hnYFrSefHxYS2XFGtN01x8un0EwNu2bzKvhpRFhgoybIvMaOkkL60IVPmkb5h6XDmUl4IMSB+rT5cIO4/4bJgg==
+mocha@^9.1.3:
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-9.1.3.tgz#8a623be6b323810493d8c8f6f7667440fa469fdb"
+  integrity sha512-Xcpl9FqXOAYqI3j79pEtHBBnQgVXIhpULjGQa7DVb0Po+VzmSIK9kanAiWLHoRR/dbZ2qpdPshuXr8l1VaHCzw==
   dependencies:
     "@ungap/promise-all-settled" "1.1.2"
     ansi-colors "4.1.1"
     browser-stdout "1.3.1"
     chokidar "3.5.2"
-    debug "4.3.1"
+    debug "4.3.2"
     diff "5.0.0"
     escape-string-regexp "4.0.0"
     find-up "5.0.0"
@@ -8646,12 +8670,11 @@ mocha@^9.0.3:
     log-symbols "4.1.0"
     minimatch "3.0.4"
     ms "2.1.3"
-    nanoid "3.1.23"
+    nanoid "3.1.25"
     serialize-javascript "6.0.0"
     strip-json-comments "3.1.1"
     supports-color "8.1.1"
     which "2.0.2"
-    wide-align "1.1.3"
     workerpool "6.1.5"
     yargs "16.2.0"
     yargs-parser "20.2.4"
@@ -8717,10 +8740,10 @@ nanoid@3.1.20, nanoid@^3.1.20:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.20.tgz#badc263c6b1dcf14b71efaa85f6ab4c1d6cfc788"
   integrity sha512-a1cQNyczgKbLX9jwbS/+d7W8fX/RfgYR7lVWwWOGIPNgK2m0MWvrGF6/m4kk6U3QcFMnZf3RIhL0v2Jgh/0Uxw==
 
-nanoid@3.1.23:
-  version "3.1.23"
-  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.23.tgz#f744086ce7c2bc47ee0a8472574d5c78e4183a81"
-  integrity sha512-FiB0kzdP0FFVGDKlRLEQ1BgDzU87dy5NnzjeW9YZNt+/c3+q82EQDUwniSAUxp/F0gFNI1ZhKU1FqYsMuqZVnw==
+nanoid@3.1.25:
+  version "3.1.25"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.25.tgz#09ca32747c0e543f0e1814b7d3793477f9c8e152"
+  integrity sha512-rdwtIXaXCLFAQbnfqDRnI6jaRHp9fTcYBjtFKE8eezcZ7LuLjhUaQGNeMXf1HmRoCH32CLz6XwX0TtxEOS/A3Q==
 
 nanomatch@^1.2.9:
   version "1.2.13"

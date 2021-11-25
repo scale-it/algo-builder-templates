@@ -1,12 +1,14 @@
 /* global AlgoSigner */
 import "./signer.css";
 
-import { Button, Container, CssBaseline, Typography } from '@material-ui/core';
+import { Button, Container, CssBaseline, Typography, TextField } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
-import WithdrawHtlc from './withdrawHtlc';
+import { WithdrawHtlc } from './withdrawHtlc';
 import { CHAIN_NAME } from '../algosigner.config';
+
+const spacing = "10px";
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState("");
