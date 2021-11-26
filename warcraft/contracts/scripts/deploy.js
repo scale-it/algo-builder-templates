@@ -23,7 +23,7 @@ async function run (runtimeEnv, deployer) {
   const asaInfo = await deployer.deployASA('warcraft-token', { creator: masterAccount });
   console.log('Warcraft Token: ', asaInfo.assetIndex);
 
-  await deployer.optInAcountToASA('warcraft-token', 'bob', {});
+  await deployer.optInAccountToASA('warcraft-token', 'bob', {});
   const sendAsaTx = {
     type: types.TransactionType.TransferAsset,
     sign: types.SignType.SecretKey,
@@ -86,7 +86,7 @@ async function run (runtimeEnv, deployer) {
   ];
 
   const appCallParams = {
-    type: types.TransactionType.CallNoOpSSC,
+    type: types.TransactionType.CallApp,
     sign: types.SignType.SecretKey,
     fromAccount: managerAcc,
     appID: appInfo.appID,
