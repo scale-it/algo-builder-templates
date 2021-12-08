@@ -1,5 +1,5 @@
 const algob = require('@algo-builder/algob');
-const { types } = require('@algo-builder/runtime');
+const { types } = require('@algo-builder/web');
 const jssha256 = require('js-sha256');
 
 let executeTransaction = algob.executeTransaction;

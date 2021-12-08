@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@algo-builder/web@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@algo-builder/web/-/web-2.0.0.tgz#36cd85fd79c1022446879cd81ff5b9fed4e849af"
-  integrity sha512-hdy7Fkk4LyfycM4OhDSI8318TPf1eW8rc39BRDBAFQb+ASPabnbn03u1LGWMTLxTNv8jgacdzIjf6+LDVp1QqA==
+"@algo-builder/web@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@algo-builder/web/-/web-2.1.0.tgz#a80d6ebe0f9f2db487522987a91f14e284a1776c"
+  integrity sha512-xFZQQf6kughKJybdCuhD+xAvPyxbfA0pYNKZrmHzCNpsJcpTLrIdn/nmJ2UZYMtr5KaG24FwH3oIuQMiXbC8Uw==
   dependencies:
     "@types/lodash.clonedeep" "^4.5.6"
-    algosdk "^1.11.1"
+    algosdk "^1.12.0"
     glob "^7.1.6"
     js-sha256 "^0.9.0"
     js-sha512 "^0.8.0"
@@ -2439,7 +2439,7 @@ algosdk@^1.10.0:
     tweetnacl "^1.0.3"
     url-parse "^1.5.1"
 
-algosdk@^1.11.1:
+algosdk@^1.12.0:
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/algosdk/-/algosdk-1.12.0.tgz#77e2a22568495210d26ecd1f830e98cc069815b5"
   integrity sha512-Iqek0AwcCeXLywVg4E8gWWjmuPZ10P7PUmpZrlR71FSNyEtX4Ie+UgrNHWhkYnhyykRU5mjtvD4Hrb2eOepsGA==
