@@ -9,6 +9,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "algosdk": "^1.10.1"
+    "algosdk": "^1.13.1"
   }
 }

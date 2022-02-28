@@ -6,27 +6,26 @@
   "devDependencies": {
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.13.8",
     "@babel/plugin-proposal-optional-chaining": "^7.13.12",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "babel-eslint": "^10.1.0",
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "eslint-plugin-sonarjs": "^0.6.0",
-    "husky": "4.3.0",
-    "lint-staged": "^10.5.4",
+    "mocha": "^9.2.0",
     "prettier": "^2.2.1",
     "react-app-rewire-yaml": "^1.1.0",
     "react-app-rewired": "^2.1.8"
   },
   "dependencies": {
+    "@algo-builder/algob": "^3.2.0",
+    "@algo-builder/web": "^3.2.0",
     "@material-ui/core": "^4.11.3",
     "@material-ui/lab": "^4.0.0-alpha.58",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "algosdk": "^1.8.0",
-    "mocha": "^8.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
@@ -41,17 +40,6 @@
     "lint": "eslint '*/*.{js,ts}'",
     "lint:fix": "eslint --fix --ext .js,.ts scripts src",
     "format": "prettier --write src/**/*.{js,jsx,css,scss}"
-  },
-  "lint-staged": {
-    "**/{src,test,scripts}/**/*.{ts,js}": [
-      "eslint --fix --ext .js,.ts scripts src",
-      "prettier --write src/**/*.{js,jsx,css,scss}"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "eslintConfig": {
     "extends": [

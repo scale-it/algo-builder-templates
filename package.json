@@ -1,0 +1,30 @@
+{
+  "name": "algo-builder-temmplates",
+  "description": "Web dapp templates powered by Algo Builder",
+  "homepage": "https://algobuilder.dev",
+  "repository": "https://github.com/scale-it/algo-builder.git",
+  "packageManager": "yarn@3.1.1",
+  "license": "Apache-2.0",
+  "private": true,
+  "workspaces": [
+    "default",
+    "htlc",
+    "monitor-payments",
+    "shop",
+    "warcraft"
+  ],
+  "engines": {
+    "node": ">=16.1.0",
+    "yarn": ">=3.1.0"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.1"
+  },
+  "lint-staged": {
+    "**/{src,test,scripts}/**/*.{ts,js}": [
+      "eslint --fix --ext .js,.ts scripts src",
+      "prettier --write src/**/*.{js,jsx,css,scss}"
+    ]
+  }
+}
