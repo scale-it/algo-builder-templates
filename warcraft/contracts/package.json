@@ -7,6 +7,9 @@
     "chai": "^4.3.4",
     "mocha": "^8.1.1"
   },
+  "dependencies": {
+    "@algo-builder/algob": "^2.0.1"
+  },
   "scripts": {
     "algob": "algob"
   }

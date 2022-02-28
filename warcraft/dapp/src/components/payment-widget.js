@@ -9,10 +9,8 @@ import { useCallback, useState } from "react";
 
 import { CHAIN_NAME } from "../algosigner.config";
 
+import { appIndex, assetIndex, toAddress } from "../config";
 const CONFIRMED_ROUND = "confirmed-round";
-const toAddress = 'ZY2DK4LQUES2BUJD3YTAGG5A4722PZNAEUTW4M6DGDD5M3MQISTTA67KFA';
-const assetIndex = 35;
-const appIndex = 38;
 
 /**
  * Get default account address from user's wallet. Returns undefined otherwise.
@@ -22,7 +20,7 @@ const appIndex = 38;
  * https://github.com/PureStake/algosigner/issues/252 is resolved.
  * Task - https://www.pivotaltracker.com/story/show/178760753
  */
-async function getDefaultAccountAddr() {
+export async function getDefaultAccountAddr() {
   const walletAccounts =
     (await AlgoSigner.accounts({
       ledger: CHAIN_NAME,
@@ -78,7 +76,8 @@ async function executePayment(fromAddress, setLoading) {
         {"Succesfully deposited Token in round: " +
           "\n" +
           JSON.stringify(confirmedTxInfo, null, 2) +
-          "\nRegistered user: " + fromAddress}
+          "\nRegistered user: " +
+          fromAddress}
       </pre>,
     ];
   } catch (error) {
@@ -104,10 +103,7 @@ export const PaymentWidget = ({ buttonText, amount }) => {
 
     if (fromAddress) {
       setResult("processing...");
-      const response = await executePayment(
-        fromAddress, 
-        setLoading
-      );
+      const response = await executePayment(fromAddress, setLoading);
       setResult(response);
     } else {
       setResult("No accounts found in wallet");

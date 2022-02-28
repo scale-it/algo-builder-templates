@@ -8,6 +8,7 @@ import { useCallback, useState } from "react";
 
 import { CHAIN_NAME } from "../algosigner.config";
 import { PaymentWidget } from "./payment-widget";
+import { detectPayment } from "./indexer";
 
 const ExampleAlgoSigner = ({ title, buttonText, buttonAction }) => {
   const [result, setResult] = useState("");
@@ -70,13 +71,22 @@ const Ticket = ({ title, buttonText, amount }) => {
 };
 
 export default function Signer() {
+  if (detectPayment() === true) {
+    return (
+      <Container>
+        <CssBaseline />
+        <Connect />
+        <Ticket title="You can play" />
+      </Container>
+    );
+  }
   return (
     <Container>
       <CssBaseline />
       <Connect />
       <Ticket
-        title="Register into warcraft app"
-        buttonText="Buy (1 Warcraft coin)"
+        title="To play the game you need to pay every week a subscription fee, Register into warcraft app"
+        buttonText="Pay (1 Warcraft coin)"
         amount={5}
       />
     </Container>

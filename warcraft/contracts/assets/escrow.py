@@ -18,6 +18,7 @@ def escrow_contract():
     # and sent by store manager, because we don't want another
     # user to opt-in too many asa/app and block this address
     opt_in = And(
+        Gtxn[0].type_enum() == TxnType.Payment,
         Gtxn[0].amount() == Int(0),
         Gtxn[0].sender() == Tmpl.Addr("TMPL_MANAGER"),
         Gtxn[1].type_enum() == TxnType.AssetTransfer,
@@ -26,14 +27,23 @@ def escrow_contract():
 
     register = And(
         commons_checks,
+        Gtxn[0].type_enum() == TxnType.AssetTransfer,
         Gtxn[1].type_enum() == TxnType.ApplicationCall,
         Gtxn[1].application_id() == Tmpl.Int("TMPL_APPLICATION_ID"),
         Gtxn[1].sender() == Gtxn[0].asset_sender()
     )
 
+    pay = And(
+        commons_checks,
+        Txn.type_enum() == TxnType.AssetTransfer,
+        Txn.asset_amount() > Int(0)
+    )
+
+    opt_in_or_register = Or(opt_in, register)
+
     program = Cond(
-        [Gtxn[0].type_enum() == TxnType.Payment, opt_in],
-        [Gtxn[0].type_enum() == TxnType.AssetTransfer, register]
+        [Global.group_size() == Int(2), opt_in_or_register],
+        [Global.group_size() == Int(1), pay]
     )
 
     return program
