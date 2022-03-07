@@ -11,7 +11,7 @@
     "htlc",
     "monitor-payments",
     "shop",
-    "warcraft"
+    "warcraft/dapp"
   ],
   "engines": {
     "node": ">=16.1.0",
