@@ -1,7 +1,11 @@
-.algoSigner {
+.mb-medium {
   margin-bottom: 25px;
 }
 
-.signerContent {
+.mb-small {
   margin-bottom: 5px;
+}
+
+.error {
+  color: red;
 }
