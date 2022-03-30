@@ -10,7 +10,8 @@
     "htlc",
     "monitor-payments",
     "shop",
-    "warcraft/dapp"
+    "warcraft/dapp",
+    "wallet-connect"
   ],
   "engines": {
     "node": ">=16.1.0",
