@@ -36,7 +36,6 @@ export default defineComponent({
 					ledger: CHAIN_NAME,
 				});
 				this.setWalletType(WalletType.ALGOSIGNER);
-				this.selectedWallet = WalletType.ALGOSIGNER;
 				console.log("Connected to AlgoSigner:", algoSignerResponse);
 				await this.getUserAccount();
 			} catch (e) {
@@ -50,10 +49,6 @@ export default defineComponent({
 			if (userAccount && userAccount.length) {
 				this.walletAddress = userAccount[0].address;
 			}
-		},
-		updateWallet(address: string, walletName: string) {
-			this.$emit("updateWalletAddress", address);
-			this.text = walletName;
 		},
 		handleLogOut() {
 			console.log("Wallet Disconnected");
