@@ -1,29 +1,35 @@
-# Nuxt 3 Minimal Starter
+# Wallet-Connect Template
 
-We recommend to look at the [documentation](https://v3.nuxtjs.org).
+This template shows how to connect a AlgoSigner wallet with a Vue.js app.
 
-## Setup
+# Steps
+### `Connect`
 
-Make sure to install the dependencies
+Click on Connect button to connect to AlgoSigner. This will dislay wallet address below on successful connection.
 
-```bash
-yarn install
-```
+### `Disconnect`
 
-## Development
+Click on Disconnect button to disconnect to AlgoSigner. This will remove wallet address below Connect button and disconnect from wallet.
 
-Start the development server on http://localhost:3000
+### `yarn dev`
 
-```bash
-yarn dev
-```
+Runs the react app in the development mode.\
+Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
-## Production
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Build the application for production:
+### `yarn test`
 
-```bash
-yarn build
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).
+### `yarn build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
