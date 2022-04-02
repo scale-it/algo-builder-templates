@@ -1,35 +1,29 @@
-# Wallet-Connect Template
+# Nuxt 3 Minimal Starter
 
-This tutorial will guide you on AlgoSigner wallet connect and disconnect.
+We recommend to look at the [documentation](https://v3.nuxtjs.org).
 
-# Steps
-### `Connect`
+## Setup
 
-Click on Connect button to connect to AlgoSigner. This will dislay wallet address below on successful connection.
+Make sure to install the dependencies
 
-### `Disconnect`
+```bash
+yarn install
+```
 
-Click on Disconnect button to disconnect to AlgoSigner. This will remove wallet address below Connect button and disconnect from wallet.
+## Development
 
-### `yarn start`
+Start the development server on http://localhost:3000
 
-Runs the react app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+yarn dev
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Production
 
-### `yarn test`
+Build the application for production:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+yarn build
+```
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment).

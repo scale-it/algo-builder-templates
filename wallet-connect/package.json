@@ -1,60 +1,56 @@
 {
-  "name": "wallet-connect",
-  "version": "1.0.0",
-  "license": "Apache-2.0",
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "chai": "^4.3.4",
-    "customize-cra": "^1.0.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-react": "^7.22.0",
-    "eslint-plugin-simple-import-sort": "^7.0.0",
-    "eslint-plugin-sonarjs": "^0.6.0",
-    "mocha": "^9.2.0",
-    "prettier": "^2.2.1",
-    "react-app-rewire-yaml": "^1.1.0",
-    "react-app-rewired": "^2.1.8"
-  },
-  "dependencies": {
-    "@algo-builder/algob": "^3.2.0",
-    "@algo-builder/web": "^3.2.0",
-    "@material-ui/core": "^4.11.3",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "algosdk": "^1.13.1",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-redux": "^7.2.6",
-    "react-scripts": "4.0.3",
-    "typescript": "^4.6.2",
-    "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-scripts eject",
-    "lint": "eslint '*/*.{js,ts}'",
-    "lint:fix": "eslint --fix --ext .js,.ts scripts src",
-    "format": "prettier --write src/**/*.{js,jsx,css,scss}"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+	"name": "sigmadao-ui",
+	"description": "Sigma DAO UI",
+	"homepage": "https://algobuilder.dev",
+	"license": "mpl-2.0",
+	"engines": {
+		"node": ">=14.11.0",
+		"yarn": ">=3.1.0"
+	},
+	"scripts": {
+		"dev": "vue-cli-service serve",
+		"build": "vue-cli-service build",
+		"lint": "yarn lint:js && yarn lint:prettier",
+		"start": "node .output/server/index.mjs",
+		"lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
+		"lint:prettier": "prettier --check .",
+		"lint:fix": "prettier --write --list-different . && yarn lint:js --fix",
+		"upgrade:dependency": "npx yarn-upgrade-all",
+		"test": "echo 'no test'"
+	},
+	"dependencies": {
+		"@algo-builder/algob": "^3.2.0",
+		"@algo-builder/web": "^3.2.0",
+		"algosdk": "^1.14.0",
+		"core-js": "^3.21.1",
+		"crypto-browserify": "^3.12.0",
+		"pinia": "^2.0.12",
+		"stream-browserify": "^3.0.0",
+		"vue": "^3.2.31",
+		"vue-router": "^4.0.14"
+	},
+	"lint-staged": {
+		"*.{js,ts,vue}": "eslint --cache",
+		"*.**": "prettier --ignore-unknown --write"
+	},
+	"packageManager": "yarn@3.2.0",
+	"devDependencies": {
+		"@babel/core": "^7.17.7",
+		"@babel/eslint-parser": "^7.17.0",
+		"@typescript-eslint/eslint-plugin": "^5.3.1",
+		"@typescript-eslint/parser": "^5.3.1",
+		"@vue/cli-plugin-babel": "^5.0.1",
+		"@vue/cli-plugin-eslint": "^5.0.1",
+		"@vue/cli-plugin-typescript": "^5.0.1",
+		"@vue/cli-service": "^5.0.1",
+		"@vue/compiler-sfc": "^3.2.31",
+		"@vue/eslint-config-typescript": "^10.0.0",
+		"eslint": "^8.11.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-vue": "^8.5.0",
+		"jest": "^27.5.1",
+		"lint-staged": "^12.3.5",
+		"prettier": "^2.5.1",
+		"typescript": "^4.6.2"
+	}
 }
