@@ -1,10 +1,22 @@
 <template>
   <div class="header">
-    <button type="button" class="walletButton" @click="connectAlgoSigner">
-      Connect AlgoSigner
-    </button>
+    <select @change="connectWallet">
+      <option :value="0" :key="0">Select a wallet</option>
+      <option
+        v-for="option in walletsAvailable"
+        :value="option.value"
+        :key="option.id"
+      >
+        {{ option.value }}
+      </option>
+    </select>
     <p v-if="walletAddress">Address: {{ walletAddress }}</p>
-    <button type="button" class="walletButton" @click="handleLogOut">
+    <button
+      v-if="walletAddress"
+      type="button"
+      class="walletButton"
+      @click="handleLogOut"
+    >
       Disconnect AlgoSigner
     </button>
   </div>
@@ -22,6 +34,20 @@ export default defineComponent({
   data() {
     return {
       walletAddress: "",
+      walletsAvailable: [
+        {
+          id: 1,
+          value: WalletType.ALGOSIGNER,
+        },
+        {
+          id: 2,
+          value: WalletType.MY_ALGO,
+        },
+        {
+          id: 3,
+          value: WalletType.WALLET_CONNECT,
+        },
+      ],
     };
   },
   setup() {
@@ -31,6 +57,19 @@ export default defineComponent({
     };
   },
   methods: {
+    async connectWallet(e: any) {
+      switch (e.target.value) {
+        case WalletType.ALGOSIGNER:
+          this.connectAlgoSigner();
+          break;
+        case WalletType.MY_ALGO:
+          break;
+        case WalletType.WALLET_CONNECT:
+          break;
+        default:
+          console.warn("Wallet %s not supported", e.target.value);
+      }
+    },
     async connectAlgoSigner() {
       try {
         const algoSignerResponse = await AlgoSigner.connect({
