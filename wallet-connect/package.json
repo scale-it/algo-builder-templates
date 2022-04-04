@@ -1,8 +1,8 @@
 {
-	"name": "sigmadao-ui",
-	"description": "Sigma DAO UI",
+	"name": "wallet-connect",
+	"description": "Wallet connect template to connect to wallets.",
 	"homepage": "https://algobuilder.dev",
-	"license": "mpl-2.0",
+	"license": "ISC",
 	"engines": {
 		"node": ">=14.11.0",
 		"yarn": ">=3.1.0"
@@ -15,7 +15,6 @@
 		"lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
 		"lint:prettier": "prettier --check .",
 		"lint:fix": "prettier --write --list-different . && yarn lint:js --fix",
-		"upgrade:dependency": "npx yarn-upgrade-all",
 		"test": "echo 'no test'"
 	},
 	"dependencies": {
@@ -49,7 +48,6 @@
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-vue": "^8.5.0",
 		"jest": "^27.5.1",
-		"lint-staged": "^12.3.5",
 		"prettier": "^2.5.1",
 		"typescript": "^4.6.2"
 	}

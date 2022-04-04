@@ -2,7 +2,7 @@
 
 This template shows how to connect a AlgoSigner wallet with a Vue.js app.
 
-# Steps
+# Functionality
 ### `Connect`
 
 Click on Connect button to connect to AlgoSigner. This will dislay wallet address below on successful connection.
@@ -10,6 +10,8 @@ Click on Connect button to connect to AlgoSigner. This will dislay wallet addres
 ### `Disconnect`
 
 Click on Disconnect button to disconnect to AlgoSigner. This will remove wallet address below Connect button and disconnect from wallet.
+
+## Building
 
 ### `yarn dev`
 
