@@ -26,10 +26,6 @@
 		"stream-browserify": "^3.0.0",
 		"vue": "^3.2.31"
 	},
-	"lint-staged": {
-		"*.{js,ts,vue}": "eslint --cache",
-		"*.**": "prettier --ignore-unknown --write"
-	},
 	"packageManager": "yarn@3.2.0",
 	"devDependencies": {
 		"@babel/core": "^7.17.7",
