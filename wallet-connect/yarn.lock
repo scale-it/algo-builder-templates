@@ -11234,9 +11234,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wallet-connect@workspace:.":
+"wallet-connect-template@workspace:.":
   version: 0.0.0-use.local
-  resolution: "wallet-connect@workspace:."
+  resolution: "wallet-connect-template@workspace:."
   dependencies:
     "@algo-builder/algob": ^3.2.0
     "@algo-builder/web": ^3.2.0
