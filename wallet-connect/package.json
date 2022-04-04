@@ -24,8 +24,7 @@
 		"crypto-browserify": "^3.12.0",
 		"pinia": "^2.0.12",
 		"stream-browserify": "^3.0.0",
-		"vue": "^3.2.31",
-		"vue-router": "^4.0.14"
+		"vue": "^3.2.31"
 	},
 	"lint-staged": {
 		"*.{js,ts,vue}": "eslint --cache",
