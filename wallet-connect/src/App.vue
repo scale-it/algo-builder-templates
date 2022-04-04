@@ -17,7 +17,7 @@
       class="walletButton"
       @click="handleLogOut"
     >
-      Disconnect AlgoSigner
+      Disconnect {{ selectedWallet }}
     </button>
   </div>
 </template>
@@ -34,6 +34,7 @@ export default defineComponent({
   data() {
     return {
       walletAddress: "",
+      selectedWallet: WalletType.NONE,
       walletsAvailable: [
         {
           id: 1,
@@ -69,6 +70,7 @@ export default defineComponent({
         default:
           console.warn("Wallet %s not supported", e.target.value);
       }
+      this.selectedWallet = e.target.value;
     },
     async connectAlgoSigner() {
       try {
