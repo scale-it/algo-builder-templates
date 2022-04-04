@@ -24,9 +24,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { CHAIN_NAME } from "./config/algosigner.config";
-import { WalletType } from "./types/enum.types";
+import { WalletType, ChainType } from "./types/enum.types";
 import WalletStore from "./store/WalletStore";
+import { MyAlgoWalletSession, WallectConnectSession } from "@algo-builder/web";
 declare var AlgoSigner: any; // eslint-disable-line
 
 export default defineComponent({
@@ -59,23 +59,33 @@ export default defineComponent({
   },
   methods: {
     async connectWallet(e: any) {
+      let myAlgo = null;
+      let walletConnector = null;
       switch (e.target.value) {
         case WalletType.ALGOSIGNER:
           this.connectAlgoSigner();
           break;
         case WalletType.MY_ALGO:
+          myAlgo = new MyAlgoWalletSession(ChainType.MainNet);
+          await myAlgo.connectToMyAlgo();
           break;
         case WalletType.WALLET_CONNECT:
+          walletConnector = new WallectConnectSession(ChainType.MainNet);
+          await walletConnector.create(true);
+          walletConnector.onConnect((error, response) =>
+            console.log(error, response)
+          );
           break;
         default:
           console.warn("Wallet %s not supported", e.target.value);
       }
+
       this.selectedWallet = e.target.value;
     },
     async connectAlgoSigner() {
       try {
         const algoSignerResponse = await AlgoSigner.connect({
-          ledger: CHAIN_NAME,
+          ledger: ChainType.MainNet,
         });
         this.setWalletType(WalletType.ALGOSIGNER);
         console.log("Connected to AlgoSigner:", algoSignerResponse);
@@ -86,7 +96,7 @@ export default defineComponent({
     },
     async getUserAccount() {
       const userAccount = await AlgoSigner.accounts({
-        ledger: CHAIN_NAME,
+        ledger: ChainType.MainNet,
       });
       if (userAccount && userAccount.length) {
         this.walletAddress = userAccount[0].address;

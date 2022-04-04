@@ -4,3 +4,9 @@ export enum WalletType {
 	MY_ALGO = "My Algo Connect",
 	WALLET_CONNECT = "Wallet Connect",
 }
+
+// algosigner ledger name [ MainNet | TestNet | <private_net_display_name> ]
+export enum ChainType {
+	MainNet = "MainNet",
+	TestNet = "TestNet",
+}
