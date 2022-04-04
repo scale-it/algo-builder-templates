@@ -1,7 +1,6 @@
 {
 	"name": "wallet-connect",
-	"description": "Wallet connect template to connect to wallets.",
-	"homepage": "https://algobuilder.dev",
+	"version": "1.0.0",
 	"license": "ISC",
 	"engines": {
 		"node": ">=14.11.0",
