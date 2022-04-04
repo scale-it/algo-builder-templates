@@ -3,15 +3,18 @@
 This template shows how to connect a AlgoSigner wallet with a Vue.js app.
 
 # Config
+
 The file present at `/src/config/algosigner.config.ts` is used for ledger name (MainNet, TestNet, Private-Net). By default it is being set to MainNet.
 
 # Supported Wallets
+
 The follwing wallets are supported:
 - AlgoSigner
 - My Algo Connect
 - Wallet Connect
 
 # Functionality
+
 ### `Connect`
 
 Click on Connect button to connect to AlgoSigner. This will dislay wallet address below on successful connection.
