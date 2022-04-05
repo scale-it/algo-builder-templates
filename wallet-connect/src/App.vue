@@ -68,13 +68,18 @@ export default defineComponent({
         case WalletType.MY_ALGO:
           myAlgo = new MyAlgoWalletSession(ChainType.MainNet);
           await myAlgo.connectToMyAlgo();
+          if (myAlgo.accounts.length) {
+            this.walletAddress = myAlgo.accounts[0].address;
+          }
           break;
         case WalletType.WALLET_CONNECT:
           walletConnector = new WallectConnectSession(ChainType.MainNet);
           await walletConnector.create(true);
-          walletConnector.onConnect((error, response) =>
-            console.log(error, response)
-          );
+          walletConnector.onConnect((error, response) => {
+            if (response.accounts.length) {
+              this.walletAddress = response.accounts[0];
+            }
+          });
           break;
         default:
           console.warn("Wallet %s not supported", e.target.value);

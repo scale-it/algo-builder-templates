@@ -9,6 +9,7 @@ The file present at `/src/config/algosigner.config.ts` is used for ledger name (
 # Supported Wallets
 
 The follwing wallets are supported:
+
 - AlgoSigner
 - My Algo Connect
 - Wallet Connect
