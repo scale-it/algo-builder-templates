@@ -63,27 +63,15 @@ export default defineComponent({
   },
   methods: {
     async connectWallet(e: any) {
-      let myAlgo = null;
-      let walletConnector = null;
       switch (e.target.value) {
         case WalletType.ALGOSIGNER:
           this.connectAlgoSigner();
           break;
         case WalletType.MY_ALGO:
-          myAlgo = new MyAlgoWalletSession(ChainType.MainNet);
-          await myAlgo.connectToMyAlgo();
-          if (myAlgo.accounts.length) {
-            this.walletAddress = myAlgo.accounts[0].address;
-          }
+          this.connectMyAlgoWallet();
           break;
         case WalletType.WALLET_CONNECT:
-          walletConnector = new WallectConnectSession(ChainType.MainNet);
-          await walletConnector.create(true);
-          walletConnector.onConnect((error, response) => {
-            if (response.accounts.length) {
-              this.walletAddress = response.accounts[0];
-            }
-          });
+          this.connectWalletConnect();
           break;
         default:
           console.warn("Wallet %s not supported", e.target.value);
@@ -101,6 +89,30 @@ export default defineComponent({
         this.setWalletType(WalletType.ALGOSIGNER);
         console.log("Connected to AlgoSigner:", algoSignerResponse);
         await this.getUserAccount();
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async connectMyAlgoWallet() {
+      try {
+        let myAlgo = new MyAlgoWalletSession(ChainType.MainNet);
+        await myAlgo.connectToMyAlgo();
+        if (myAlgo.accounts.length) {
+          this.walletAddress = myAlgo.accounts[0].address;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async connectWalletConnect() {
+      try {
+        let walletConnector = new WallectConnectSession(ChainType.MainNet);
+        await walletConnector.create(true);
+        walletConnector.onConnect((error, response) => {
+          if (response.accounts.length) {
+            this.walletAddress = response.accounts[0];
+          }
+        });
       } catch (e) {
         console.error(e);
       }
