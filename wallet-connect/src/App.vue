@@ -26,7 +26,11 @@
 import { defineComponent } from "vue";
 import { WalletType, ChainType } from "./types/enum.types";
 import WalletStore from "./store/WalletStore";
-import { MyAlgoWalletSession, WallectConnectSession } from "@algo-builder/web";
+import {
+  MyAlgoWalletSession,
+  WallectConnectSession,
+  WebMode,
+} from "@algo-builder/web";
 declare var AlgoSigner: any; // eslint-disable-line
 
 export default defineComponent({
@@ -89,6 +93,8 @@ export default defineComponent({
     },
     async connectAlgoSigner() {
       try {
+        const webMode = new WebMode(AlgoSigner, ChainType.MainNet);
+        console.log("WebMode initialized: ", webMode);
         const algoSignerResponse = await AlgoSigner.connect({
           ledger: ChainType.MainNet,
         });
