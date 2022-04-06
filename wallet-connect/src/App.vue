@@ -24,7 +24,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { WalletType, ChainType } from "./types/enum.types";
+import { WalletType } from "./types/enum.types";
+import { ChainType } from "./constants";
 import WalletStore from "./store/WalletStore";
 import {
   MyAlgoWalletSession,
@@ -109,8 +110,8 @@ export default defineComponent({
         let walletConnector = new WallectConnectSession(ChainType.MainNet);
         await walletConnector.create(true);
         walletConnector.onConnect((error, response) => {
-          if (response.accounts.length) {
-            this.walletAddress = response.accounts[0];
+          if (response.wcAccounts.length) {
+            this.walletAddress = response.wcAccounts[0];
           }
         });
       } catch (e) {
