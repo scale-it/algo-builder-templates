@@ -1,4 +1,4 @@
-# Wallet-Connect Template
+# Wallet Template
 
 This template shows how to connect a AlgoSigner wallet with a Vue.js app.
 
