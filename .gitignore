@@ -106,3 +106,7 @@ dist
 
 # algo-builder artifacts
 artifacts
+.DS_Store
+
+.yalc/*
+wallet-connect/.yalc/
