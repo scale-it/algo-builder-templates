@@ -6,7 +6,7 @@ This template shows how to connect a AlgoSigner wallet with a Vue.js app.
 
 The file present at `/src/constant/index.ts` is used for ledger name (MainNet, TestNet, Private-Net). By default it is being set to MainNet.
 
-# Supported Wallets
+## Supported Wallets
 
 The follwing wallets are supported:
 
