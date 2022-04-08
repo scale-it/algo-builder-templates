@@ -14,7 +14,7 @@ The follwing wallets are supported:
 - My Algo Connect
 - Wallet Connect
 
-# Functionality
+## Functionality
 
 ### `Connect`
 
