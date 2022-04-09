@@ -10,36 +10,42 @@
         {{ option.value }}
       </option>
     </select>
-    <p v-if="walletAddress">Address: {{ walletAddress }}</p>
-    <button
-      v-if="walletAddress"
-      type="button"
-      class="walletButton"
-      @click="handleLogOut"
-    >
-      Disconnect {{ selectedWallet }}
-    </button>
+    <div class="header" v-if="walletAddress">
+      <p>Address: {{ walletAddress }}</p>
+      <button
+        type="button"
+        class="walletButton"
+        @click="executeTransaction(1e2)"
+      >
+        Send 10 Algo
+      </button>
+      <p v-if="transactionMessage">{{ transactionMessage }}</p>
+      <button type="button" class="walletButton" @click="handleLogOut">
+        Disconnect {{ selectedWallet }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { WalletType } from "./types/enum.types";
-import { ChainType } from "./constants";
+import { WalletType } from "./types";
+import { toAddress, CHAIN_NAME } from "./constants";
 import WalletStore from "./store/WalletStore";
 import {
-  MyAlgoWalletSession,
+  // MyAlgoWalletSession,
   WallectConnectSession,
   WebMode,
+  types,
 } from "@algo-builder/web";
 declare var AlgoSigner: any; // eslint-disable-line
-
 export default defineComponent({
   name: "App",
   data() {
     return {
       walletAddress: "",
       selectedWallet: WalletType.NONE,
+      transactionMessage: "",
       walletsAvailable: [
         {
           id: 1,
@@ -59,7 +65,7 @@ export default defineComponent({
   setup() {
     const walletStore = WalletStore();
     return {
-      setWalletType: walletStore.setWalletType,
+      walletStore,
     };
   },
   methods: {
@@ -77,17 +83,16 @@ export default defineComponent({
         default:
           console.warn("Wallet %s not supported", e.target.value);
       }
-
       this.selectedWallet = e.target.value;
     },
     async connectAlgoSigner() {
       try {
-        const webMode = new WebMode(AlgoSigner, ChainType.MainNet);
-        console.log("WebMode initialized: ", webMode);
+        const webMode = new WebMode(AlgoSigner, CHAIN_NAME);
+        this.walletStore.setWebMode(webMode);
         const algoSignerResponse = await AlgoSigner.connect({
-          ledger: ChainType.MainNet,
+          ledger: CHAIN_NAME,
         });
-        this.setWalletType(WalletType.ALGOSIGNER);
+        this.walletStore.setWalletType(WalletType.ALGOSIGNER);
         console.log("Connected to AlgoSigner:", algoSignerResponse);
         await this.getUserAccount();
       } catch (e) {
@@ -96,31 +101,31 @@ export default defineComponent({
     },
     async connectMyAlgoWallet() {
       try {
-        let myAlgo = new MyAlgoWalletSession(ChainType.MainNet);
-        await myAlgo.connectToMyAlgo();
-        if (myAlgo.accounts.length) {
-          this.walletAddress = myAlgo.accounts[0].address;
-        }
+        // let myAlgo = new MyAlgoWalletSession(CHAIN_NAME);
+        // await myAlgo.connectToMyAlgo();
+        // if (myAlgo.accounts.length) {
+        //   this.walletAddress = myAlgo.accounts[0].address;
+        // }
       } catch (e) {
         console.error(e);
       }
     },
     async connectWalletConnect() {
       try {
-        let walletConnector = new WallectConnectSession(ChainType.MainNet);
-        await walletConnector.create(true);
-        walletConnector.onConnect((error, response) => {
-          if (response.wcAccounts.length) {
-            this.walletAddress = response.wcAccounts[0];
-          }
-        });
+        // let walletConnector = new WallectConnectSession(CHAIN_NAME);
+        // await walletConnector.create(true);
+        // walletConnector.onConnect((error, response) => {
+        //   if (response.wcAccounts.length) {
+        //     this.walletAddress = response.wcAccounts[0];
+        //   }
+        // });
       } catch (e) {
         console.error(e);
       }
     },
     async getUserAccount() {
       const userAccount = await AlgoSigner.accounts({
-        ledger: ChainType.MainNet,
+        ledger: CHAIN_NAME,
       });
       if (userAccount && userAccount.length) {
         this.walletAddress = userAccount[0].address;
@@ -129,7 +134,30 @@ export default defineComponent({
     handleLogOut() {
       console.log("Wallet Disconnected");
       this.walletAddress = "";
-      this.setWalletType(WalletType.NONE);
+      this.walletStore.setWalletType(WalletType.NONE);
+    },
+    async executeTransaction(amount: number) {
+      try {
+        const webMode = this.walletStore.getWebMode;
+        const txParams: types.ExecParams[] = [
+          {
+            type: types.TransactionType.TransferAlgo,
+            sign: types.SignType.SecretKey,
+            fromAccount: { addr: this.walletAddress, sk: new Uint8Array(0) },
+            toAccountAddr: toAddress,
+            amountMicroAlgos: amount,
+            payFlags: { totalFee: 1000 },
+          },
+        ];
+        let response = await webMode.executeTx(txParams);
+        this.transactionMessage =
+          amount / 1e6 +
+          " Algos has been trasnferred on this address: " +
+          toAddress;
+        console.log(response);
+      } catch (error) {
+        console.warn(error);
+      }
     },
   },
 });
