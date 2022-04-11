@@ -12,12 +12,11 @@
     </select>
     <div class="header" v-if="walletAddress">
       <p>Address: {{ walletAddress }}</p>
-      <button
-        type="button"
-        class="walletButton"
-        @click="executeTransaction(1e2)"
-      >
+      <button type="button" class="walletButton" @click="executeTx(10e6)">
         Send 10 Algo
+      </button>
+      <button type="button" class="walletButton" @click="executeAppTx">
+        Application Call
       </button>
       <p v-if="transactionMessage">{{ transactionMessage }}</p>
       <button type="button" class="walletButton" @click="handleLogOut">
@@ -33,7 +32,7 @@ import { WalletType } from "./types";
 import { toAddress, CHAIN_NAME } from "./constants";
 import WalletStore from "./store/WalletStore";
 import {
-  // MyAlgoWalletSession,
+  MyAlgoWalletSession,
   WallectConnectSession,
   WebMode,
   types,
@@ -101,24 +100,24 @@ export default defineComponent({
     },
     async connectMyAlgoWallet() {
       try {
-        // let myAlgo = new MyAlgoWalletSession(CHAIN_NAME);
-        // await myAlgo.connectToMyAlgo();
-        // if (myAlgo.accounts.length) {
-        //   this.walletAddress = myAlgo.accounts[0].address;
-        // }
+        let myAlgo = new MyAlgoWalletSession(CHAIN_NAME);
+        await myAlgo.connectToMyAlgo();
+        if (myAlgo.accounts.length) {
+          this.walletAddress = myAlgo.accounts[0].address;
+        }
       } catch (e) {
         console.error(e);
       }
     },
     async connectWalletConnect() {
       try {
-        // let walletConnector = new WallectConnectSession(CHAIN_NAME);
-        // await walletConnector.create(true);
-        // walletConnector.onConnect((error, response) => {
-        //   if (response.wcAccounts.length) {
-        //     this.walletAddress = response.wcAccounts[0];
-        //   }
-        // });
+        let walletConnector = new WallectConnectSession(CHAIN_NAME);
+        await walletConnector.create(true);
+        walletConnector.onConnect((error, response) => {
+          if (response.wcAccounts.length) {
+            this.walletAddress = response.wcAccounts[0];
+          }
+        });
       } catch (e) {
         console.error(e);
       }
@@ -136,7 +135,7 @@ export default defineComponent({
       this.walletAddress = "";
       this.walletStore.setWalletType(WalletType.NONE);
     },
-    async executeTransaction(amount: number) {
+    async executeTx(amount: number) {
       try {
         const webMode = this.walletStore.getWebMode;
         const txParams: types.ExecParams[] = [
@@ -154,6 +153,25 @@ export default defineComponent({
           amount / 1e6 +
           " Algos has been trasnferred on this address: " +
           toAddress;
+        console.log(response);
+      } catch (error) {
+        console.warn(error);
+      }
+    },
+    async executeAppTx() {
+      try {
+        const webMode = this.walletStore.getWebMode;
+        const execParams: types.ExecParams[] = [
+          {
+            type: types.TransactionType.CallApp,
+            sign: types.SignType.SecretKey,
+            fromAccount: { addr: this.walletAddress, sk: new Uint8Array(0) },
+            appID: 189,
+            payFlags: { totalFee: 1000 },
+          },
+        ];
+        let response = await webMode.executeTx(execParams);
+        this.transactionMessage = "App has been deployed.";
         console.log(response);
       } catch (error) {
         console.warn(error);
