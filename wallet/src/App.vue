@@ -15,7 +15,7 @@
       <button type="button" class="walletButton" @click="executeTx(10e6)">
         Send 10 Algo
       </button>
-      <button type="button" class="walletButton" @click="executeAppTx">
+      <button type="button" class="walletButton" @click="executeAppTx(189)">
         Application Call
       </button>
       <p v-if="transactionMessage">{{ transactionMessage }}</p>
@@ -160,7 +160,7 @@ export default defineComponent({
         console.warn(error);
       }
     },
-    async executeAppTx() {
+    async executeAppTx(applicationID: number) {
       try {
         const webMode = this.walletStore.getWebMode;
         const execParams: wtypes.ExecParams[] = [
@@ -168,12 +168,12 @@ export default defineComponent({
             type: wtypes.TransactionType.CallApp,
             sign: wtypes.SignType.SecretKey,
             fromAccount: { addr: this.walletAddress, sk: new Uint8Array(0) },
-            appID: 189,
+            appID: applicationID,
             payFlags: { totalFee: 1000 },
           },
         ];
         let response = await webMode.executeTx(execParams);
-        this.transactionMessage = "App has been deployed.";
+        this.transactionMessage = "App has been called.";
         console.log(response);
       } catch (error) {
         console.warn(error);

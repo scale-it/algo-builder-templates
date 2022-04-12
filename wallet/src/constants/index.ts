@@ -1,8 +1,4 @@
-// algosigner ledger name [ MainNet | TestNet | <private_net_display_name> ]
-export enum ChainType {
-    MainNet = "MainNet",
-    TestNet = "TestNet",
-}
+import { ChainType } from "../types";
 
 export const CHAIN_NAME: ChainType = ChainType.TestNet;
 
