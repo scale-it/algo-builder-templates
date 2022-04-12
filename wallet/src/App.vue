@@ -12,10 +12,18 @@
     </select>
     <div class="header" v-if="walletAddress">
       <p>Address: {{ walletAddress }}</p>
-      <button type="button" class="walletButton" @click="executeTx(10e6)">
+      <button
+        type="button"
+        class="walletButton"
+        @click="executeTx(this.amount)"
+      >
         Send 10 Algo
       </button>
-      <button type="button" class="walletButton" @click="executeAppTx(189)">
+      <button
+        type="button"
+        class="walletButton"
+        @click="executeAppTx(this.applicationId)"
+      >
         Application Call
       </button>
       <p v-if="transactionMessage">{{ transactionMessage }}</p>
@@ -29,7 +37,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { WalletType } from "./types";
-import { toAddress, CHAIN_NAME } from "./constants";
+import { toAddress, CHAIN_NAME, amount, applicationId } from "./constants";
 import WalletStore from "./store/WalletStore";
 import {
   MyAlgoWalletSession,
@@ -46,6 +54,8 @@ export default defineComponent({
       walletAddress: "",
       selectedWallet: WalletType.NONE,
       transactionMessage: "",
+      amount: amount,
+      applicationId: applicationId,
       walletsAvailable: [
         {
           id: 1,
