@@ -9,5 +9,5 @@ export enum WalletType {
 export enum ChainType {
 	MainNet = "MainNet",
 	TestNet = "TestNet",
-	Private = "your_private_netowkr"  // replace it with your private network
+	Private = "your_private_network"  // replace it with your private network
 }
