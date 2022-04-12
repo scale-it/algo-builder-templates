@@ -37,6 +37,7 @@ import {
   WebMode,
   types as wtypes,
 } from "@algo-builder/web";
+import { convertMicroAlgoToAlgo } from "./utility";
 declare var AlgoSigner: any; // eslint-disable-line
 export default defineComponent({
   name: "App",
@@ -137,9 +138,10 @@ export default defineComponent({
       this.walletAddress = "";
       this.walletStore.setWalletType(WalletType.NONE);
     },
-    async executeTx(amount: bigint | number) {
+    async executeTx(amount: number) {
       try {
         const webMode = this.walletStore.getWebMode;
+        const algo: number = convertMicroAlgoToAlgo(amount);
         const txParams: wtypes.ExecParams[] = [
           {
             type: wtypes.TransactionType.TransferAlgo,
@@ -152,9 +154,7 @@ export default defineComponent({
         ];
         let response = await webMode.executeTx(txParams);
         this.transactionMessage =
-          amount / 1e6 +
-          " Algos has been trasnferred on this address: " +
-          toAddress;
+          algo + " Algos has been trasnferred on this address: " + toAddress;
         console.log(response);
       } catch (error) {
         console.warn(error);
