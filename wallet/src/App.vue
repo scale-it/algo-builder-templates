@@ -135,7 +135,7 @@ export default defineComponent({
       this.walletAddress = "";
       this.walletStore.setWalletType(WalletType.NONE);
     },
-    async executeTx(amount: number) {
+    async executeTx(amount: bigint | number) {
       try {
         const webMode = this.walletStore.getWebMode;
         const txParams: types.ExecParams[] = [
