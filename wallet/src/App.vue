@@ -35,7 +35,7 @@ import {
   MyAlgoWalletSession,
   WallectConnectSession,
   WebMode,
-  types,
+  types as wtypes,
 } from "@algo-builder/web";
 declare var AlgoSigner: any; // eslint-disable-line
 export default defineComponent({
@@ -102,6 +102,7 @@ export default defineComponent({
       try {
         let myAlgo = new MyAlgoWalletSession(CHAIN_NAME);
         await myAlgo.connectToMyAlgo();
+        this.walletStore.setWebMode(myAlgo);
         if (myAlgo.accounts.length) {
           this.walletAddress = myAlgo.accounts[0].address;
         }
@@ -113,6 +114,7 @@ export default defineComponent({
       try {
         let walletConnector = new WallectConnectSession(CHAIN_NAME);
         await walletConnector.create(true);
+        this.walletStore.setWebMode(walletConnector);
         walletConnector.onConnect((error, response) => {
           if (response.wcAccounts.length) {
             this.walletAddress = response.wcAccounts[0];
@@ -138,10 +140,10 @@ export default defineComponent({
     async executeTx(amount: bigint | number) {
       try {
         const webMode = this.walletStore.getWebMode;
-        const txParams: types.ExecParams[] = [
+        const txParams: wtypes.ExecParams[] = [
           {
-            type: types.TransactionType.TransferAlgo,
-            sign: types.SignType.SecretKey,
+            type: wtypes.TransactionType.TransferAlgo,
+            sign: wtypes.SignType.SecretKey,
             fromAccount: { addr: this.walletAddress, sk: new Uint8Array(0) },
             toAccountAddr: toAddress,
             amountMicroAlgos: amount,
@@ -161,10 +163,10 @@ export default defineComponent({
     async executeAppTx() {
       try {
         const webMode = this.walletStore.getWebMode;
-        const execParams: types.ExecParams[] = [
+        const execParams: wtypes.ExecParams[] = [
           {
-            type: types.TransactionType.CallApp,
-            sign: types.SignType.SecretKey,
+            type: wtypes.TransactionType.CallApp,
+            sign: wtypes.SignType.SecretKey,
             fromAccount: { addr: this.walletAddress, sk: new Uint8Array(0) },
             appID: 189,
             payFlags: { totalFee: 1000 },
