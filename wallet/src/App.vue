@@ -1,43 +1,55 @@
 <template>
   <div class="header">
-    <select @change="connectWallet">
-      <option :value="0" :key="0">Select a wallet</option>
+    <select @change="handleNetworkChange">
+      <option :value="0" :key="0">Select a network</option>
       <option
-        v-for="option in walletsAvailable"
+        v-for="option in networkAvailable"
         :value="option.value"
         :key="option.id"
       >
         {{ option.value }}
       </option>
     </select>
-    <div class="header" v-if="walletAddress">
-      <p>Address: {{ walletAddress }}</p>
-      <button
-        type="button"
-        class="walletButton"
-        @click="executeTx(this.amount)"
-      >
-        Send 10 Algo
-      </button>
-      <button
-        type="button"
-        class="walletButton"
-        @click="executeAppTx(this.applicationId)"
-      >
-        Application Call
-      </button>
-      <p v-if="transactionMessage">{{ transactionMessage }}</p>
-      <button type="button" class="walletButton" @click="handleLogOut">
-        Disconnect {{ selectedWallet }}
-      </button>
+    <div class="header" v-if="walletStore.network">
+      <select @change="connectWallet">
+        <option :value="0" :key="0">Select a wallet</option>
+        <option
+          v-for="option in walletsAvailable"
+          :value="option.value"
+          :key="option.id"
+        >
+          {{ option.value }}
+        </option>
+      </select>
+      <div class="header" v-if="walletAddress">
+        <p>Address: {{ walletAddress }}</p>
+        <button
+          type="button"
+          class="walletButton"
+          @click="executeTx(this.amount)"
+        >
+          Send 10 Algo
+        </button>
+        <button
+          type="button"
+          class="walletButton"
+          @click="executeAppTx(this.applicationId)"
+        >
+          Application Call
+        </button>
+        <p v-if="transactionMessage">{{ transactionMessage }}</p>
+        <button type="button" class="walletButton" @click="handleLogOut">
+          Disconnect {{ walletStore.walletKind }}
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { WalletType } from "./types";
-import { toAddress, CHAIN_NAME, amount, applicationId } from "./constants";
+import { NetworkType, WalletType } from "./types";
+import { toAddress, amount, applicationId } from "./constants";
 import WalletStore from "./store/WalletStore";
 import {
   MyAlgoWalletSession,
@@ -47,12 +59,12 @@ import {
 } from "@algo-builder/web";
 import { convertMicroAlgoToAlgo } from "./utility";
 declare var AlgoSigner: any; // eslint-disable-line
+
 export default defineComponent({
   name: "App",
   data() {
     return {
       walletAddress: "",
-      selectedWallet: WalletType.NONE,
       transactionMessage: "",
       amount: amount,
       applicationId: applicationId,
@@ -70,6 +82,24 @@ export default defineComponent({
           value: WalletType.WALLET_CONNECT,
         },
       ],
+      networkAvailable: [
+        {
+          id: 1,
+          value: NetworkType.MainNet,
+        },
+        {
+          id: 2,
+          value: NetworkType.TestNet,
+        },
+        {
+          id: 3,
+          value: NetworkType.BetaNet,
+        },
+        {
+          id: 4,
+          value: NetworkType.LocalNet,
+        },
+      ],
     };
   },
   setup() {
@@ -80,27 +110,37 @@ export default defineComponent({
   },
   methods: {
     async connectWallet(e: any) {
-      switch (e.target.value) {
-        case WalletType.ALGOSIGNER:
-          this.connectAlgoSigner();
-          break;
-        case WalletType.MY_ALGO:
-          this.connectMyAlgoWallet();
-          break;
-        case WalletType.WALLET_CONNECT:
-          this.connectWalletConnect();
-          break;
-        default:
-          console.warn("Wallet %s not supported", e.target.value);
+      if (e.target.value) {
+        let walletType = e.target.value;
+        switch (walletType) {
+          case WalletType.ALGOSIGNER:
+            this.connectAlgoSigner();
+            break;
+          case WalletType.MY_ALGO:
+            this.connectMyAlgoWallet();
+            break;
+          case WalletType.WALLET_CONNECT:
+            this.connectWalletConnect();
+            break;
+          default:
+            console.warn("Wallet %s not supported", walletType);
+        }
+        this.walletStore.setWalletType(walletType);
       }
-      this.selectedWallet = e.target.value;
+    },
+    async handleNetworkChange(e: any) {
+      if (e.target.value) {
+        this.handleLogOut();
+        let networkType = e.target.value;
+        this.walletStore.setNetworkType(networkType);
+      }
     },
     async connectAlgoSigner() {
       try {
-        const webMode = new WebMode(AlgoSigner, CHAIN_NAME);
+        const webMode = new WebMode(AlgoSigner, this.walletStore.network);
         this.walletStore.setWebMode(webMode);
         const algoSignerResponse = await AlgoSigner.connect({
-          ledger: CHAIN_NAME,
+          ledger: this.walletStore.network,
         });
         this.walletStore.setWalletType(WalletType.ALGOSIGNER);
         console.log("Connected to AlgoSigner:", algoSignerResponse);
@@ -111,7 +151,7 @@ export default defineComponent({
     },
     async connectMyAlgoWallet() {
       try {
-        let myAlgo = new MyAlgoWalletSession(CHAIN_NAME);
+        let myAlgo = new MyAlgoWalletSession(this.walletStore.network);
         await myAlgo.connectToMyAlgo();
         this.walletStore.setWebMode(myAlgo);
         if (myAlgo.accounts.length) {
@@ -123,7 +163,9 @@ export default defineComponent({
     },
     async connectWalletConnect() {
       try {
-        let walletConnector = new WallectConnectSession(CHAIN_NAME);
+        let walletConnector = new WallectConnectSession(
+          this.walletStore.network
+        );
         await walletConnector.create(true);
         this.walletStore.setWebMode(walletConnector);
         walletConnector.onConnect((error, response) => {
@@ -137,7 +179,7 @@ export default defineComponent({
     },
     async getUserAccount() {
       const userAccount = await AlgoSigner.accounts({
-        ledger: CHAIN_NAME,
+        ledger: this.walletStore.network,
       });
       if (userAccount && userAccount.length) {
         this.walletAddress = userAccount[0].address;
@@ -147,6 +189,7 @@ export default defineComponent({
       console.log("Wallet Disconnected");
       this.walletAddress = "";
       this.walletStore.setWalletType(WalletType.NONE);
+      this.walletStore.setNetworkType(NetworkType.NONE);
     },
     async executeTx(amount: number) {
       try {
