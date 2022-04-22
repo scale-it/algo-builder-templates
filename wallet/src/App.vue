@@ -113,15 +113,18 @@ export default defineComponent({
       if (e.target.value) {
         let walletType = e.target.value;
         switch (walletType) {
-          case WalletType.ALGOSIGNER:
+          case WalletType.ALGOSIGNER: {
             this.connectAlgoSigner();
             break;
-          case WalletType.MY_ALGO:
+          }
+          case WalletType.MY_ALGO: {
             this.connectMyAlgoWallet();
             break;
-          case WalletType.WALLET_CONNECT:
+          }
+          case WalletType.WALLET_CONNECT: {
             this.connectWalletConnect();
             break;
+          }
           default:
             console.warn("Wallet %s not supported", walletType);
         }
