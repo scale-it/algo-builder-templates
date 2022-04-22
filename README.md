@@ -33,11 +33,11 @@ To learn how to install and use `algob`, visit [Algo Builder](https://algobuilde
 
 ## Available templates
 
-- [*default*](./default): A default template with basic algosigner functions and transfer ASA. First, deploy two ASA's (gold, tesla) in /script using `algob deploy`. Then you can start the webapp, connect to wallet and transfer these assets to other account(s)
-
 - [*htlc*](./htlc): There exists a descriptive example explaining how HTLC contracts work with Algo-Builder. It can be found [here](https://github.com/scale-it/algo-builder/tree/master/examples/htlc-pyteal-ts). Use `algob deploy` to deploy scripts: which creates and fund HTLC contract account which is defined in assets/htlc.py. Withdraw from the escrow using React frontend (after `yarn start`).
 
 - [*shop*](./shop): Template with two rows to buy tickets: a) Queens Concert (5 ALGO); b) Beyonce Concert (10 ALGO). In this template we demonstrate usage of a payment widget to trigger a purchase (in this case it would be purchasing tickets for a concert). You can connect to the network using different wallets i.e either with MyAlgo Wallet, Wallet Connect or AlgoSigner. To know more about wallet integration read [here](https://github.com/scale-it/algo-builder/blob/master/packages/web/README.md) 
+
+- [*wallet-connect*](./wallet-connect): Demonstrate how to connect to Algorand wallet in browser and interact with smart contracts via wallets.
 
 ## Add new template / Update existing template
 
