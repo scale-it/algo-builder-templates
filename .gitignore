@@ -109,4 +109,4 @@ artifacts
 .DS_Store
 
 .yalc/*
-wallet-connect/.yalc/
+wallet/.yalc/

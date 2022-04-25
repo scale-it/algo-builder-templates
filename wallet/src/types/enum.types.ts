@@ -5,9 +5,11 @@ export enum WalletType {
 	WALLET_CONNECT = "Wallet Connect",
 }
 
-// algosigner ledger name [ MainNet | TestNet | <private_net_display_name> ]
-export enum ChainType {
+// algosigner ledger name [ MainNet | TestNet | BetaNet | <private_net_display_name> ]
+export enum NetworkType {
+	NONE = "",
 	MainNet = "MainNet",
 	TestNet = "TestNet",
-	Private = "your_private_network"  // replace it with your private network
+	BetaNet = "BetaNet",
+	LocalNet = "LocalNet"
 }
