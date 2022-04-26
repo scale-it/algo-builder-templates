@@ -1,4 +1,4 @@
-import { WalletType } from "./enum.types";
+import { WalletType, NetworkType } from "./enum.types";
 import {
 	MyAlgoWalletSession,
 	WallectConnectSession,
@@ -10,4 +10,5 @@ export type WebModeTypes = WebMode | MyAlgoWalletSession | WallectConnectSession
 export interface WalletStoreState {
 	walletKind: WalletType;
 	webMode: WebModeTypes;
+	network: NetworkType;
 }

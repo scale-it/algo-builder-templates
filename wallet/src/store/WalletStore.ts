@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
-import { WalletType, WalletStoreState, WebModeTypes } from "../types";
+import { WalletType, WalletStoreState, WebModeTypes, NetworkType } from "../types";
 
 export default defineStore("WalletStore", {
 	state: (): WalletStoreState => {
 		return {
 			walletKind: WalletType.NONE,
-			webMode: <WebModeTypes>{}
+			webMode: <WebModeTypes>{},
+			network: NetworkType.NONE
 		};
 	},
 	getters: {
@@ -18,8 +19,12 @@ export default defineStore("WalletStore", {
 			this.walletKind = walletType;
 		},
 		setWebMode(webMode: WebModeTypes) {
-			console.log("WebMode Initialized", webMode);
+			console.log("WebMode Initialized: ", webMode);
 			this.webMode = webMode;
+		},
+		setNetworkType(network: NetworkType) {
+			console.log("Network Changed: ", network);
+			this.network = network;
 		},
 	},
 });
