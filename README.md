@@ -37,7 +37,7 @@ To learn how to install and use `algob`, visit [Algo Builder](https://algobuilde
 
 - [*shop*](./shop): Template with two rows to buy tickets: a) Queens Concert (5 ALGO); b) Beyonce Concert (10 ALGO). In this template we demonstrate usage of a payment widget to trigger a purchase (in this case it would be purchasing tickets for a concert). You can connect to the network using different wallets i.e either with MyAlgo Wallet, Wallet Connect or AlgoSigner. To know more about wallet integration read [here](https://github.com/scale-it/algo-builder/blob/master/packages/web/README.md) 
 
-- [*wallet-connect*](./wallet-connect): Demonstrate how to connect to Algorand wallet in browser and interact with smart contracts via wallets.
+- [*wallet*](./wallet): Demonstrate how to connect to Algorand wallet in browser and interact with smart contracts via wallets.
 
 ## Add new template / Update existing template
 
