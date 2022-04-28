@@ -21,6 +21,20 @@
           {{ option.value }}
         </option>
       </select>
+
+      <div class="header" v-if="currentAddress">
+        <select @change="setCurrentAddress">
+          <option :value="0" :key="0">Select a account</option>
+          <option
+            v-for="addr in walletAddresses"
+            :value="addr"
+            :key="addr"
+          >
+            {{ addr }}
+          </option>
+        </select>
+      </div>
+
       <div class="header" v-if="walletAddress">
         <p>Address: {{ walletAddress }}</p>
         <button
@@ -60,11 +74,13 @@ import {
 import { convertMicroAlgoToAlgo } from "./utility";
 declare var AlgoSigner: any; // eslint-disable-line
 
+
 export default defineComponent({
   name: "App",
   data() {
     return {
-      walletAddress: "",
+      currentAddress: "",
+      walletAddresses: new Array<string>(),
       transactionMessage: "",
       amount: amount,
       applicationId: applicationId,
@@ -109,6 +125,10 @@ export default defineComponent({
     };
   },
   methods: {
+    async setCurrentAddress(e: any) {
+      this.currentAddress = e.target.value;
+      console.log(JSON.stringify(this.currentAddress));
+    },
     async connectWallet(e: any) {
       if (e.target.value) {
         let walletType = e.target.value;
@@ -158,7 +178,8 @@ export default defineComponent({
         await myAlgo.connectToMyAlgo();
         this.walletStore.setWebMode(myAlgo);
         if (myAlgo.accounts.length) {
-          this.walletAddress = myAlgo.accounts[0].address;
+          this.walletAddresses = myAlgo.accounts.map(acc => acc.address);
+          this.currentAddress = myAlgo.accounts[0].address;
         }
       } catch (e) {
         console.error(e);
@@ -172,8 +193,9 @@ export default defineComponent({
         await walletConnector.create(true);
         this.walletStore.setWebMode(walletConnector);
         walletConnector.onConnect((error, response) => {
-          if (response.wcAccounts.length) {
-            this.walletAddress = response.wcAccounts[0];
+          if (response.accounts.length) {
+            this.walletAddresses = response.accounts;
+            this.currentAddress = response.accounts[0];
           }
         });
       } catch (e) {
@@ -185,12 +207,14 @@ export default defineComponent({
         ledger: this.walletStore.network,
       });
       if (userAccount && userAccount.length) {
-        this.walletAddress = userAccount[0].address;
+        this.walletAddresses = userAccount.map((acc: {address: string}) => acc.address);
+        this.currentAddress = userAccount[0].address;
       }
     },
     handleLogOut() {
       console.log("Wallet Disconnected");
-      this.walletAddress = "";
+      this.currentAddress = "";
+      this.walletAddresses = [];
       this.walletStore.setWalletType(WalletType.NONE);
       this.walletStore.setNetworkType(NetworkType.NONE);
     },
@@ -202,7 +226,7 @@ export default defineComponent({
           {
             type: wtypes.TransactionType.TransferAlgo,
             sign: wtypes.SignType.SecretKey,
-            fromAccount: { addr: this.walletAddress, sk: new Uint8Array(0) },
+            fromAccount: { addr: this.currentAddress, sk: new Uint8Array(0) },
             toAccountAddr: toAddress,
             amountMicroAlgos: amount,
             payFlags: { totalFee: 1000 },
@@ -223,7 +247,7 @@ export default defineComponent({
           {
             type: wtypes.TransactionType.CallApp,
             sign: wtypes.SignType.SecretKey,
-            fromAccount: { addr: this.walletAddress, sk: new Uint8Array(0) },
+            fromAccount: { addr: this.currentAddress, sk: new Uint8Array(0) },
             appID: applicationID,
             payFlags: { totalFee: 1000 },
           },

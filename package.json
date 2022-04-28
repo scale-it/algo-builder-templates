@@ -3,7 +3,7 @@
   "description": "Web dapp templates powered by Algo Builder",
   "homepage": "https://algobuilder.dev",
   "repository": "https://github.com/scale-it/algo-builder.git",
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.0",
   "license": "Apache-2.0",
   "private": true,
   "workspaces": [
