@@ -35,8 +35,8 @@
         </select>
       </div>
 
-      <div class="header" v-if="walletAddress">
-        <p>Address: {{ walletAddress }}</p>
+      <div class="header" v-if="currentAddress">
+        <p>Address: {{ currentAddress }}</p>
         <button
           type="button"
           class="walletButton"
