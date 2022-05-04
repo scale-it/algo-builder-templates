@@ -126,7 +126,9 @@ export default defineComponent({
   },
   methods: {
     async setCurrentAddress(e: any) {
-      this.currentAddress = e.target.value;
+      if (e.target.value) {
+          this.currentAddress = e.target.value;
+      }
       console.log(JSON.stringify(this.currentAddress));
     },
     async connectWallet(e: any) {
