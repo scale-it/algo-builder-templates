@@ -2,7 +2,12 @@
 
 import './signer.css';
 
-import { MyAlgoWalletSession, WallectConnectSession } from '@algo-builder/web';
+import {
+  mainnetURL,
+  MyAlgoWalletSession,
+  testnetURL,
+  WallectConnectSession,
+} from '@algo-builder/web';
 import {
   Button,
   Container,
@@ -17,17 +22,60 @@ import {
 import React from 'react';
 import { useCallback, useState } from 'react';
 
-import { CHAIN_NAME, Wallets } from '../config';
+import { Wallets, NetworkTypes } from '../config';
 import { PaymentWidget } from './payment-widget';
+import { betanetURL } from '@algo-builder/web/build/lib/constants';
+
+function getWalletUrlConfig(networkType) {
+  switch (networkType) {
+    case NetworkTypes.MAIN_NET:
+      return {
+        token: '',
+        server: mainnetURL,
+        port: '',
+      };
+    case NetworkTypes.TEST_NET:
+      return {
+        token: '',
+        server: testnetURL,
+        port: '',
+      };
+    case NetworkTypes.BETA_NET:
+      return {
+        token: '',
+        server: betanetURL,
+        port: '',
+      };
+    // add your local net config
+    case NetworkTypes.PRIVATE_NET:
+      return {
+        token:
+          'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        server: 'http://localhost',
+        port: 4001,
+      };
+    default:
+      return {
+        token: '',
+        server: '',
+        port: '',
+      };
+  }
+}
 
 const WalletExample = () => {
   const [result, setResult] = useState({});
   const [error, setError] = useState('');
   const [selectedWallet, setSelectedWallet] = useState(Wallets.ALGOSIGNER);
+  const [selectedtNetwork, setSelectedNetwork] = useState(NetworkTypes.NONE);
 
   const handleWalletChange = event => {
     setError('');
     setSelectedWallet(event.target.value);
+  };
+
+  const handleNetworkChange = event => {
+    setSelectedNetwork(event.target.value);
   };
 
   const action = useCallback(async () => {
@@ -35,20 +83,26 @@ const WalletExample = () => {
       switch (selectedWallet) {
         case Wallets.ALGOSIGNER:
           await AlgoSigner.connect({
-            ledger: CHAIN_NAME,
+            ledger: selectedtNetwork,
           });
           break;
         case Wallets.MY_ALGO: {
-          const connector = new MyAlgoWalletSession(CHAIN_NAME)
+          const connector = new MyAlgoWalletSession(
+            getWalletUrlConfig(selectedtNetwork)
+          );
           await connector.connectToMyAlgo();
-          setResult(connector)
+          setResult(connector);
           break;
         }
         case Wallets.WALLET_CONNECT: {
-          const connector = new WallectConnectSession(CHAIN_NAME);
+          const connector = new WallectConnectSession(
+            getWalletUrlConfig(selectedtNetwork)
+          );
           await connector.create(true);
-          connector.onConnect((error, response) => console.log(error, response));
-          setResult(connector)
+          connector.onConnect((error, response) =>
+            console.log(error, response)
+          );
+          setResult(connector);
           break;
         }
         default:
@@ -62,13 +116,48 @@ const WalletExample = () => {
   return (
     <div className="mb-medium">
       <div className="mb-medium">
-        <FormControl>
+        <div className="mb-medium">
+          <FormControl>
+            <FormLabel id="network-form">Select Network</FormLabel>
+            <RadioGroup
+              color="primary"
+              row
+              aria-labelledby="network-form"
+              value={selectedtNetwork}
+              onChange={handleNetworkChange}
+            >
+              <FormControlLabel
+                value={NetworkTypes.MAIN_NET}
+                control={<Radio color="primary" />}
+                label="Main Net"
+              />
+              <FormControlLabel
+                value={NetworkTypes.TEST_NET}
+                control={<Radio color="primary" />}
+                label="Test Net"
+              />
+              <FormControlLabel
+                value={NetworkTypes.BETA_NET}
+                control={<Radio color="primary" />}
+                label="Beta Net"
+              />
+              <FormControlLabel
+                value={NetworkTypes.PRIVATE_NET}
+                control={<Radio color="primary" />}
+                label="Private Net"
+              />
+            </RadioGroup>
+          </FormControl>
+        </div>
+        <FormControl
+          error={error}
+          disabled={selectedtNetwork === NetworkTypes.NONE}
+        >
           <FormLabel id="wallet-form">Select Wallet</FormLabel>
           <RadioGroup
             color="primary"
             row
             aria-labelledby="wallet-form"
-            name="row-radio-buttons-group"
             value={selectedWallet}
             onChange={handleWalletChange}
           >
@@ -110,6 +199,7 @@ const WalletExample = () => {
           amount={5e6}
           selectedWallet={selectedWallet}
           connector={result}
+          selectedtNetwork={selectedtNetwork}
         />
       </div>
       <div className="mb-medium">
@@ -119,13 +209,14 @@ const WalletExample = () => {
           amount={10e6}
           selectedWallet={selectedWallet}
           connector={result}
+          selectedtNetwork={selectedtNetwork}
         />
       </div>
     </div>
   );
 };
 
-export default function Signer () {
+export default function Signer() {
   return (
     <Container>
       <CssBaseline />
@@ -133,4 +224,3 @@ export default function Signer () {
     </Container>
   );
 }
-

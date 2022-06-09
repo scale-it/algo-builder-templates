@@ -16,8 +16,8 @@
 		"lint:fix": "prettier --write --list-different . && yarn lint:js --fix"
 	},
 	"dependencies": {
-		"@algo-builder/algob": "^3.2.0",
-		"@algo-builder/web": "^3.2.0",
+		"@algo-builder/algob": "^4.0.0",
+		"@algo-builder/web": "^4.0.0",
 		"algosdk": "^1.14.0",
 		"core-js": "^3.21.1",
 		"crypto-browserify": "^3.12.0",

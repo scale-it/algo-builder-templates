@@ -21,15 +21,15 @@ const CONFIRMED_ROUND = "confirmed-round";
  * Task - https://www.pivotaltracker.com/story/show/178760753
  */
 export async function getDefaultAccountAddr() {
-  const walletAccounts =
-    (await AlgoSigner.accounts({
-      ledger: CHAIN_NAME,
-    })) ?? [];
+	const walletAccounts =
+		(await AlgoSigner.accounts({
+			ledger: CHAIN_NAME,
+		})) ?? [];
 
-  if (walletAccounts.length) {
-    return walletAccounts[0].address;
-  }
-  return undefined;
+	if (walletAccounts.length) {
+		return walletAccounts[0].address;
+	}
+	return undefined;
 }
 
 /**
@@ -41,49 +41,49 @@ export async function getDefaultAccountAddr() {
  * @returns response of transaction OR rejection message
  */
 async function executePayment(fromAddress, setLoading) {
-  try {
-    const web = new WebMode(AlgoSigner, CHAIN_NAME);
-    const groupTx = [
-      {
-        type: types.TransactionType.TransferAsset,
-        sign: types.SignType.SecretKey,
-        fromAccountAddr: fromAddress,
-        toAccountAddr: toAddress,
-        assetID: assetIndex,
-        amount: 1,
-        payFlags: {},
-      },
-      {
-        type: types.TransactionType.OptInToApp,
-        sign: types.SignType.SecretKey,
-        fromAccountAddr: fromAddress,
-        toAccountAddr: toAddress,
-        appID: appIndex,
-        payFlags: {},
-      },
-    ];
-    // show loading state on button while we send & wait for transaction response
-    setLoading(true);
-    let response = await web.executeTransaction(groupTx);
-    console.log(response);
-    const confirmedTxInfo = {
-      txId: response.txId,
-      confirmedRound: response[CONFIRMED_ROUND],
-    };
+	try {
+		const web = new WebMode(AlgoSigner, CHAIN_NAME);
+		const groupTx = [
+			{
+				type: types.TransactionType.TransferAsset,
+				sign: types.SignType.SecretKey,
+				fromAccountAddr: fromAddress,
+				toAccountAddr: toAddress,
+				assetID: assetIndex,
+				amount: 1,
+				payFlags: {},
+			},
+			{
+				type: types.TransactionType.OptInToApp,
+				sign: types.SignType.SecretKey,
+				fromAccountAddr: fromAddress,
+				toAccountAddr: toAddress,
+				appID: appIndex,
+				payFlags: {},
+			},
+		];
+		// show loading state on button while we send & wait for transaction response
+		setLoading(true);
+		let response = await web.executeTx(groupTx);
+		console.log(response);
+		const confirmedTxInfo = {
+			txId: response.txId,
+			confirmedRound: response[CONFIRMED_ROUND],
+		};
 
-    return [
-      <pre key={""}>
-        {"Succesfully deposited Token in round: " +
-          "\n" +
-          JSON.stringify(confirmedTxInfo, null, 2) +
-          "\nRegistered user: " +
-          fromAddress}
-      </pre>,
-    ];
-  } catch (error) {
-    console.error(error);
-    return ["Error Occurred: " + error.message];
-  }
+		return [
+			<pre key={""}>
+				{"Succesfully deposited Token in round: " +
+					"\n" +
+					JSON.stringify(confirmedTxInfo, null, 2) +
+					"\nRegistered user: " +
+					fromAddress}
+			</pre>,
+		];
+	} catch (error) {
+		console.error(error);
+		return ["Error Occurred: " + error.message];
+	}
 }
 
 /**
@@ -93,60 +93,60 @@ async function executePayment(fromAddress, setLoading) {
  * @param amount amount(of ticket) in ALGOs to charge user
  */
 export const PaymentWidget = ({ buttonText, amount }) => {
-  const [result, setResult] = useState("");
-  const [loading, setLoading] = useState(false);
+	const [result, setResult] = useState("");
+	const [loading, setLoading] = useState(false);
 
-  const executeTx = useCallback(async () => {
-    // This is the master account address present in algob.config.js
-    // We will take payments in this address
-    const fromAddress = await getDefaultAccountAddr();
+	const executeTx = useCallback(async () => {
+		// This is the master account address present in algob.config.js
+		// We will take payments in this address
+		const fromAddress = await getDefaultAccountAddr();
 
-    if (fromAddress) {
-      setResult("processing...");
-      const response = await executePayment(fromAddress, setLoading);
-      setResult(response);
-    } else {
-      setResult("No accounts found in wallet");
-    }
-    setLoading(false);
-  }, []);
+		if (fromAddress) {
+			setResult("processing...");
+			const response = await executePayment(fromAddress, setLoading);
+			setResult(response);
+		} else {
+			setResult("No accounts found in wallet");
+		}
+		setLoading(false);
+	}, []);
 
-  return (
-    <div>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={executeTx}
-        style={{
-          margin: "5px 0px 5px 0px",
-        }}
-      >
-        {loading ? (
-          <CircularProgress
-            color="white"
-            style={{
-              padding: "8px 8px 8px 8px",
-              margin: "-6px 24px -6px 24px",
-            }}
-          />
-        ) : (
-          buttonText
-        )}
-      </Button>
+	return (
+		<div>
+			<Button
+				variant="contained"
+				color="primary"
+				onClick={executeTx}
+				style={{
+					margin: "5px 0px 5px 0px",
+				}}
+			>
+				{loading ? (
+					<CircularProgress
+						color="white"
+						style={{
+							padding: "8px 8px 8px 8px",
+							margin: "-6px 24px -6px 24px",
+						}}
+					/>
+				) : (
+					buttonText
+				)}
+			</Button>
 
-      <Typography>
-        <code>{result}</code>
-      </Typography>
-    </div>
-  );
+			<Typography>
+				<code>{result}</code>
+			</Typography>
+		</div>
+	);
 };
 
 PaymentWidget.propTypes = {
-  buttonText: PropTypes.string,
-  amount: PropTypes.number,
+	buttonText: PropTypes.string,
+	amount: PropTypes.number,
 };
 
 PaymentWidget.defaultProps = {
-  buttonText: "",
-  amount: 0,
+	buttonText: "",
+	amount: 0,
 };
