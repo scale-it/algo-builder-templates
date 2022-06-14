@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "Apache-2.0",
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.18.2",
     "chai": "^4.3.4",
     "customize-cra": "^1.0.0",
     "eslint-config-prettier": "^8.1.0",
@@ -16,8 +16,8 @@
     "react-app-rewired": "^2.1.8"
   },
   "dependencies": {
-    "@algo-builder/algob": "^3.2.0",
-    "@algo-builder/web": "^3.2.0",
+    "@algo-builder/algob": "^4.0.0",
+    "@algo-builder/web": "^4.0.0",
     "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",

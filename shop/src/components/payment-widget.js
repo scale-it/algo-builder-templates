@@ -7,25 +7,31 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useCallback, useState } from 'react';
 
-import { CHAIN_NAME, Wallets } from '../config';
+import { Wallets } from '../config';
 
 const CONFIRMED_ROUND = 'confirmed-round';
 
 /**
  * Get default account address from user's wallet. Returns undefined otherwise.
  * NOTE: Currently this returns the first address from list of account addresses
- *
+ *  @param selectedWallet wallet through which transaction is to be executed
+ *  @param connector instance of connected wallet class
+ *  @param selectedtNetwork selected network by user
  * TODO: Update this function to return "current active" account in wallet after
  * https://github.com/PureStake/algosigner/issues/252 is resolved.
  * Task - https://www.pivotaltracker.com/story/show/178760753
  */
-async function getDefaultAccountAddr (selectedWallet, response) {
+async function getDefaultAccountAddr(
+  selectedWallet,
+  connector,
+  selectedtNetwork
+) {
   let walletAccounts;
   switch (selectedWallet) {
     case Wallets.ALGOSIGNER: {
       walletAccounts =
         (await AlgoSigner.accounts({
-          ledger: CHAIN_NAME,
+          ledger: selectedtNetwork,
         })) ?? [];
       if (walletAccounts.length) {
         return walletAccounts[0].address;
@@ -33,14 +39,14 @@ async function getDefaultAccountAddr (selectedWallet, response) {
       return undefined;
     }
     case Wallets.MY_ALGO: {
-      walletAccounts = response.accounts ?? []
+      walletAccounts = connector.accounts ?? [];
       if (walletAccounts.length) {
         return walletAccounts[0].address;
       }
       return undefined;
     }
     case Wallets.WALLET_CONNECT:
-      walletAccounts = response.wcAccounts ?? [];
+      walletAccounts = connector.wcAccounts ?? [];
       if (walletAccounts.length) {
         return walletAccounts[0];
       }
@@ -58,26 +64,26 @@ async function getDefaultAccountAddr (selectedWallet, response) {
  * @param setLoading setLoading function to set loading state in button
  * @param selectedWallet wallet through which transaction is to be executed
  * @param connector instance of connected wallet class
+ * @param selectedtNetwork selected network by user
  * @returns response of transaction OR rejection message
  */
-async function executePayment (
+async function executePayment(
   fromAddress,
   toAddress,
   amount,
   setLoading,
   selectedWallet,
-  connector
+  connector,
+  selectedtNetwork
 ) {
   let connect;
   switch (selectedWallet) {
     case Wallets.ALGOSIGNER:
-      connect = new WebMode(AlgoSigner, CHAIN_NAME);
+      connect = new WebMode(AlgoSigner, selectedtNetwork);
       break;
     case Wallets.MY_ALGO:
-      connect = connector
-      break;
     case Wallets.WALLET_CONNECT:
-      connect = connector
+      connect = connector;
       break;
     default:
       console.log('wallet is undefined');
@@ -94,7 +100,7 @@ async function executePayment (
 
     // show loading state on button while we send & wait for transaction response
     setLoading(true);
-    let response = await connect.executeTransaction(txParams);
+    let response = await connect.executeTx([txParams]);
     console.log(response);
     const confirmedTxInfo = {
       txId: response.txId,
@@ -129,6 +135,7 @@ export const PaymentWidget = ({
   amount,
   selectedWallet,
   connector,
+  selectedtNetwork,
 }) => {
   const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
@@ -138,7 +145,11 @@ export const PaymentWidget = ({
     // We will take payments in this address
     const toAddress =
       'WWYNX3TKQYVEREVSW6QQP3SXSFOCE3SKUSEIVJ7YAGUPEACNI5UGI4DZCE';
-    const fromAddress = await getDefaultAccountAddr(selectedWallet, connector);
+    const fromAddress = await getDefaultAccountAddr(
+      selectedWallet,
+      connector,
+      selectedtNetwork
+    );
 
     if (fromAddress) {
       setResult('processing...');
@@ -148,7 +159,8 @@ export const PaymentWidget = ({
         amount,
         setLoading,
         selectedWallet,
-        connector
+        connector,
+        selectedtNetwork
       );
       setResult(response);
     } else {
@@ -192,6 +204,7 @@ PaymentWidget.propTypes = {
   amount: PropTypes.number,
   selectedWallet: PropTypes.string,
   connector: PropTypes.object,
+  selectedtNetwork: PropTypes.string,
 };
 
 PaymentWidget.defaultProps = {
@@ -199,4 +212,5 @@ PaymentWidget.defaultProps = {
   amount: 0,
   selectedWallet: Wallets.ALGOSIGNER,
   connector: {},
+  selectedtNetwork: '',
 };
