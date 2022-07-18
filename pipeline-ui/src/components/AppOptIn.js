@@ -6,10 +6,6 @@ import { readLocalStorage } from "../utility";
 
 class AppOptIn extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return <>
             <AlgoOpt

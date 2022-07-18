@@ -12,9 +12,8 @@ class WalletConnect extends Component {
     }
 
     myWallet = Pipeline.init();
-    wallet = (event) => {
-        console.log("address", event)
-        this.props.updateAddress(event);
+    wallet = (addr) => {
+        this.props.updateAddress(addr);
     };
 
     render() {
@@ -26,7 +25,9 @@ class WalletConnect extends Component {
                 returnTo={"Algaddress"}
                 onChange={this.wallet}
             />
+            <br />
             <AlgoAddress address={this.state.Algaddress} />
+            <br />
         </div>
     }
 }

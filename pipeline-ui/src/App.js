@@ -1,6 +1,7 @@
 import './App.css';
 
 import { SwitchNet } from 'pipeline-ui'
+import { Card } from 'pipeline-ui'
 import React, { useState } from 'react';
 
 import DeployApp from "./components/DeployApp"
@@ -23,15 +24,19 @@ const App = () => {
   }, 4000);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <Card bg={"light-gray"} width={"auto"} maxWidth={"520px"} mx={"auto"}>
+      <div className="App">
         <SwitchNet />
+        <br />
         <WalletConnect updateAddress={updateAddress} />
         {address.length ? <DeployApp /> : null}
-        {address.length && appId ? <IncreaseCounter appId={parseInt(appId)} /> : null}
-        {address.length && appId ? <ReadAppData appId={parseInt(appId)} /> : null}
-      </header>
-    </div>
+        {(address.length && appId) ? <>
+          <IncreaseCounter appId={parseInt(appId)} />
+          <ReadAppData appId={parseInt(appId)} />
+        </> : null}
+      </div>
+    </Card >
+
   );
 }
 

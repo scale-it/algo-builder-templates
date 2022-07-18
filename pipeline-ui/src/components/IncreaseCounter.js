@@ -9,6 +9,7 @@ class IncreaseCounter extends Component {
                 appId={this.props.appId}
                 appArgs={[]}
             />
+            <br />
         </>
     }
 }
