@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import { AlgoAddress, MultiWalletConnect, Pipeline } from 'pipeline-ui';
 import PropTypes from 'prop-types';
-import { MultiWalletConnect, AlgoAddress, Pipeline } from 'pipeline-ui';
+import React, { Component } from 'react';
 
 class WalletConnect extends Component {
 

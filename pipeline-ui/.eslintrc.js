@@ -12,8 +12,12 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended"
   ],
+  parser: "babel-eslint",
   parserOptions: {
-    ecmaVersion: 2020,
+    ecmaVersion: 6,
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true
+    },
     sourceType: "module"
   },
   rules: {
@@ -51,3 +55,11 @@ module.exports = {
     }
   }
 }
+
+
+// "parserOptions": {
+//   "ecmaVersion": 6,
+//   "ecmaFeatures": {
+//     "experimentalObjectRestSpread": true
+//   }
+// },

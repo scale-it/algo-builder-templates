@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { AlgoDeploy } from 'pipeline-ui';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+
+import { APP_ID } from "../constant";
 import raw from '../teal/approval_program.txt';
 import raw2 from '../teal/clear_program.txt';
-import { APP_ID } from "../constant";
-import { storeInLocalStorage, clearLocalStorage } from "../utility";
+import { clearLocalStorage,storeInLocalStorage } from "../utility";
 
 class Deploy extends Component {
 
