@@ -1,8 +1,6 @@
-# Algo Builder Web DApp (Shop)
+# Algo Builder Web DApp (Number Increment App)
 
-This is a React + `algob` project which serves as an app template. In this template we demonstrate usage of payment widget to trigger a purchase (in this case it would be purchasing tickets for a concert).
-
-NOTE: Please go through `setup.md` first, you can find it [here](https://github.com/scale-it/algo-builder-templates/tree/master/docs/setup.md).
+This is a React + `pipeline-ui` project which serves as an app template. In this template we demonstrate `Number Increment App`.
 
 ## Available Scripts
 
