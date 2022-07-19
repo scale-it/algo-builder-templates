@@ -26,6 +26,7 @@ const App = () => {
   return (
     <Card bg={"light-gray"} width={"auto"} maxWidth={"520px"} mx={"auto"}>
       <div className="App">
+        <h1>Number Increment App</h1>
         <SwitchNet />
         <br />
         <WalletConnect updateAddress={updateAddress} />
