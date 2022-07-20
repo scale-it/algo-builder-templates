@@ -21,6 +21,7 @@
     "eslint-plugin-sonarjs": "^0.13.0",
     "https-browserify": "^1.0.0",
     "pipeline-ui": "^0.4.2",
+    "prettier": "^2.7.1",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-app-rewired": "^2.2.1",
@@ -38,7 +39,7 @@
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "lint": "eslint '*/*.{js,ts}'",
-    "lint:fix": "eslint --fix --ext .js,.ts src"
+    "format": "prettier --write src/**/*.{js,jsx,tsx,css,scss}"
   },
   "eslintConfig": {
     "extends": [
