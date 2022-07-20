@@ -1,19 +1,32 @@
-/* global AlgoSigner */
-import { WebMode } from '@algo-builder/web';
-import { Component } from 'react';
-const { AlgoAppCall } = require('pipeline-ui');
+import { types, WebMode } from '@algo-builder/web';import { Component } from 'react';
+import {Button} from "@material-ui/core";
+declare var AlgoSigner: any; // eslint-disable-line
 
-interface AppProps {
+interface IncreaseCounterProps {
+    addr: string;
     appId: number;
  }
  
-class IncreaseCounter extends Component<AppProps, {}>  {
+class IncreaseCounter extends Component<IncreaseCounterProps, {}>  {
+
+    appCall = async () => {
+        const webMode: WebMode = new WebMode(AlgoSigner, "TestNet");
+        const tx: types.ExecParams[] = [{
+            type: types.TransactionType.CallApp,
+            sign: types.SignType.SecretKey,
+            fromAccount: {
+                addr: this.props.addr,
+                sk: new Uint8Array(0),
+            },
+            appID: this.props.appId,
+            payFlags: {},
+        }];
+        webMode.executeTx(tx)
+    }
+
     render() {
         return <>
-            <AlgoAppCall
-                appId={this.props.appId}
-                appArgs={[]}
-            />
+        <Button variant="contained" onClick={this.appCall}>Increase Counter</Button>
             <br />
         </>
     }
