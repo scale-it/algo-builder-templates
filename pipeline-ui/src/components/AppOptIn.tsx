@@ -1,8 +1,7 @@
-import { AlgoOpt } from 'pipeline-ui';
-import React, { Component } from 'react';
-
+import { Component } from 'react';
 import { APP_ID } from "../constant";
 import { readLocalStorage } from "../utility";
+const { AlgoOpt} = require('pipeline-ui');
 
 class AppOptIn extends Component {
 

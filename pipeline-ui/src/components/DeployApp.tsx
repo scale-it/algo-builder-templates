@@ -1,15 +1,22 @@
-import { AlgoDeploy } from 'pipeline-ui';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-
+import { Component } from 'react';
 import { APP_ID } from "../constant";
-import approval_program from '../teal/approval_program.txt';
-import clear_program from '../teal/clear_program.txt';
 import { clearLocalStorage, storeInLocalStorage } from "../utility";
 
-class Deploy extends Component {
+const approval_program = require('../teal/approval_program.txt');
+const clear_program  = require('../teal/clear_program.txt');
+const { AlgoDeploy} = require('pipeline-ui');
 
-    constructor(props) {
+interface DeployState {
+    program: string;
+    clearProgram: string;
+    appArgs: [];
+    bytesInts: Array<number>;
+    appIndex?: number;
+}
+
+class Deploy extends Component<{}, DeployState> {
+
+    constructor(props:{}) {
         super(props);
         this.state = {
             program: "",
@@ -31,7 +38,7 @@ class Deploy extends Component {
         this.getContract();
     }
 
-    handleChange = (value) => {
+    handleChange = (value: number) => {
         // clear previous app id before storing new one
         clearLocalStorage();
         storeInLocalStorage(APP_ID, value);
@@ -50,9 +57,5 @@ class Deploy extends Component {
         </>
     }
 }
-
-Deploy.propTypes = {
-    updateAddress: PropTypes.func,
-};
 
 export default Deploy;

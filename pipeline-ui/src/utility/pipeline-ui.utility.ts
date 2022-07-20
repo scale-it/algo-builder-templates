@@ -1,4 +1,4 @@
-export const storeInLocalStorage = (key, value) => {
+export const storeInLocalStorage = (key: string, value: any) => {
     try {
         localStorage.setItem(key, value);
     } catch (error) {
@@ -6,7 +6,7 @@ export const storeInLocalStorage = (key, value) => {
     }
 }
 
-export const readLocalStorage = (key) => {
+export const readLocalStorage = (key: string) => {
     try {
         return localStorage.getItem(key);
     } catch (error) {

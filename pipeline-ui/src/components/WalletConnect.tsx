@@ -1,10 +1,17 @@
-import { AlgoAddress, Pipeline, AlgoSignerButton } from 'pipeline-ui';
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import { Component } from 'react';
+const { AlgoAddress, Pipeline, AlgoSignerButton  } = require('pipeline-ui');
 
-class WalletConnect extends Component {
+interface WalletConnectProps {
+    updateAddress: Function;
+}
 
-    constructor(props) {
+interface WalletConnectState {
+    Algaddress: string;
+}
+
+class WalletConnect extends Component<WalletConnectProps, WalletConnectState> {
+
+    constructor(props: WalletConnectProps) {
         super(props);
         this.state = {
             Algaddress: ""
@@ -12,7 +19,7 @@ class WalletConnect extends Component {
     }
 
     myWallet = Pipeline.init();
-    wallet = (addr) => {
+    wallet = (addr: string) => {
         this.props.updateAddress(addr);
     };
 
@@ -29,9 +36,5 @@ class WalletConnect extends Component {
         </>
     }
 }
-
-WalletConnect.propTypes = {
-    updateAddress: PropTypes.any,
-};
 
 export default WalletConnect;

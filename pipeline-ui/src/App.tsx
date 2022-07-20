@@ -1,25 +1,24 @@
 import './App.css';
-
-import { SwitchNet } from 'pipeline-ui'
-import { Card } from 'pipeline-ui'
-import React, { useState } from 'react';
-
+import { useState } from 'react';
 import DeployApp from "./components/DeployApp"
 import IncreaseCounter from "./components/IncreaseCounter"
 import ReadAppData from './components/ReadAppData';
 import WalletConnect from "./components/WalletConnect"
 import { APP_ID } from './constant';
 import { readLocalStorage } from "./utility";
+const { SwitchNet, Card } = require('pipeline-ui');
 
 const App = () => {
   const [address, updateAddress] = useState("");
-  const [appId, updateAppId] = useState(undefined);
+  const [appId, updateAppId] = useState<string|undefined>(undefined);
 
   setInterval(() => {
     const newAppId = readLocalStorage(APP_ID);
-    // if previous app id not same as new one
+    // current app id != new app id generated
     if (appId != newAppId) {
-      updateAppId(newAppId);
+      if(newAppId) {
+        updateAppId(newAppId);
+      }
     }
   }, 4000);
 
