@@ -31,7 +31,7 @@ const App = () => {
         <WalletConnect updateAddress={updateAddress} />
         {address.length ? <DeployApp /> : null}
         {(address.length && appId) ? <>
-          <IncreaseCounter appId={parseInt(appId)} />
+          <IncreaseCounter addr={address} appId={parseInt(appId)} />
           <ReadAppData appId={parseInt(appId)} />
         </> : null}
       </div>
