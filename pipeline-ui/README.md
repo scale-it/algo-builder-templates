@@ -1,6 +1,6 @@
 # Algo Builder Web DApp (Number Increment App)
 
-This is a React + [pipeline-ui](https://www.pipeline-ui.com/) + [WebMode](https://algobuilder.dev/api/web/modules) project which serves as an app template. In this template we demonstrate `Number Increment App`.
+In this template we demonstrate `Number Increment App`. This is a React + [pipeline-ui](https://www.pipeline-ui.com/) + [WebMode](https://algobuilder.dev/api/web/modules) project which serves as an app template.
 
 ## Available Scripts
 
