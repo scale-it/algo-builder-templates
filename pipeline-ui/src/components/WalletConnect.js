@@ -1,4 +1,4 @@
-import { AlgoAddress, MultiWalletConnect, Pipeline } from 'pipeline-ui';
+import { AlgoAddress, Pipeline, AlgoSignerButton } from 'pipeline-ui';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -17,18 +17,16 @@ class WalletConnect extends Component {
     };
 
     render() {
-
-        return <div>
-            <MultiWalletConnect
-                wallet={this.myWallet}
+        return <>
+            <AlgoSignerButton
                 context={this}
-                returnTo={"Algaddress"}
                 onChange={this.wallet}
+                returnTo={"Algaddress"}
             />
             <br />
             <AlgoAddress address={this.state.Algaddress} />
             <br />
-        </div>
+        </>
     }
 }
 
