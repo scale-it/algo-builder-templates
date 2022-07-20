@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { types, WebMode } from '@algo-builder/web';
-import {Button} from "@material-ui/core";
+const { Button } = require('pipeline-ui');
 declare var AlgoSigner: any; // eslint-disable-line
 
 interface IncreaseCounterProps {
@@ -27,7 +27,9 @@ class IncreaseCounter extends Component<IncreaseCounterProps, {}>  {
 
     render() {
         return <>
-        <Button variant="contained" onClick={this.appCall}>Increase Counter</Button>
+        <Button onClick={this.appCall}>
+            Increase Counter
+        </Button>
             <br />
         </>
     }
