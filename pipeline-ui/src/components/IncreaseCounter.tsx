@@ -1,15 +1,16 @@
-import { types, WebMode } from '@algo-builder/web';import { Component } from 'react';
+import { Component } from 'react';
+import { types, WebMode } from '@algo-builder/web';
 import {Button} from "@material-ui/core";
 declare var AlgoSigner: any; // eslint-disable-line
 
 interface IncreaseCounterProps {
     addr: string;
     appId: number;
- }
+}
  
 class IncreaseCounter extends Component<IncreaseCounterProps, {}>  {
 
-    appCall = async () => {
+    appCall = () => {
         const webMode: WebMode = new WebMode(AlgoSigner, "TestNet");
         const tx: types.ExecParams[] = [{
             type: types.TransactionType.CallApp,
