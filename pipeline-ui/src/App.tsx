@@ -9,7 +9,7 @@ import { readLocalStorage } from "./utility";
 const { SwitchNet, Card } = require('pipeline-ui');
 
 const App = () => {
-  const [address, updateAddress] = useState("");
+  const [address, updateAddress] = useState<string>("");
   const [appId, updateAppId] = useState<string|undefined>(undefined);
 
   setInterval(() => {

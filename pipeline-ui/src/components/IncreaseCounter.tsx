@@ -1,17 +1,19 @@
 import { Component } from 'react';
 import { types, WebMode } from '@algo-builder/web';
-const { Button } = require('pipeline-ui');
+import { NetworkType } from '../types';
+const { Button, Pipeline } = require('pipeline-ui');
 declare var AlgoSigner: any; // eslint-disable-line
 
 interface IncreaseCounterProps {
     addr: string;
     appId: number;
 }
- 
+
 class IncreaseCounter extends Component<IncreaseCounterProps, {}>  {
 
     appCall = () => {
-        const webMode: WebMode = new WebMode(AlgoSigner, "TestNet");
+        const networkType = Pipeline.main ? NetworkType.MAIN_NET : NetworkType.TEST_NET;
+        const webMode: WebMode = new WebMode(AlgoSigner, networkType);
         const tx: types.ExecParams[] = [{
             type: types.TransactionType.CallApp,
             sign: types.SignType.SecretKey,

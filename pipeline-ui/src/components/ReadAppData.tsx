@@ -1,27 +1,36 @@
 import { Component } from 'react';
-const { AlgoReadAppGlobal} = require('pipeline-ui');
+const { Pipeline } = require('pipeline-ui');
 
 interface ReadAppDataProps {
     appId: number;
  }
 
 interface ReadAppDataState {
-    globalState: any;
+    counter: number;
  }
 
-class ReadAppData extends Component<ReadAppDataProps,  ReadAppDataState> {
+class ReadAppData extends Component<ReadAppDataProps, ReadAppDataState> {
 
     constructor(props: ReadAppDataProps) {
         super(props);
         this.state = {
-            globalState: 0
+            counter: 0
         }
+    }
+
+    componentDidMount(): void {
+        setInterval(async ()=> {
+            console.log(Pipeline.main);
+            const res= await Pipeline.readGlobalState(this.props.appId)
+            if(res.length && res[0]?.value?.uint && res[0]?.value?.uint !== this.state.counter) {
+                this.setState({counter: res[0]?.value?.uint})
+            }
+          }, 10000);
     }
 
     render() {
         return <>
-            <AlgoReadAppGlobal appId={this.props.appId} context={this} returnTo={"globalState"} />
-            <h4>{"Counter: " + (this.state.globalState.length && this.state?.globalState[0]?.value?.uint ? this.state.globalState[0].value.uint : 0)}</h4>
+            <h4>{"Counter: " + this.state.counter}</h4>
         </>
     }
 }
