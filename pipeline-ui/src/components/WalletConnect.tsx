@@ -6,14 +6,14 @@ interface WalletConnectProps {
 }
 
 interface WalletConnectState {
-	Algaddress: string;
+	address: string;
 }
 
 class WalletConnect extends Component<WalletConnectProps, WalletConnectState> {
 	constructor(props: WalletConnectProps) {
 		super(props);
 		this.state = {
-			Algaddress: '',
+			address: '',
 		};
 	}
 
@@ -28,10 +28,10 @@ class WalletConnect extends Component<WalletConnectProps, WalletConnectState> {
 				<AlgoSignerButton
 					context={this}
 					onChange={this.wallet}
-					returnTo={'Algaddress'}
+					returnTo={'address'}
 				/>
 				<br />
-				<AlgoAddress address={this.state.Algaddress} />
+				<AlgoAddress address={this.state.address} />
 				<br />
 			</>
 		);
