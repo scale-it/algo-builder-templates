@@ -11,7 +11,8 @@
     "monitor-payments",
     "shop",
     "warcraft/dapp",
-    "wallet"
+    "wallet",
+    "pipeline-ui"
   ],
   "engines": {
     "node": ">=16.1.0",

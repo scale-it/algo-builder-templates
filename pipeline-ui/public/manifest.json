@@ -1,0 +1,8 @@
+{
+  "short_name": "pipelin-ui",
+  "name": "React + pipeline-ui + webmode template",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
