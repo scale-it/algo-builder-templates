@@ -145,7 +145,9 @@ const WithdrawEscrow = () => {
 				noValidate
 				autoComplete="off"
 			>
-				<Typography variant="h5">Transaction Parameters</Typography>
+				<Typography variant="h5" style={{ marginBottom: "25px" }}>
+					Transaction Parameters
+				</Typography>
 				<TextField
 					id="recvAddr"
 					label="Receiver's Account Address"
