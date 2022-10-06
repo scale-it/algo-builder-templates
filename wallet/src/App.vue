@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, toRaw } from "vue";
 import { NetworkType, WalletType } from "./types";
 import { toAddress, amount, applicationId } from "./constants";
 import WalletStore from "./store/WalletStore";
@@ -168,7 +168,7 @@ export default defineComponent({
 		},
 		async connectWallet(e: any) {
 			if (e.target.value) {
-				let walletType = e.target.value;
+				const walletType = e.target.value;
 				switch (walletType) {
 					case WalletType.ALGOSIGNER: {
 						this.connectAlgoSigner();
@@ -191,7 +191,7 @@ export default defineComponent({
 		async handleNetworkChange(e: any) {
 			if (e.target.value) {
 				this.handleLogOut();
-				let networkType = e.target.value;
+				const networkType = e.target.value;
 				this.walletStore.setNetworkType(networkType);
 			}
 		},
@@ -211,7 +211,7 @@ export default defineComponent({
 		},
 		async connectMyAlgoWallet() {
 			try {
-				let myAlgo = new MyAlgoWalletSession(
+				const myAlgo = new MyAlgoWalletSession(
 					this.getWalletUrlConfig(this.walletStore.network)
 				);
 				await myAlgo.connectToMyAlgo();
@@ -226,7 +226,7 @@ export default defineComponent({
 		},
 		async connectWalletConnect() {
 			try {
-				let walletConnector = new WallectConnectSession(
+				const walletConnector = new WallectConnectSession(
 					this.getWalletUrlConfig(this.walletStore.network)
 				);
 				await walletConnector.create(true);
@@ -274,7 +274,7 @@ export default defineComponent({
 						payFlags: { totalFee: 1000 },
 					},
 				];
-				let response = await webMode.executeTx(txParams);
+				const response = await toRaw(webMode).executeTx(txParams);
 				this.transactionMessage =
 					algo + " Algos has been transferred to this address: " + toAddress;
 				console.log(response);
@@ -294,7 +294,7 @@ export default defineComponent({
 						payFlags: { totalFee: 1000 },
 					},
 				];
-				let response = await webMode.executeTx(execParams);
+				const response = await toRaw(webMode).executeTx(execParams);
 				this.transactionMessage = "App has been called.";
 				console.log(response);
 			} catch (error) {
